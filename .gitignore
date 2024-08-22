@@ -3,5 +3,6 @@
 *.out
 *.dSYM/
 .DS_Store
+.gitignore
 minishell
 
