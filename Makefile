@@ -6,7 +6,7 @@
 #    By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/22 17:58:31 by jpancorb          #+#    #+#              #
-#    Updated: 2024/08/23 20:18:42 by jpancorb         ###   ########.fr        #
+#    Updated: 2024/08/23 20:31:58 by jpancorb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,20 +29,20 @@ $(NAME): $(OBJS) $(LIBFT)
 		cc $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
 obj/%.o: src/%.c $(HEADER)
-		mkdir -p obj
+		@mkdir -p obj
 		cc $(CFLAGS) -c $< -o $@
 
 $(LIBFT):
-		@make -C libft
+		make --silent -C libft
 
 clean:
 		rm -f obj/*.o
-		@make -C libft clean
+		make --silent -C libft clean
 
 fclean: clean
 		rm -f $(NAME)
 		rm -rf obj
-		@make -C libft fclean
+		make --silent -C libft fclean
 
 re: fclean all
 
