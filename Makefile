@@ -6,13 +6,13 @@
 #    By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/22 17:58:31 by jpancorb          #+#    #+#              #
-#    Updated: 2024/08/22 19:23:40 by jpancorb         ###   ########.fr        #
+#    Updated: 2024/08/23 20:18:42 by jpancorb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= minishell
 
-SRC_FILES 	= main.c parser.c tokenizer.c
+SRC_FILES 	= main.c ##parser.c tokenizer.c
 SRCS		= $(addprefix src/, $(SRC_FILES))
 OBJS		= $(patsubst src/%.c, obj/%.o, $(SRCS))
 
@@ -33,16 +33,16 @@ obj/%.o: src/%.c $(HEADER)
 		cc $(CFLAGS) -c $< -o $@
 
 $(LIBFT):
-		make -C libft
+		@make -C libft
 
 clean:
 		rm -f obj/*.o
-		make -C libft clean
+		@make -C libft clean
 
 fclean: clean
 		rm -f $(NAME)
 		rm -rf obj
-		make -C libft fclean
+		@make -C libft fclean
 
 re: fclean all
 

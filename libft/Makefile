@@ -6,7 +6,7 @@
 #    By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/12 22:57:25 by jpancorb          #+#    #+#              #
-#    Updated: 2024/03/08 22:41:16 by jpancorb         ###   ########.fr        #
+#    Updated: 2024/08/23 20:20:49 by jpancorb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,16 +28,16 @@ OBJ				= $(SRC:.c=.o)
 all: $(NAME)
 	
 $(NAME): $(OBJ) $(HEADER)
-				ar rc $(NAME) $(OBJ)
+				@ar rc $(NAME) $(OBJ)
 
 %.o: %.c
-				cc -Wall -Werror -Wextra -c $< -o $@
+				@cc -Wall -Werror -Wextra -c $< -o $@
 
 clean:
-				rm -f $(OBJ)
+				@rm -f $(OBJ)
 
 fclean: clean
-				rm -f $(NAME)
+				@rm -f $(NAME)
 
 re: fclean all
 
