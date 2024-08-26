@@ -6,13 +6,13 @@
 #    By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/22 17:58:31 by jpancorb          #+#    #+#              #
-#    Updated: 2024/08/23 20:31:58 by jpancorb         ###   ########.fr        #
+#    Updated: 2024/08/26 21:38:06 by jpancorb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= minishell
 
-SRC_FILES 	= main.c ##parser.c tokenizer.c
+SRC_FILES 	= main.c tokenizer.c utils.c##parser.c 
 SRCS		= $(addprefix src/, $(SRC_FILES))
 OBJS		= $(patsubst src/%.c, obj/%.o, $(SRCS))
 

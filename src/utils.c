@@ -1,32 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/22 22:28:18 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/08/26 22:10:48 by jpancorb         ###   ########.fr       */
+/*   Created: 2024/08/26 21:26:02 by jpancorb          #+#    #+#             */
+/*   Updated: 2024/08/26 22:26:39 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../include/minishell.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+int	ft_isspace(char *s)
 {
-	size_t	i;
-
-	i = 0;
-	if (size > 0)
-	{
-		while (src[i] && i < (size - 1))
-		{
-			dst[i] = src[i];
-			i++;
-		}
-		dst[i] = 0;
-	}
-	while (src[i])
-		i++;
-	return (i);
+	if (*s == ' ' || (*s > 8 && *s < 14))
+		return (1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 23:23:23 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/03/04 19:02:14 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/08/26 19:26:15 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,26 +24,21 @@ static size_t	sft_strlen(const char *s)
 
 static char	*sft_strcpy(char *dst, const char *src)
 {
-	size_t	i;
-
-	i = 0;
-	while (src[i])
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = src[i];
+	while (*src)
+		*dst = *src;
+	*dst = '\0';
 	return (dst);
 }
 
 char	*ft_strdup(const char *s1)
 {
-	size_t	i;
+	size_t	len;
 	char	*dst;
 
-	i = sft_strlen(s1);
-	dst = malloc(sizeof(char) * (i + 1));
+	len = sft_strlen(s1);
+	dst = malloc(len + 1);
 	if (!dst)
 		return (NULL);
-	return (sft_strcpy(dst, s1));
+	sft_strcpy(dst, s1);
+	return (dst);
 }
