@@ -6,13 +6,13 @@
 #    By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/22 17:58:31 by jpancorb          #+#    #+#              #
-#    Updated: 2024/08/26 21:38:06 by jpancorb         ###   ########.fr        #
+#    Updated: 2024/08/27 21:20:09 by jpancorb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= minishell
 
-SRC_FILES 	= main.c tokenizer.c utils.c##parser.c 
+SRC_FILES 	= main.c tokenizer_1.c tokenizer_2.c utils.c##parser.c 
 SRCS		= $(addprefix src/, $(SRC_FILES))
 OBJS		= $(patsubst src/%.c, obj/%.o, $(SRCS))
 
@@ -20,7 +20,7 @@ HEADER		= include/minishell.h
 
 LIBFT		= libft/libft.a
 
-CFLAGS		= -Wall -Werror -Wextra 
+CFLAGS		= -Wall -Werror -Wextra -g
 LDFLAGS		= -lreadline -Llibft -lft
 
 all: $(NAME)

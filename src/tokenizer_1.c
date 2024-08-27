@@ -1,34 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizer.c                                        :+:      :+:    :+:   */
+/*   tokenizer_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:57:08 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/08/26 22:26:07 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/08/27 21:24:38 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-t_token	*new_token(t_tkn_type type, char *value)
+static void	to_quotes(const char **input, t_token **head, t_token **curr)
 {
-	t_token	*token;
+	t_token		*token;
+	char		q_type;
+	char		*content;
 
-	token = malloc(sizeof(t_token));
-	if (!token)
-	{
-		perror("Malloc error(new_token).");
-		exit(1);
-	}
-	token->type = type;
-	token->value = ft_strdup(value);
-	token->next = NULL;
-	return (token);
+	q_type = (char)**input;
+	(*input)++;
+	content = to_q_content(input, q_type);
+	if (q_type == '\'')
+		token = new_token(SINGLE_Q, content);
+	if (q_type == '"')
+		token = new_token(DOUBLE_Q, content);
+	free(content);
+	add_token_node(head, curr, &token);
+	if (**input == q_type)
+		(*input)++;
 }
 
-t_token	*to_redirect(const char **input)
+static void	to_redirect(const char **input, t_token **head, t_token **curr)
 {
 	char		op;
 	t_token		*token;
@@ -50,10 +53,19 @@ t_token	*to_redirect(const char **input)
 		else
 			token = new_token(RD_OUT, ">");
 	}
-	return (token);
+	add_token_node(head, curr, &token);
 }
 
-t_token	*to_word(const char **input)
+static void	to_pipe(const char **input, t_token **head, t_token **curr)
+{
+	t_token	*token;
+
+	(*input)++;
+	token = new_token(PIPE, "|");
+	add_token_node(head, curr, &token);
+}
+
+static void	to_word(const char **input, t_token **head, t_token **curr)
 {
 	const char	*start;
 	char		*value;
@@ -64,17 +76,17 @@ t_token	*to_word(const char **input)
 	while (**input && !ft_isspace(**input) && **input != '|'
 		&& **input != '<' && **input != '>')
 		(*input)++;
-	len = *input - start + 1;
-	value = malloc(len);
+	len = *input - start;
+	value = malloc(len + 1);
 	if (!value)
 	{
 		perror("Malloc error(to_word)).");
 		exit(1);
 	}
-	ft_strlcpy(start, len);
+	ft_strcpy(value, start);
 	token = new_token(WORD, value);
 	free(value);
-	return (token);
+	add_token_node(head, curr, &token);
 }
 
 t_token	*to_tokenize(const char *input)
@@ -87,20 +99,20 @@ t_token	*to_tokenize(const char *input)
 	curr = NULL;
 	while (*input)
 	{
-		if (ft_isspace(&input))
+		while (ft_isspace(*input))
 			input++;
-		if (*input == '\0')
-			break ;
-		if (*input == '<' || *input == '>')
-			token = to_redirect(&input);
+		if (*input == '\'' || *input == '"')
+			to_quotes(&input, &head, &curr);
+		else if (*input == '<' || *input == '>')
+			to_redirect(&input, &head, &curr);
 		else if (*input == '|')
-			token = new_token(PIPE, "|");
+			to_pipe(&input, &head, &curr);
+		else if (*input == '$')
+			to_variable(&input, &head, &curr);
 		else
-			token = to_word(&input);
+			to_word(&input, &head, &curr);
 	}
-	if (!head)
-		head = token;
-	else
-		curr->next = token;
-	curr = token;
+	token = new_token(END, "EOF");
+	add_token_node(&head, &curr, &token);
+	return (head);
 }

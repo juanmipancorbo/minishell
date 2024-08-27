@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:04:02 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/08/26 22:00:23 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/08/27 20:56:38 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include "../libft/libft.h"
 
 /* ************************************************************************** */
 /*                                 OPCODE / STRUCTS                           */
@@ -29,10 +30,10 @@ typedef enum e_tkn_type
 	RD_OUT,
 	APPEND,
 	HEREDOC,
-	SINGLE_QT,
-	DOUBLE_QT,
+	SINGLE_Q,
+	DOUBLE_Q,
 	VAR,
-	EXIT_STATUS,
+	END,
 }							t_tkn_type;
 
 typedef struct s_token
@@ -55,6 +56,12 @@ typedef struct s_cmd
 /*                                 FUNCTIONS                                  */
 /* ************************************************************************** */
 
-int	ft_isspace(char *s);
+int		ft_isspace(char c);
+void	ft_strcpy(char *dst, const char *src);
+t_token	*new_token(t_tkn_type type, char *value);
+void	add_token_node(t_token **head, t_token **curr, t_token **token);
+char	*to_q_content(const char **input, char q_type);
+void	to_variable(const char **input, t_token **head, t_token **curr);
+t_token	*to_tokenize(const char *input);
 
 #endif
