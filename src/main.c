@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/08/27 21:26:42 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/08/28 07:03:43 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ int	main(void)
 
 	while (1)
 	{
-		//input = readline("minishell> ");
-		input = strdup("ls -l");
+		input = readline("minishell> ");
 		if (!input)
 		{
 			printf("exit\n");
@@ -39,10 +38,7 @@ int	main(void)
 		if (*input)
 			add_history(input);
 		tokens = to_tokenize(input);
-		//printf("Input: %s\n", input);
-		printf("to_tokenize DONE.\n");
 		print_tokens(tokens);
-		printf("print_tokens DONE.\n");
 		free(input);
 		while (tokens)
 		{

@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 19:40:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/08/27 21:19:20 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/08/28 07:22:45 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@ char	*to_q_content(const char **input, char q_type)
 	start = *input;
 	while (**input && **input != q_type)
 		(*input)++;
-	len = *input - start;
-	content = malloc(len + 1);
+	len = *input - start + 1;
+	content = malloc(len);
 	if (!content)
 	{
 		perror("Malloc error(to_quotes).");
 		exit(1);
 	}
-	ft_strcpy(content, start);
+	ft_strlcpy(content, start, len);
 	return (content);
 }
 
@@ -69,14 +69,14 @@ void	to_variable(const char **input, t_token **head, t_token **curr)
 	start = *input;
 	while (**input && (ft_isalnum(**input) || **input == '_'))
 		(*input)++;
-	len = *input - start;
-	value = malloc(len + 1);
+	len = *input - start + 1;
+	value = malloc(len);
 	if (!value)
 	{
 		perror("Malloc error(to_variable).");
 		exit(1);
 	}
-	ft_strcpy(value, start);
+	ft_strlcpy(value, start, len);
 	token = new_token(VAR, value);
 	free(value);
 	add_token_node(head, curr, &token);

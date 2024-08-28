@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 23:23:23 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/08/26 19:26:15 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/08/28 06:59:37 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static size_t	sft_strlen(const char *s)
 static char	*sft_strcpy(char *dst, const char *src)
 {
 	while (*src)
-		*dst = *src;
+		*dst++ = *src++;
 	*dst = '\0';
 	return (dst);
 }

@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:57:08 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/08/27 21:24:38 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/08/28 07:19:16 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,14 @@ static void	to_word(const char **input, t_token **head, t_token **curr)
 	while (**input && !ft_isspace(**input) && **input != '|'
 		&& **input != '<' && **input != '>')
 		(*input)++;
-	len = *input - start;
-	value = malloc(len + 1);
+	len = *input - start + 1;
+	value = malloc(len);
 	if (!value)
 	{
 		perror("Malloc error(to_word)).");
 		exit(1);
 	}
-	ft_strcpy(value, start);
+	ft_strlcpy(value, start, len);
 	token = new_token(WORD, value);
 	free(value);
 	add_token_node(head, curr, &token);
