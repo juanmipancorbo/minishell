@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:04:02 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/08/28 07:22:06 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/08/29 18:09:07 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ typedef enum e_tkn_type
 	SINGLE_Q,
 	DOUBLE_Q,
 	VAR,
-	END,
 }							t_tkn_type;
 
 typedef struct s_token
