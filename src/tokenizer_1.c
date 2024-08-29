@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:57:08 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/08/28 07:19:16 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/08/29 17:59:33 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,5 @@ t_token	*to_tokenize(const char *input)
 		else
 			to_word(&input, &head, &curr);
 	}
-	token = new_token(END, "EOF");
-	add_token_node(&head, &curr, &token);
 	return (head);
 }
