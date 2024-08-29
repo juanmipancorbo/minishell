@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/08/28 07:03:43 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/08/29 18:59:01 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	print_tokens(t_token *tokens)
 	}
 }
 
-int	main(void)
+int	main(int argc, char **argv, char **env)
 {
 	char	*input;
 	t_token	*tokens;

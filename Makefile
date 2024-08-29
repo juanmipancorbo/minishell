@@ -6,7 +6,7 @@
 #    By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/22 17:58:31 by jpancorb          #+#    #+#              #
-#    Updated: 2024/08/28 07:03:53 by jpancorb         ###   ########.fr        #
+#    Updated: 2024/08/29 18:32:10 by jpancorb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ HEADER		= include/minishell.h
 
 LIBFT		= libft/libft.a
 
-CFLAGS		= -Wall -Werror -Wextra
+CFLAGS		= -g -Wall -Werror -Wextra
 LDFLAGS		= -lreadline -Llibft -lft
 
 all: $(NAME)

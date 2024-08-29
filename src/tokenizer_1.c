@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:57:08 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/08/29 17:59:33 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/08/29 18:37:38 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ t_token	*to_tokenize(const char *input)
 {
 	t_token		*head;
 	t_token		*curr;
-	t_token		*token;
 
 	head = NULL;
 	curr = NULL;
@@ -101,6 +100,8 @@ t_token	*to_tokenize(const char *input)
 	{
 		while (ft_isspace(*input))
 			input++;
+		if (*input == '\0')
+			break ;
 		if (*input == '\'' || *input == '"')
 			to_quotes(&input, &head, &curr);
 		else if (*input == '<' || *input == '>')
