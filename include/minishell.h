@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:04:02 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/08/29 18:09:07 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/08/29 18:28:20 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct s_general
 {
 	
 	t_token *tokens;
-};
+}							t_general;
 
 
 // typedef struct s_cmd
