@@ -40,17 +40,26 @@ typedef struct s_token
 {
 	t_tkn_type		type;
 	char			*value;
+	struct s_token	*prev;
 	struct s_token	*next;
 }							t_token;
 
-typedef struct s_cmd
+
+typedef struct s_general
 {
-	char			**args;
-	char			*in_rd;
-	char			*out_rd;
-	int				append;
-	struct s_cmd	*next;
-}							t_cmd;
+	
+	t_token *tokens;
+};
+
+
+// typedef struct s_cmd
+// {
+// 	char			**args;
+// 	char			*in_rd;
+// 	char			*out_rd;
+// 	int				append;
+// 	struct s_cmd	*next;
+// }							t_cmd;
 
 /* ************************************************************************** */
 /*                                 FUNCTIONS                                  */
