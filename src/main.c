@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-void	print_tokens(t_token *tokens)
+static void	print_tokens(t_token *tokens)
 {
 	while (tokens)
 	{
@@ -21,12 +21,15 @@ void	print_tokens(t_token *tokens)
 	}
 }
 
-int	main(int argc, char **argv, char **env)
+static void init_loop(t_general *data, char**argv, char **env)
 {
 	char	*input;
 	t_token	*tokens;
 	t_token	*temp;
 
+	(void)data;
+	(void)argv;
+	(void)env;
 	while (1)
 	{
 		input = readline("minishell> ");
@@ -47,6 +50,16 @@ int	main(int argc, char **argv, char **env)
 			free(temp->value);
 			free(temp);
 		}
+	}
+}
+
+int	main(int argc, char **argv, char **env)
+{
+	t_general	data;
+
+	if (argc == 1)
+	{
+		init_loop(&data,argv,env);
 	}
 	return (0);
 }

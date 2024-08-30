@@ -15,13 +15,17 @@ NAME		= minishell
 SRC_FILES 	= main.c tokenizer_1.c tokenizer_2.c utils.c##parser.c 
 SRCS		= $(addprefix src/, $(SRC_FILES))
 OBJS		= $(patsubst src/%.c, obj/%.o, $(SRCS))
-
+MODE		= none
 HEADER		= include/minishell.h
 
 LIBFT		= libft/libft.a
 
 CFLAGS		= -g -Wall -Werror -Wextra
 LDFLAGS		= -lreadline -Llibft -lft
+
+ifeq ($(MODE),debug)
+	CFLAGS += -fsanitize=leak -g
+endif
 
 all: $(NAME)
 
