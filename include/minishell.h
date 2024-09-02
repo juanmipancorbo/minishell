@@ -48,6 +48,7 @@ typedef struct s_general
 {
 	
 	t_token *tokens;
+	char **env_var;
 }							t_general;
 
 
