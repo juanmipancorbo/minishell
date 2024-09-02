@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/08/29 19:19:34 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/02 17:31:54 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	print_tokens(t_token *tokens)
 	}
 }
 
-static void init_loop(t_general *data, char**argv, char **env)
+static void	init_loop(t_general *data, char**argv, char **env)
 {
 	char	*input;
 	t_token	*tokens;
@@ -59,7 +59,7 @@ int	main(int argc, char **argv, char **env)
 
 	if (argc == 1)
 	{
-		init_loop(&data,argv,env);
+		init_loop(&data, argv, env);
 	}
 	return (0);
 }

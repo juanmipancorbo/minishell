@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:04:02 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/08/29 19:19:31 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/02 17:30:41 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,11 @@ typedef struct s_token
 	struct s_token	*next;
 }							t_token;
 
-
 typedef struct s_general
 {
-	
-	t_token *tokens;
-	char **env_var;
+	t_token	*tokens;
+	char	**env_var;
 }							t_general;
-
 
 // typedef struct s_cmd
 // {
