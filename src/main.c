@@ -56,10 +56,12 @@ static void	init_loop(t_general *data, char**argv, char **env)
 int	main(int argc, char **argv, char **env)
 {
 	t_general	data;
-
+	
 	if (argc == 1)
 	{
-		init_loop(&data, argv, env);
+		ft_memset(&data, 0 , sizeof(data));
+		dup_env_variables(&data,env);
+		init_loop(&data,argv,env);
 	}
 	return (0);
 }

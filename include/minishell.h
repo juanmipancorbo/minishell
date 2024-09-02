@@ -20,6 +20,11 @@
 # include "../libft/libft.h"
 
 /* ************************************************************************** */
+/*                                 DEFINES                          */
+/* ************************************************************************** */
+#define MALLOC_E "Malloc error\n"
+
+/* ************************************************************************** */
 /*                                 OPCODE / STRUCTS                           */
 /* ************************************************************************** */
 typedef enum e_tkn_type
@@ -49,6 +54,11 @@ typedef struct s_general
 	char	**env_var;
 }							t_general;
 
+typedef struct s_process
+{
+	char *argv;
+}t_process;
+
 // typedef struct s_cmd
 // {
 // 	char			**args;
@@ -69,4 +79,7 @@ char	*to_q_content(const char **input, char q_type);
 void	to_variable(const char **input, t_token **head, t_token **curr);
 t_token	*to_tokenize(const char *input);
 
+//execution
+void dup_env_variables(t_general *data, char **env);
+void manage_error(char *msg, t_general *data);
 #endif
