@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 19:40:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/08/29 18:00:56 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/02 22:34:49 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,19 @@ t_token	*new_token(t_tkn_type type, char *value)
 	token->type = type;
 	token->value = ft_strdup(value);
 	token->next = NULL;
+	token->prev = NULL;
 	return (token);
 }
 
 void	add_token_node(t_token **head, t_token **curr, t_token **token)
 {
-	if ((*head) == NULL)
+	if (*head == NULL)
 		*head = *token;
 	else
+	{
 		(*curr)->next = *token;
+		(*token)->prev = *curr;
+	}
 	*curr = *token;
 }
 

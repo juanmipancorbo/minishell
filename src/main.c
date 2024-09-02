@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/02 17:31:54 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/02 23:02:24 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,22 @@ static void	print_tokens(t_token *tokens)
 	}
 }
 
-static void	init_loop(t_general *data, char**argv, char **env)
+static void	print_var(char **env)
+{
+	while (*env)
+	{
+		printf("%s\n", *env);
+		env++;
+	}
+}
+
+static void	init_loop(char **argv)
 {
 	char	*input;
 	t_token	*tokens;
 	t_token	*temp;
 
-	(void)data;
 	(void)argv;
-	(void)env;
 	while (1)
 	{
 		input = readline("minishell> ");
@@ -56,12 +63,13 @@ static void	init_loop(t_general *data, char**argv, char **env)
 int	main(int argc, char **argv, char **env)
 {
 	t_general	data;
-	
+
 	if (argc == 1)
 	{
-		ft_memset(&data, 0 , sizeof(data));
-		dup_env_variables(&data,env);
-		init_loop(&data,argv,env);
+		ft_memset(&data, 0, sizeof(data));
+		dup_env_variables(&data, env);
+		print_var(data.env_var);
+		init_loop(argv);
 	}
 	return (0);
 }

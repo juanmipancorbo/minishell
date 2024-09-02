@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:04:02 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/02 17:30:41 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/02 22:53:45 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 # include "../libft/libft.h"
 
 /* ************************************************************************** */
-/*                                 DEFINES                          */
+/*                                      DEFINES                               */
 /* ************************************************************************** */
-#define MALLOC_E "Malloc error\n"
+# define MALLOC_E "Malloc error\n"
 
 /* ************************************************************************** */
 /*                                 OPCODE / STRUCTS                           */
@@ -56,8 +56,8 @@ typedef struct s_general
 
 typedef struct s_process
 {
-	char *argv;
-}t_process;
+	char	*argv;
+}							t_process;
 
 // typedef struct s_cmd
 // {
@@ -80,6 +80,7 @@ void	to_variable(const char **input, t_token **head, t_token **curr);
 t_token	*to_tokenize(const char *input);
 
 //execution
-void dup_env_variables(t_general *data, char **env);
-void manage_error(char *msg, t_general *data);
+void	dup_env_variables(t_general *data, char **env);
+void	manage_error(char *msg, t_general *data);
+
 #endif
