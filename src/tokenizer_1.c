@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:57:08 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/08/29 19:19:33 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/03 21:24:41 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,22 @@ static void	to_quotes(const char **input, t_token **head, t_token **curr)
 	t_token		*token;
 	char		q_type;
 	char		*content;
+	char		*expanded;
 
 	q_type = (char)**input;
 	(*input)++;
-	content = to_q_content(input, q_type);
+	if (ft_strchr(*input, q_type))
+		content = to_q_content(input, q_type);
+	else
+		return ;
 	if (q_type == '\'')
 		token = new_token(SINGLE_Q, content);
-	if (q_type == '"')
-		token = new_token(DOUBLE_Q, content);
+	else if (q_type == '"')
+	{
+		expanded = to_expand(content);
+		token = new_token(DOUBLE_Q, expanded);
+		free(expanded);
+	}
 	free(content);
 	add_token_node(head, curr, &token);
 	if (**input == q_type)

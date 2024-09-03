@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:04:02 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/03 17:39:10 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/09/03 21:30:02 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@
 # include "../libft/libft.h"
 
 /* ************************************************************************** */
-/*                                      DEFINES                               */
+/*                                    DEFINES                                 */
 /* ************************************************************************** */
 # define MALLOC_E "Malloc error\n"
 
 /* ************************************************************************** */
-/*                                 OPCODE / STRUCTS                           */
+/*                                OPCODE / STRUCTS                            */
 /* ************************************************************************** */
 typedef enum e_tkn_type
 {
@@ -48,12 +48,10 @@ typedef struct s_token
 	struct s_token	*next;
 }							t_token;
 
-
 typedef struct s_utils
 {
 	char	**env_var;
 }							t_utils;
-
 
 typedef struct s_red
 {
@@ -73,7 +71,7 @@ typedef struct s_cmd
 }							t_cmd;
 
 /* ************************************************************************** */
-/*                                 FUNCTIONS                                  */
+/*                                  PARSING                                   */
 /* ************************************************************************** */
 
 int		ft_isspace(char c);
@@ -82,7 +80,11 @@ void	add_token_node(t_token **head, t_token **curr, t_token **token);
 char	*to_q_content(const char **input, char q_type);
 void	to_variable(const char **input, t_token **head, t_token **curr);
 t_token	*to_tokenize(const char *input);
+char	*to_expand(const char *str);
 
+/* ************************************************************************** */
+/*                                  EXECUTER                                  */
+/* ************************************************************************** */
 void	dup_env_variables(t_utils *data, char **env);
 void	manage_error(char *msg);
 

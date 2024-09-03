@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 19:40:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/03 18:23:41 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/03 21:44:34 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,47 @@ void	to_variable(const char **input, t_token **head, t_token **curr)
 	token = new_token(VAR, expand_value);
 	free(value);
 	add_token_node(head, curr, &token);
+}
+
+char	*to_expand(const char *str)
+{
+	char		*result;
+	char		*temp;
+	char		*var_name;
+	char		*value;
+	const char	*start;
+
+	result = ft_strdup("");
+	while (*str)
+	{
+		if (*str == '$')
+		{
+			str++;
+			start = str;
+			while (ft_isalnum(*str) || *str == '_')
+				str++;
+			var_name = ft_substr(start, 0, str - start);
+			value = getenv(var_name);
+			if (!value)
+				value = "";
+			temp = ft_strjoin(result, value);
+			free(result);
+			result = temp;
+			free(var_name);
+		}
+		else
+		{
+			temp = malloc(2);
+			if (!temp)
+			{
+				perror("Malloc error(to_expand).");
+				exit(EXIT_FAILURE);
+			}
+			temp[0] = *str;
+			temp[1] = '\0';
+			result = ft_strjoin(result, temp);
+			str++;
+		}
+	}
+	return (result);
 }
