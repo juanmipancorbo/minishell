@@ -12,8 +12,9 @@
 
 #include "../include/minishell.h"
 
-void	execute_command(t_general *data)
+void	execute_command(t_cmd *command, t_utils *utils)
 {
-	(void)data;
+	(void)command;
+	(void)utils;
 	return ;
 }

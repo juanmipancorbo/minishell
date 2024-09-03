@@ -1,8 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   errors_fn.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/03 17:38:33 by apaterno          #+#    #+#             */
+/*   Updated: 2024/09/03 17:38:33 by apaterno         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
-void   manage_error(char *msg, t_general *data)
+void	manage_error(char *msg)
 {
-    (void)data;
-    printf("%s\n", msg);
-    exit(EXIT_FAILURE);
+	printf("%s\n", msg);
+	exit(EXIT_FAILURE);
 }
