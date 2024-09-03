@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 19:40:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/02 22:34:49 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/03 18:23:41 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	to_variable(const char **input, t_token **head, t_token **curr)
 {
 	const char	*start;
 	char		*value;
+	char		*expand_value;
 	t_token		*token;
 	size_t		len;
 
@@ -81,7 +82,10 @@ void	to_variable(const char **input, t_token **head, t_token **curr)
 		exit(1);
 	}
 	ft_strlcpy(value, start, len);
-	token = new_token(VAR, value);
+	expand_value = getenv(value);
+	if (!expand_value)
+		expand_value = "";
+	token = new_token(VAR, expand_value);
 	free(value);
 	add_token_node(head, curr, &token);
 }
