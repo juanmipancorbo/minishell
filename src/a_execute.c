@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   a_execute.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/03 13:10:54 by apaterno          #+#    #+#             */
+/*   Updated: 2024/09/03 13:10:54 by apaterno         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
-void execute_command(t_general *data)
+void	execute_command(t_general *data)
 {
-    (void) data;
-    return;
+	(void)data;
+	return ;
 }
