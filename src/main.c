@@ -62,38 +62,14 @@ static void	init_loop(char **argv)
 
 int	main(int argc, char **argv, char **env)
 {
-	// t_utils		data;
+	t_utils		data;
 
-	// if (argc == 1)
-	// {
-	// 	ft_memset(&data, 0, sizeof(data));
-	// 	dup_env_variables(&data, env);
-	// 	print_var(data.env_var);
-	// 	init_loop(argv);
-	// }
-
-	t_cmd cmd;
-	t_red *red;
-	char *path = "./test";
-	char *path2 = "./test2";
-
-	red = create_fd_node(&cmd,path, 5);
-	add_fdNode_back(&cmd.in_rd,red);
-	add_fdNode_back(&cmd.in_rd,create_fd_node(&cmd,path2, 6));
-	printf("%s\n",cmd.in_rd->name);
-	printf("%d\n",cmd.in_rd->fd);
-	printf("%s\n",cmd.in_rd->next->name);
-	printf("%d\n",cmd.in_rd->next->fd);
+	if (argc == 1)
+	{
+		ft_memset(&data, 0, sizeof(data));
+		dup_env_variables(&data, env);
+		print_var(data.env_var);
+		init_loop(argv);
+	}
 	return (0);
 }
-
-// int main(void)
-// {
-	// t_cmd cmd;
-	// t_red *red;
-	// char *path = "./test";
-
-	// red = create_fd_node(&cmd,path, 5);
-	// printf("%s\n",red->name);
-	// return 0;
-// }

@@ -94,5 +94,6 @@ void	manage_error(char *msg);
 /*                                  FILE DESCRIPTORS                          */
 /* ************************************************************************** */
 void	add_fdNode_back(t_red **lst, t_red *new);
-t_red   *create_fd_node(t_cmd *cmd, char *path, int fd);
+t_red	*create_fd_node(char *path, int fd);
+void	set_file_descriptor(t_cmd *cmd, char *path, t_tkn_type type);
 #endif

@@ -21,7 +21,7 @@ void	add_fdNode_back(t_red **lst, t_red *new)
 }
 
 
-t_red *create_fd_node(t_cmd *cmd, char *path, int fd)
+t_red *create_fd_node(char *path, int fd)
 {
 	t_red *new_node;
 
