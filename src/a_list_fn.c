@@ -9,7 +9,7 @@ static t_red	*last_node(t_red *lst)
 	return (lst);
 }
 
-void	add_fdNode_back(t_red **lst, t_red *new)
+void	add_fdnode_back(t_red **lst, t_red *new)
 {
 	t_red	*back;
 
@@ -20,15 +20,13 @@ void	add_fdNode_back(t_red **lst, t_red *new)
 		back->next = new;
 }
 
-
-t_red *create_fd_node(char *path, int fd)
+t_red	*create_fd_node(char *path, int fd)
 {
-	t_red *new_node;
+	t_red	*new_node;
 
 	new_node = malloc(sizeof(t_red));
-		if(!new_node)
-			manage_error(MALLOC_E);
+	if (!new_node)
+		manage_error(MALLOC_E);
 	new_node->name = path;
 	new_node->fd = fd;
 }
-
