@@ -18,6 +18,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/libft.h"
+# include <sys/wait.h>
+# include <fcntl.h>
 
 /* ************************************************************************** */
 /*                                    DEFINES                                 */
@@ -88,4 +90,9 @@ char	*to_expand(const char *str);
 void	dup_env_variables(t_utils *data, char **env);
 void	manage_error(char *msg);
 
+/* ************************************************************************** */
+/*                                  FILE DESCRIPTORS                          */
+/* ************************************************************************** */
+void	add_fdNode_back(t_red **lst, t_red *new);
+t_red   *create_fd_node(t_cmd *cmd, char *path, int fd);
 #endif
