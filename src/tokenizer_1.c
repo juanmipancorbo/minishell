@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:57:08 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/03 21:24:41 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/10 22:24:10 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,26 @@ static void	to_quotes(const char **input, t_token **head, t_token **curr)
 	t_token		*token;
 	char		q_type;
 	char		*content;
-	char		*expanded;
 
 	q_type = (char)**input;
 	(*input)++;
 	if (ft_strchr(*input, q_type))
-		content = to_q_content(input, q_type);
-	else
-		return ;
-	if (q_type == '\'')
-		token = new_token(SINGLE_Q, content);
-	else if (q_type == '"')
 	{
-		expanded = to_expand(content);
-		token = new_token(DOUBLE_Q, expanded);
-		free(expanded);
+		if (q_type == '"')
+			double_q(input, head, curr);
+		else
+		{
+			content = single_q(input, q_type);
+			token = new_token(WORD, content);
+			free(content);
+			add_token_node(head, curr, &token);
+		}
 	}
-	free(content);
-	add_token_node(head, curr, &token);
+	else
+	{
+		perror("Error: Unmatched quotes.\n");
+		exit(EXIT_FAILURE);
+	}
 	if (**input == q_type)
 		(*input)++;
 }
@@ -89,7 +91,7 @@ static void	to_word(const char **input, t_token **head, t_token **curr)
 	if (!value)
 	{
 		perror("Malloc error(to_word)).");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	ft_strlcpy(value, start, len);
 	token = new_token(WORD, value);

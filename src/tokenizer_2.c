@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 19:40:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/03 21:44:34 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/10 22:19:52 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_token	*new_token(t_tkn_type type, char *value)
 	if (!token)
 	{
 		perror("Malloc error(new_token).");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	token->type = type;
 	token->value = ft_strdup(value);
@@ -29,19 +29,19 @@ t_token	*new_token(t_tkn_type type, char *value)
 	return (token);
 }
 
-void	add_token_node(t_token **head, t_token **curr, t_token **token)
+void	q_content(const char *start, const char *input, t_token **head,
+			t_token **curr)
 {
-	if (*head == NULL)
-		*head = *token;
-	else
-	{
-		(*curr)->next = *token;
-		(*token)->prev = *curr;
-	}
-	*curr = *token;
+	char	*content;
+	t_token	*token;
+
+	content = ft_strndup(start, input - start);
+	token = new_token(WORD, content);
+	free(content);
+	add_token_node(head, curr, &token);
 }
 
-char	*to_q_content(const char **input, char q_type)
+char	*single_q(const char **input, char q_type)
 {
 	const char	*start;
 	char		*content;
@@ -56,17 +56,37 @@ char	*to_q_content(const char **input, char q_type)
 	if (!content)
 	{
 		perror("Malloc error(to_quotes).");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	ft_strlcpy(content, start, len);
 	return (content);
+}
+
+void	double_q(const char **input, t_token **head, t_token **curr)
+{
+	const char	*start;
+
+	start = *input;
+	while (**input && **input != '"')
+	{
+		if (**input == '$')
+		{
+			if (*input > start)
+				q_content(start, *input, head, curr);
+			to_variable(input, head, curr);
+			start = *input;
+		}
+		else
+			(*input)++;
+	}
+	if (*input > start)
+		q_content(start, *input, head, curr);
 }
 
 void	to_variable(const char **input, t_token **head, t_token **curr)
 {
 	const char	*start;
 	char		*value;
-	char		*expand_value;
 	t_token		*token;
 	size_t		len;
 
@@ -79,56 +99,10 @@ void	to_variable(const char **input, t_token **head, t_token **curr)
 	if (!value)
 	{
 		perror("Malloc error(to_variable).");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	ft_strlcpy(value, start, len);
-	expand_value = getenv(value);
-	if (!expand_value)
-		expand_value = "";
-	token = new_token(VAR, expand_value);
+	token = new_token(VAR, value);
 	free(value);
 	add_token_node(head, curr, &token);
-}
-
-char	*to_expand(const char *str)
-{
-	char		*result;
-	char		*temp;
-	char		*var_name;
-	char		*value;
-	const char	*start;
-
-	result = ft_strdup("");
-	while (*str)
-	{
-		if (*str == '$')
-		{
-			str++;
-			start = str;
-			while (ft_isalnum(*str) || *str == '_')
-				str++;
-			var_name = ft_substr(start, 0, str - start);
-			value = getenv(var_name);
-			if (!value)
-				value = "";
-			temp = ft_strjoin(result, value);
-			free(result);
-			result = temp;
-			free(var_name);
-		}
-		else
-		{
-			temp = malloc(2);
-			if (!temp)
-			{
-				perror("Malloc error(to_expand).");
-				exit(EXIT_FAILURE);
-			}
-			temp[0] = *str;
-			temp[1] = '\0';
-			result = ft_strjoin(result, temp);
-			str++;
-		}
-	}
-	return (result);
 }
