@@ -17,6 +17,8 @@ static void	set_rdin_fd(t_cmd *cmd, char *path)
 	int	fd;
 
 	fd = open(path, O_RDWR);
+	if (fd < 0)
+		manage_error(ERROR);
 	add_fdnode_back(&cmd->in_rd, create_fd_node(path, fd));
 }
 
@@ -35,6 +37,8 @@ static void	set_rdout_fd(t_cmd *cmd, char *path)
 	int	fd;
 
 	fd = open(path, O_RDWR | O_CREAT | O_TRUNC, 0777);
+	if (fd < 0)
+		manage_error(ERROR);
 	add_fdnode_back(&cmd->out_rd, create_fd_node(path, fd));
 }
 
@@ -43,6 +47,8 @@ static void	set_append_fd(t_cmd *cmd, char *path)
 	int	fd;
 
 	fd = open(path, O_RDWR | O_CREAT | O_APPEND, 0777);
+	if (fd < 0)
+		manage_error(ERROR);
 	add_fdnode_back(&cmd->out_rd, create_fd_node(path, fd));
 }
 

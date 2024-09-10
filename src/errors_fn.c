@@ -14,6 +14,6 @@
 
 void	manage_error(char *msg)
 {
-	printf("%s\n", msg);
+	perror(msg);
 	exit(EXIT_FAILURE);
 }
