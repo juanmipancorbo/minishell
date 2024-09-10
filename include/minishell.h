@@ -90,6 +90,7 @@ char	*to_expand(const char *str);
 /* ************************************************************************** */
 void	dup_env_variables(t_utils *data, char **env);
 void	manage_error(char *msg);
+void	init_execution(t_cmd *command, t_utils *utils);
 
 /* ************************************************************************** */
 /*                                  FILE DESCRIPTORS                          */
@@ -97,4 +98,5 @@ void	manage_error(char *msg);
 void	add_fdnode_back(t_red **lst, t_red *new);
 t_red	*create_fd_node(char *path, int fd);
 void	set_file_descriptor(t_cmd *cmd, char *path, t_tkn_type type);
+int		redlst_size(t_red *lst);
 #endif

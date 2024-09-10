@@ -42,3 +42,16 @@ t_red	*create_fd_node(char *path, int fd)
 	new_node->fd = fd;
 	return (new_node);
 }
+
+int redlst_size(t_red *lst)
+{
+	int i;
+
+	i = 0;
+	while (lst != NULL)
+	{
+		i++;
+		lst = lst->next;
+	}
+	return (i);
+}
