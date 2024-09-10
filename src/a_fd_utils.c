@@ -1,7 +1,16 @@
-#include "../include/minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   a_fd_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/10 12:36:35 by apaterno          #+#    #+#             */
+/*   Updated: 2024/09/10 12:36:35 by apaterno         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-// inicar estructuras 2 t_red una in otra out. Y asignar a la
-// estructura t_cmd
+#include "../include/minishell.h"
 
 static void	set_rdin_fd(t_cmd *cmd, char *path)
 {
@@ -11,10 +20,11 @@ static void	set_rdin_fd(t_cmd *cmd, char *path)
 	add_fdNode_back(&cmd->in_rd, create_fd_node(path, fd));
 }
 
+// falta terminar //
 static void	set_herdoc_fd(t_cmd *cmd, char *path)
 {
 	int	fd;
-	// falta terminar //
+
 }
 
 static void	set_rdout_fd(t_cmd *cmd, char *path)
