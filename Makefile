@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+         #
+#    By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/22 17:58:31 by jpancorb          #+#    #+#              #
-#    Updated: 2024/09/02 17:33:03 by jpancorb         ###   ########.fr        #
+#    Updated: 2024/09/10 12:55:00 by apaterno         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME		= minishell
 
 SRC_FILES 	= main.c tokenizer_1.c tokenizer_2.c utils.c\
 			  a_env_variables.c a_execute.c errors_fn.c\
-			  a_fd_utils.c a_list_fn.c##parser.c 
+			  a_fd_utils.c a_list_fn.c ##parser.c 
 SRCS		= $(addprefix src/, $(SRC_FILES))
 OBJS		= $(patsubst src/%.c, obj/%.o, $(SRCS))
 HEADER		= include/minishell.h

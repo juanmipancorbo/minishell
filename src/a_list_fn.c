@@ -40,4 +40,5 @@ t_red	*create_fd_node(char *path, int fd)
 		manage_error(MALLOC_E);
 	new_node->name = path;
 	new_node->fd = fd;
+	return (new_node);
 }

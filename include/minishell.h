@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
+/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:04:02 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/03 21:30:02 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/10 12:54:48 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	manage_error(char *msg);
 /* ************************************************************************** */
 /*                                  FILE DESCRIPTORS                          */
 /* ************************************************************************** */
-void	add_fdNode_back(t_red **lst, t_red *new);
+void	add_fdnode_back(t_red **lst, t_red *new);
 t_red	*create_fd_node(char *path, int fd);
 void	set_file_descriptor(t_cmd *cmd, char *path, t_tkn_type type);
 #endif

@@ -17,7 +17,7 @@ static void	set_rdin_fd(t_cmd *cmd, char *path)
 	int	fd;
 
 	fd = open(path, O_RDWR);
-	add_fdNode_back(&cmd->in_rd, create_fd_node(path, fd));
+	add_fdnode_back(&cmd->in_rd, create_fd_node(path, fd));
 }
 
 // falta terminar //
@@ -25,6 +25,9 @@ static void	set_herdoc_fd(t_cmd *cmd, char *path)
 {
 	int	fd;
 
+	(void)fd;
+	(void)cmd;
+	(void)path;
 }
 
 static void	set_rdout_fd(t_cmd *cmd, char *path)
@@ -32,7 +35,7 @@ static void	set_rdout_fd(t_cmd *cmd, char *path)
 	int	fd;
 
 	fd = open(path, O_RDWR | O_CREAT | O_TRUNC, 0777);
-	add_fdNode_back(&cmd->out_rd, create_fd_node(path, fd));
+	add_fdnode_back(&cmd->out_rd, create_fd_node(path, fd));
 }
 
 static void	set_append_fd(t_cmd *cmd, char *path)
@@ -40,7 +43,7 @@ static void	set_append_fd(t_cmd *cmd, char *path)
 	int	fd;
 
 	fd = open(path, O_RDWR | O_CREAT | O_APPEND, 0777);
-	add_fdNode_back(&cmd->out_rd, create_fd_node(path, fd));
+	add_fdnode_back(&cmd->out_rd, create_fd_node(path, fd));
 }
 
 void	set_file_descriptor(t_cmd *cmd, char *path, t_tkn_type type)
