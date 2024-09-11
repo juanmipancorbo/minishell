@@ -31,13 +31,21 @@ static void execute_command(t_cmd *command, t_utils *utils)
 	{
 		execve(command->full_path,command->args,utils->env_var);
 	}
-	else
-		wait(NULL);
+	wait(NULL);
 }
 
 void	init_execution(t_cmd *command, t_utils *utils)
 {
-	set_fd_redirections(command);
-	execute_command(command, utils);
+	int process_nb;
+	int pipe_fd[2];
+	
+
+	
+	while(command->next != NULL)
+	{
+		set_fd_redirections(command);
+		execute_command(command, utils);
+		command = command->next;
+	}
 	return ;
 }
