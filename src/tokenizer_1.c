@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:57:08 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/10 22:24:10 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/11 20:21:22 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,7 @@ static void	to_quotes(const char **input, t_token **head, t_token **curr)
 		}
 	}
 	else
-	{
-		perror("Error: Unmatched quotes.\n");
-		exit(EXIT_FAILURE);
-	}
+		manage_error("Error: Unmatched quotes.\n");
 	if (**input == q_type)
 		(*input)++;
 }
@@ -86,14 +83,10 @@ static void	to_word(const char **input, t_token **head, t_token **curr)
 	while (**input && !ft_isspace(**input) && **input != '|'
 		&& **input != '<' && **input != '>')
 		(*input)++;
-	len = *input - start + 1;
-	value = malloc(len);
+	len = *input - start;
+	value = ft_strndup(start, len);
 	if (!value)
-	{
-		perror("Malloc error(to_word)).");
-		exit(EXIT_FAILURE);
-	}
-	ft_strlcpy(value, start, len);
+		manage_error("Malloc error(to_word)).");
 	token = new_token(WORD, value);
 	free(value);
 	add_token_node(head, curr, &token);

@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 21:26:02 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/10 22:15:24 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/11 20:43:21 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,18 @@ int	ft_isspace(char c)
 char	*ft_strndup(const char *s, size_t n)
 {
 	char	*copy;
+	size_t	i;
 
+	i = 0;
 	copy = (char *)malloc(n + 1);
 	if (!copy)
 		return (NULL);
-	ft_strlcpy(copy, s, n + 1);
+	while (s[i] && i < n)
+	{
+		copy[i] = s[i];
+		i++;
+	}
+	copy[i] = '\0';
 	return (copy);
 }
 
@@ -40,4 +47,13 @@ void	add_token_node(t_token **head, t_token **curr, t_token **token)
 		(*token)->prev = *curr;
 	}
 	*curr = *token;
+}
+
+void	free_env_copy(char **env_var)
+{
+	if (!env_var)
+		return ;
+	while (*env_var)
+		free(*env_var++);
+	free(env_var);
 }

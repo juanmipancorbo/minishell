@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 19:40:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/10 22:19:52 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/11 20:24:25 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ t_token	*new_token(t_tkn_type type, char *value)
 
 	token = malloc(sizeof(t_token));
 	if (!token)
-	{
-		perror("Malloc error(new_token).");
-		exit(EXIT_FAILURE);
-	}
+		manage_error("Malloc error(new_token).");
 	token->type = type;
 	token->value = ft_strdup(value);
 	token->next = NULL;
@@ -47,18 +44,13 @@ char	*single_q(const char **input, char q_type)
 	char		*content;
 	size_t		len;
 
-	len = 0;
 	start = *input;
 	while (**input && **input != q_type)
 		(*input)++;
-	len = *input - start + 1;
-	content = malloc(len);
+	len = *input - start;
+	content = ft_strndup(start, len);
 	if (!content)
-	{
-		perror("Malloc error(to_quotes).");
-		exit(EXIT_FAILURE);
-	}
-	ft_strlcpy(content, start, len);
+		manage_error("Malloc error(single_q).");
 	return (content);
 }
 
@@ -94,14 +86,10 @@ void	to_variable(const char **input, t_token **head, t_token **curr)
 	start = *input;
 	while (**input && (ft_isalnum(**input) || **input == '_'))
 		(*input)++;
-	len = *input - start + 1;
-	value = malloc(len);
+	len = *input - start;
+	value = ft_strndup(start, len);
 	if (!value)
-	{
-		perror("Malloc error(to_variable).");
-		exit(EXIT_FAILURE);
-	}
-	ft_strlcpy(value, start, len);
+		manage_error("Malloc error(to_variable).");
 	token = new_token(VAR, value);
 	free(value);
 	add_token_node(head, curr, &token);
