@@ -73,17 +73,3 @@ int	main(int argc, char **argv, char **env)
 	}
 	return (0);
 }
-
-	// char *path = "./test1";
-	// char *path2 = "./test2";
-
-	// set_file_descriptor(&cmd,path,RD_IN);
-	// set_file_descriptor(&cmd,path2,RD_OUT);
-	// //set_file_descriptor(&cmd,path2,RD_OUT);
-
-	// char *arg[3]={"/bin/grep", "te", NULL};
-	// cmd.args = arg;
-	// cmd.full_path = arg[0];
-	// data.env_var = env;
-
-	// init_execution(&cmd,&data);

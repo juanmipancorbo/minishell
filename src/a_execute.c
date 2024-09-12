@@ -36,16 +36,6 @@ static void execute_command(t_cmd *command, t_utils *utils)
 
 void	init_execution(t_cmd *command, t_utils *utils)
 {
-	int process_nb;
-	int pipe_fd[2];
-	
-
-	
-	while(command->next != NULL)
-	{
 		set_fd_redirections(command);
 		execute_command(command, utils);
-		command = command->next;
-	}
-	return ;
 }
