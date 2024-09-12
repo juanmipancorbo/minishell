@@ -24,8 +24,8 @@
 /* ************************************************************************** */
 /*                                    DEFINES                                 */
 /* ************************************************************************** */
-# define MALLOC_E "Malloc error:"
-# define ERROR "Error:"
+# define MALLOC_E "Malloc error"
+# define ERROR "Error"
 # define WRITE_END 1
 # define READ_END 0
 
