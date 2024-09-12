@@ -6,35 +6,18 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/11 20:44:34 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/12 21:59:50 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-static void	print_tokens(t_token *tokens)
-{
-	while (tokens)
-	{
-		printf("Token Type: %d, Value: %s\n", tokens->type, tokens->value);
-		tokens = tokens->next;
-	}
-}
-
-static void	print_var(char **env)
-{
-	while (*env)
-	{
-		printf("%s\n", *env);
-		env++;
-	}
-}
 
 static void	init_loop(char **argv)
 {
 	char	*input;
 	t_token	*tokens;
 	t_token	*temp;
+	t_cmd	*cmds;
 
 	(void)argv;
 	while (1)
@@ -48,7 +31,9 @@ static void	init_loop(char **argv)
 		if (*input)
 			add_history(input);
 		tokens = to_tokenize(input);
-		print_tokens(tokens);
+		//print_tokens(tokens);
+		cmds = to_parse(tokens);
+		print_cmds(cmds);
 		free(input);
 		while (tokens)
 		{
@@ -57,6 +42,7 @@ static void	init_loop(char **argv)
 			free(temp->value);
 			free(temp);
 		}
+	//	free_cmds(cmds);
 	}
 }
 
@@ -68,7 +54,7 @@ int	main(int argc, char **argv, char **env)
 	{
 		ft_memset(&data, 0, sizeof(data));
 		dup_env_variables(&data, env);
-		print_var(data.env_var);
+		//print_var(data.env_var);
 		init_loop(argv);
 	}
 	free_env_copy(data.env_var);

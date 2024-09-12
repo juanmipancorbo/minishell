@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:04:02 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/11 20:44:05 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/12 21:31:09 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ typedef struct s_utils
 
 typedef struct s_red
 {
-	char			*name;
+	char			*file;
+	int				type;
 	int				fd;
 	struct s_red	*next;
 }							t_red;
@@ -74,9 +75,8 @@ typedef struct s_cmd
 }							t_cmd;
 
 /* ************************************************************************** */
-/*                                  PARSING                                   */
+/*                                  TOKENIZER                                 */
 /* ************************************************************************** */
-
 int		ft_isspace(char c);
 char	*ft_strndup(const char *s, size_t n);
 void	add_token_node(t_token **head, t_token **curr, t_token **token);
@@ -88,6 +88,21 @@ char	*single_q(const char **input, char q_type);
 void	double_q(const char **input, t_token **head, t_token **curr);
 void	to_variable(const char **input, t_token **head, t_token **curr);
 t_token	*to_tokenize(const char *input);
+
+/* ************************************************************************** */
+/*                                   PARSER                                   */
+/* ************************************************************************** */
+t_cmd	*to_parse(t_token *tokens);
+t_cmd	*add_pipe(t_cmd *curr);
+void	add_arg(t_cmd *cmd, char *arg);
+t_red	*create_red_node(char *file, int type);
+t_cmd	*create_cmd_node(void);
+
+//* TEST FUNCTIONS *//
+void	print_tokens(t_token *tokens);
+void	print_var(char **env);
+void	print_cmds(t_cmd *cmds);
+void	free_cmds(t_cmd *cmds);
 
 /* ************************************************************************** */
 /*                                  EXECUTER                                  */

@@ -6,15 +6,15 @@
 #    By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/22 17:58:31 by jpancorb          #+#    #+#              #
-#    Updated: 2024/09/11 20:53:47 by jpancorb         ###   ########.fr        #
+#    Updated: 2024/09/12 21:31:42 by jpancorb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= minishell
 
-SRC_FILES 	= main.c tokenizer_1.c tokenizer_2.c utils.c\
+SRC_FILES 	= main.c tokenizer_1.c tokenizer_2.c utils.c parser_1.c parser_2.c\
 			  a_env_variables.c a_execute.c errors_fn.c\
-			  a_fd_utils.c a_list_fn.c ##parser.c 
+			  a_fd_utils.c a_list_fn.c parsing_test.c
 SRCS		= $(addprefix src/, $(SRC_FILES))
 OBJS		= $(patsubst src/%.c, obj/%.o, $(SRCS))
 HEADER		= include/minishell.h

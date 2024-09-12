@@ -20,7 +20,7 @@ void	dup_env_variables(t_utils *data, char **env)
 	i = 0;
 	while (env[i])
 		i++;
-	new_env = malloc(sizeof(char *) * i);
+	new_env = malloc(sizeof(char *) * (i + 1));
 	if (!new_env)
 		manage_error(MALLOC_E);
 	i = 0;

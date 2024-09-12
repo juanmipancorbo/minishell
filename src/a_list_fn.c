@@ -38,7 +38,7 @@ t_red	*create_fd_node(char *path, int fd)
 	new_node = malloc(sizeof(t_red));
 	if (!new_node)
 		manage_error(MALLOC_E);
-	new_node->name = path;
+	new_node->file = path;
 	new_node->fd = fd;
 	return (new_node);
 }
