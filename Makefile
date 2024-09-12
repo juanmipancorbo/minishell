@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+         #
+#    By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/22 17:58:31 by jpancorb          #+#    #+#              #
-#    Updated: 2024/09/10 12:55:00 by apaterno         ###   ########.fr        #
+#    Updated: 2024/09/11 20:53:47 by jpancorb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

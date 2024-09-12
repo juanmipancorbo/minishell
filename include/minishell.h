@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:04:02 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/10 12:54:48 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/09/11 20:44:05 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ typedef enum e_tkn_type
 	RD_OUT,
 	APPEND,
 	HEREDOC,
-	SINGLE_Q,
-	DOUBLE_Q,
 	VAR,
 }							t_tkn_type;
 
@@ -80,12 +78,16 @@ typedef struct s_cmd
 /* ************************************************************************** */
 
 int		ft_isspace(char c);
-t_token	*new_token(t_tkn_type type, char *value);
+char	*ft_strndup(const char *s, size_t n);
 void	add_token_node(t_token **head, t_token **curr, t_token **token);
-char	*to_q_content(const char **input, char q_type);
+void	free_env_copy(char **env_var);
+t_token	*new_token(t_tkn_type type, char *value);
+void	q_content(const char *start, const char *input, t_token **head,
+			t_token **curr);
+char	*single_q(const char **input, char q_type);
+void	double_q(const char **input, t_token **head, t_token **curr);
 void	to_variable(const char **input, t_token **head, t_token **curr);
 t_token	*to_tokenize(const char *input);
-char	*to_expand(const char *str);
 
 /* ************************************************************************** */
 /*                                  EXECUTER                                  */
