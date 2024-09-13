@@ -60,17 +60,38 @@ static void	init_loop(char **argv)
 	}
 }
 
+// int	main(int argc, char **argv, char **env)
+// {
+// 	t_utils		data;
+
+// 	if (argc == 1)
+// 	{
+// 		ft_memset(&data, 0, sizeof(data));
+// 		dup_env_variables(&data, env);
+// 		print_var(data.env_var);
+// 		init_loop(argv);
+// 	}
+// 	free_env_copy(data.env_var);
+// 	return (0);
+// }
+
 int	main(int argc, char **argv, char **env)
 {
-	t_utils		data;
+	t_cmd cmd;
+	t_utils	data;
 
-	if (argc == 1)
-	{
-		ft_memset(&data, 0, sizeof(data));
-		dup_env_variables(&data, env);
-		print_var(data.env_var);
-		init_loop(argv);
-	}
-	free_env_copy(data.env_var);
-	return (0);
+	char *path = "./test1";
+	char *path2 = "EOF";
+
+	set_file_descriptor(&cmd,path2,HEREDOC);
+	//set_file_descriptor(&cmd,path,RD_OUT);
+	//set_file_descriptor(&cmd,path2,RD_OUT);
+
+	//char *arg[3]={"/bin/ls", "-a", NULL};
+	char *arg[3]={"/bin/wc", "-l", NULL};
+	cmd.args = arg;
+	cmd.full_path = arg[0];
+	data.env_var = env;
+
+	init_execution(&cmd,&data);
 }
