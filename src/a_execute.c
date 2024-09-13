@@ -37,4 +37,5 @@ void	init_execution(t_cmd *command, t_utils *utils)
 {
 	set_fd_redirections(command);
 	execute_command(command, utils);
+	clean_exit(command);
 }

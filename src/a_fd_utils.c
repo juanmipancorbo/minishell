@@ -22,16 +22,6 @@ static void	set_rdin_fd(t_cmd *cmd, char *path)
 	add_fdnode_back(&cmd->in_rd, create_fd_node(path, fd));
 }
 
-// falta terminar //
-static void	set_herdoc_fd(t_cmd *cmd, char *path)
-{
-	int	fd;
-
-	(void)fd;
-	(void)cmd;
-	(void)path;
-}
-
 static void	set_rdout_fd(t_cmd *cmd, char *path)
 {
 	int	fd;
