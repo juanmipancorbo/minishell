@@ -6,13 +6,13 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/12 21:59:50 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/16 21:29:29 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static void	init_loop(char **argv)
+static void	init_loop(char **argv, char **env)
 {
 	char	*input;
 	t_token	*tokens;
@@ -31,8 +31,8 @@ static void	init_loop(char **argv)
 		if (*input)
 			add_history(input);
 		tokens = to_tokenize(input);
-		//print_tokens(tokens);
-		cmds = to_parse(tokens);
+		print_tokens(tokens);
+		cmds = to_parse(tokens, env);
 		print_cmds(cmds);
 		free(input);
 		while (tokens)
@@ -42,7 +42,7 @@ static void	init_loop(char **argv)
 			free(temp->value);
 			free(temp);
 		}
-	//	free_cmds(cmds);
+	//	free_cmds(c	mds);
 	}
 }
 
@@ -54,8 +54,8 @@ int	main(int argc, char **argv, char **env)
 	{
 		ft_memset(&data, 0, sizeof(data));
 		dup_env_variables(&data, env);
-		//print_var(data.env_var);
-		init_loop(argv);
+		print_var(data.env_var);
+		init_loop(argv, env);
 	}
 	free_env_copy(data.env_var);
 	return (0);

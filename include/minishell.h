@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:04:02 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/12 21:31:09 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/16 21:29:26 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,13 @@ t_token	*to_tokenize(const char *input);
 /* ************************************************************************** */
 /*                                   PARSER                                   */
 /* ************************************************************************** */
-t_cmd	*to_parse(t_token *tokens);
+t_cmd	*to_parse(t_token *tokens, char **env);
 t_cmd	*add_pipe(t_cmd *curr);
 void	add_arg(t_cmd *cmd, char *arg);
 t_red	*create_red_node(char *file, int type);
 t_cmd	*create_cmd_node(void);
+char	*expand_var(char *var, char **env);
+void	expand_tokens(t_token *tokens, char **env);
 
 //* TEST FUNCTIONS *//
 void	print_tokens(t_token *tokens);

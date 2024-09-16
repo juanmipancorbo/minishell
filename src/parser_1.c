@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 19:13:32 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/12 21:00:05 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/16 21:05:03 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,16 @@ static void	parse_tkn(t_token *token, t_cmd *cmd)
 		}
 		token = token->next;
 		add_red(cmd, token->value, token->prev->type);
+		return ;
 	}
 }
 
-t_cmd	*to_parse(t_token *tokens)
+t_cmd	*to_parse(t_token *tokens, char **env)
 {
 	t_cmd	*head;
 	t_cmd	*curr;
 
+	expand_tokens(tokens, env);
 	head = create_cmd_node();
 	if (!head)
 		return (NULL);
@@ -86,7 +88,12 @@ t_cmd	*to_parse(t_token *tokens)
 		if (tokens->type == PIPE)
 			curr = add_pipe(curr);
 		else
+		{
 			parse_tkn(tokens, curr);
+			if (tokens->type == RD_IN || tokens->type == RD_OUT
+				|| tokens->type == APPEND || tokens->type == HEREDOC)
+				tokens = tokens->next;
+		}
 		tokens = tokens->next;
 	}
 	return (head);
