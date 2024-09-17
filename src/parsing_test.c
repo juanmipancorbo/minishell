@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 21:22:50 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/17 19:02:43 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/17 19:24:09 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ void	print_cmds(t_cmd *cmds)
 
 	while (cmds)
 	{
-		printf("Command:\n");
 		if (cmds->args)
 		{
+			printf("Command:\n");
 			i = 0;
 			printf("  Args:\n");
 			while (cmds->args[i])
@@ -70,6 +70,5 @@ void	print_cmds(t_cmd *cmds)
 			}
 		}
 		cmds = cmds->next;
-		printf("\n");
 	}
 }
