@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 19:13:32 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/16 21:05:03 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/17 18:11:03 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ t_cmd	*to_parse(t_token *tokens, char **env)
 	t_cmd	*curr;
 
 	expand_tokens(tokens, env);
+	between_q(&tokens);
 	head = create_cmd_node();
 	if (!head)
 		return (NULL);

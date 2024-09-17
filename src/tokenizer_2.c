@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 19:40:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/16 21:30:31 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/17 17:37:23 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,11 @@ char	*single_q(const char **input, char q_type)
 void	double_q(const char **input, t_token **head, t_token **curr)
 {
 	const char	*start;
+	t_token		*token;
 
 	start = *input;
+	token = new_token(DOUBLE_Q, "\"");
+	add_token_node(head, curr, &token);
 	while (**input && **input != '"')
 	{
 		if (**input == '$')
@@ -72,7 +75,11 @@ void	double_q(const char **input, t_token **head, t_token **curr)
 			(*input)++;
 	}
 	if (*input > start)
+	{
 		q_content(start, *input, head, curr);
+		token = new_token(DOUBLE_Q, "\"");
+		add_token_node(head, curr, &token);
+	}
 }
 
 void	to_variable(const char **input, t_token **head, t_token **curr)

@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/16 21:29:29 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/17 17:04:31 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	main(int argc, char **argv, char **env)
 	{
 		ft_memset(&data, 0, sizeof(data));
 		dup_env_variables(&data, env);
-		print_var(data.env_var);
+	//	print_var(data.env_var);
 		init_loop(argv, env);
 	}
 	free_env_copy(data.env_var);

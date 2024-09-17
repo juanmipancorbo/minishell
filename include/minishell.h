@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:04:02 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/16 21:29:26 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/17 18:07:44 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,14 @@
 /* ************************************************************************** */
 typedef enum e_tkn_type
 {
-	WORD,
-	PIPE,
-	RD_IN,
-	RD_OUT,
-	APPEND,
-	HEREDOC,
-	VAR,
+	WORD = 0,
+	PIPE = 1,
+	RD_IN = 2,
+	RD_OUT = 3,
+	APPEND = 4,
+	HEREDOC = 5,
+	DOUBLE_Q = 6,
+	VAR = 7,
 }							t_tkn_type;
 
 typedef struct s_token
@@ -99,6 +100,8 @@ t_red	*create_red_node(char *file, int type);
 t_cmd	*create_cmd_node(void);
 char	*expand_var(char *var, char **env);
 void	expand_tokens(t_token *tokens, char **env);
+void	between_q(t_token **tokens);
+
 
 //* TEST FUNCTIONS *//
 void	print_tokens(t_token *tokens);

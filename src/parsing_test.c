@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 21:22:50 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/12 21:58:59 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/17 18:31:48 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	print_tokens(t_token *tokens)
 {
 	while (tokens)
 	{
-		printf("Token Type: %d, Value: %s\n", tokens->type, tokens->value);
+		printf("Token Type: %d, Value: >%s<\n", tokens->type, tokens->value);
 		tokens = tokens->next;
 	}
 }
@@ -45,7 +45,7 @@ void	print_cmds(t_cmd *cmds)
 			printf("  Args:\n");
 			while (cmds->args[i])
 			{
-				printf("    [%d]: %s\n", i, cmds->args[i]);
+				printf("    [%d]: >%s<\n", i, cmds->args[i]);
 				i++;
 			}
 		}
@@ -101,7 +101,7 @@ void	free_cmds(t_cmd *cmds)
 			i = 0;
 			while (temp->args[i])
 			{
-			//	free(temp->args[i]);
+				free(temp->args[i]);
 				i++;
 			}
 			free(temp->args);
