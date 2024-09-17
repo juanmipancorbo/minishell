@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/17 17:04:31 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/17 18:56:44 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	init_loop(char **argv, char **env)
 			free(temp->value);
 			free(temp);
 		}
-	//	free_cmds(c	mds);
+		free_cmds(cmds);
 	}
 }
 

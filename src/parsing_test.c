@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 21:22:50 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/17 18:31:48 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/17 19:02:43 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,47 +71,5 @@ void	print_cmds(t_cmd *cmds)
 		}
 		cmds = cmds->next;
 		printf("\n");
-	}
-}
-
-void	free_redirections(t_red *red)
-{
-	t_red	*temp;
-
-	while (red)
-	{
-		temp = red;
-		red = red->next;
-		free(temp->file);
-		free(temp);
-	}
-}
-
-void	free_cmds(t_cmd *cmds)
-{
-	t_cmd	*temp;
-	int		i;
-
-	while (cmds)
-	{
-		temp = cmds;
-		cmds = cmds->next;
-		if (temp->args)
-		{
-			i = 0;
-			while (temp->args[i])
-			{
-				free(temp->args[i]);
-				i++;
-			}
-			free(temp->args);
-		}
-		if (temp->full_path)
-			free(temp->full_path);
-		if (temp->in_rd)
-			free_redirections(temp->in_rd);
-		if (temp->out_rd)
-			free_redirections(temp->out_rd);
-		free(temp);
 	}
 }
