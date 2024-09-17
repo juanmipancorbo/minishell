@@ -2,6 +2,8 @@
 
 
 
+
+
 pid_t exec_commnad(char **arg, int *pipe_fd, int i) {
 	pid_t child;
 
@@ -38,13 +40,19 @@ int main(void)
 {
 
 	char *arg[3]={"/bin/ls", "-l", NULL};
-	char *arg2[3]={"/bin/wc", "-l", NULL};
+	char *arg2[3]={"/bin/grep", "pipe", NULL};
+	char *arg3[3]={"/bin/wc", "-l", NULL};
 	int pipe_fd[2];
 	pid_t child[2];
+	int i;
 
 	pipe(pipe_fd);
-	child[0] = exec_commnad(arg,pipe_fd,0);
-	child[1] = exec_commnad(arg2,pipe_fd,1);
+	while (i < 2)
+	{
+		exec_commnad(arg,pipe_fd,i);
+		i++;
+	}
+	
 	waitpid(child[0],NULL,0);
 	waitpid(child[1],NULL,0);
 	printf("end process\n");
