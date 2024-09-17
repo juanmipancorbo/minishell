@@ -6,7 +6,7 @@
 #    By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/22 17:58:31 by jpancorb          #+#    #+#              #
-#    Updated: 2024/09/17 19:01:11 by jpancorb         ###   ########.fr        #
+#    Updated: 2024/09/17 20:24:29 by jpancorb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ MODE		= none
 
 LIBFT		= libft/libft.a
 
-CFLAGS		= -g -Wall -Werror -Wextra
+CFLAGS		= -Wall -Werror -Wextra
 LDFLAGS		= -lreadline -Llibft -lft
 
 ifeq ($(MODE),debug)

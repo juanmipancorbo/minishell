@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 19:40:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/17 19:28:00 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/17 20:22:26 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ void	double_q(const char **input, t_token **head, t_token **curr)
 	t_token		*token;
 
 	start = *input;
-	if (**input == '"')
-		return ;
 	token = new_token(DOUBLE_Q, "\"");
 	add_token_node(head, curr, &token);
 	while (**input && **input != '"')

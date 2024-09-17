@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:57:08 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/17 17:38:23 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/17 20:21:20 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ static void	to_quotes(const char **input, t_token **head, t_token **curr)
 	(*input)++;
 	if (ft_strchr(*input, q_type))
 	{
-		if (q_type == '"')
+		if (q_type == '"' && **input != q_type)
 			double_q(input, head, curr);
-		else
+		else if (**input != q_type)
 		{
 			content = single_q(input, q_type);
 			token = new_token(WORD, content);
