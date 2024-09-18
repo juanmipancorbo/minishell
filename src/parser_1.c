@@ -6,39 +6,55 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 19:13:32 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/17 18:11:03 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/18 20:15:47 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static void	add_in_red(t_cmd *cmd, t_red *red)
+static char	*find_exe(char **env, char *cmd)
 {
-	t_red	*temp;
+	char	**paths;
+	char	*path_env;
+	char	*full_path;
+	int		i;
 
-	if (!cmd->in_rd)
-		cmd->in_rd = red;
-	else
+	if (access(cmd, X_OK) == 0)
+		return (ft_strdup(cmd));
+	path_env = get_env_value(env, "PATH");
+	if (!path_env)
+		return (NULL);
+	paths = ft_split(path_env, ':');
+	i = 0;
+	while (paths && paths[i])
 	{
-		temp = cmd->in_rd;
-		while (temp->next)
-			temp = temp->next;
-		temp->next = red;
+		full_path = join_path_cmd(paths[i], cmd);
+		if (full_path && access(full_path, X_OK) == 0)
+		{
+			ft_free_split(paths);
+			return (full_path);
+		}
+		free(full_path);
+		i++;
 	}
+	ft_free_split(paths);
+	return (NULL);
 }
 
-static void	add_out_red(t_cmd *cmd, t_red *red)
+static void	fill_cmd_full_path(t_cmd *cmds, char **env)
 {
-	t_red	*temp;
+	t_cmd	*curr;
 
-	if (!cmd->out_rd)
-		cmd->out_rd = red;
-	else
+	curr = cmds;
+	while (curr)
 	{
-		temp = cmd->out_rd;
-		while (temp->next)
-			temp = temp->next;
-		temp->next = red;
+		if (curr->args && curr->args[0])
+		{
+			curr->full_path = find_exe(env, curr->args[0]);
+			if (!curr->full_path)
+				printf("Command not found: %s\n", curr->args[0]);
+		}
+		curr = curr->next;
 	}
 }
 
@@ -97,5 +113,6 @@ t_cmd	*to_parse(t_token *tokens, char **env)
 		}
 		tokens = tokens->next;
 	}
+	fill_cmd_full_path(head, env);
 	return (head);
 }

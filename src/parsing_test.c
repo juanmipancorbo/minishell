@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 21:22:50 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/17 19:24:09 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/18 19:35:24 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	print_cmds(t_cmd *cmds)
 {
 	int		i;
 	t_red	*in_rd;
-	t_red 	*out_rd;
+	t_red	*out_rd;
 
 	while (cmds)
 	{
@@ -48,6 +48,10 @@ void	print_cmds(t_cmd *cmds)
 				printf("    [%d]: >%s<\n", i, cmds->args[i]);
 				i++;
 			}
+		}
+		if (cmds->full_path)
+		{
+			printf("  Full path: %s\n", cmds->full_path);
 		}
 		if (cmds->in_rd)
 		{

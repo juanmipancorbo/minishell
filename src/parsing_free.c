@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 18:59:29 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/17 20:06:50 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/18 18:07:02 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	free_redirections(t_red *red)
 	{
 		temp = red;
 		red = red->next;
-		free(temp->file);
+		//free(temp->file);
 		free(temp);
 	}
 }

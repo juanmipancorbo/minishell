@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:04:02 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/17 18:07:44 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/18 20:15:25 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "../libft/libft.h"
 # include <sys/wait.h>
 # include <fcntl.h>
+# include <unistd.h>
 
 /* ************************************************************************** */
 /*                                    DEFINES                                 */
@@ -78,8 +79,6 @@ typedef struct s_cmd
 /* ************************************************************************** */
 /*                                  TOKENIZER                                 */
 /* ************************************************************************** */
-int		ft_isspace(char c);
-char	*ft_strndup(const char *s, size_t n);
 void	add_token_node(t_token **head, t_token **curr, t_token **token);
 void	free_env_copy(char **env_var);
 t_token	*new_token(t_tkn_type type, char *value);
@@ -97,17 +96,28 @@ t_cmd	*to_parse(t_token *tokens, char **env);
 t_cmd	*add_pipe(t_cmd *curr);
 void	add_arg(t_cmd *cmd, char *arg);
 t_red	*create_red_node(char *file, int type);
+void	add_in_red(t_cmd *cmd, t_red *red);
+void	add_out_red(t_cmd *cmd, t_red *red);
 t_cmd	*create_cmd_node(void);
 char	*expand_var(char *var, char **env);
 void	expand_tokens(t_token *tokens, char **env);
 void	between_q(t_token **tokens);
-
+char	*join_path_cmd(char *path, char *cmd);
+char	*get_env_value(char **env, const char *var_name);
+void	ft_free_split(char **split);
 
 //* TEST FUNCTIONS *//
 void	print_tokens(t_token *tokens);
 void	print_var(char **env);
 void	print_cmds(t_cmd *cmds);
 void	free_cmds(t_cmd *cmds);
+
+/* ************************************************************************** */
+/*                                   UTILS                                    */
+/* ************************************************************************** */
+int		ft_isspace(char c);
+char	*ft_strndup(const char *s, size_t n);
+char	*ft_strcpy(char *dst, const char *src);
 
 /* ************************************************************************** */
 /*                                  EXECUTER                                  */

@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 21:26:02 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/12 21:18:51 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/18 19:35:06 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,14 @@ char	*ft_strndup(const char *s, size_t n)
 	}
 	copy[i] = '\0';
 	return (copy);
+}
+
+char	*ft_strcpy(char *dst, const char *src)
+{
+	while (*src)
+		*dst++ = *src++;
+	*dst = '\0';
+	return (dst);
 }
 
 void	add_token_node(t_token **head, t_token **curr, t_token **token)
