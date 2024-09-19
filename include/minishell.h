@@ -130,7 +130,7 @@ char	*ft_strcpy(char *dst, const char *src);
 /*                                  EXECUTER                                  */
 /* ************************************************************************** */
 void	dup_env_variables(t_utils *data, char **env);
-void	manage_error(char *msg);
+
 void	init_execution(t_cmd *command, t_utils *utils);
 
 /* ************************************************************************** */
@@ -142,9 +142,11 @@ void	set_file_descriptor(t_cmd *cmd, char *path, t_tkn_type type);
 int		redlst_size(t_red *lst);
 void	set_herdoc_fd(t_cmd *cmd, char *path);
 bool	check_files(char *path);
+t_red	*red_last_node(t_red *lst)
 
 /* ************************************************************************** */
 /*                                  FILE DESCRIPTORS                          */
 /* ************************************************************************** */
 void clean_exit(t_cmd *cmd);
+void	manage_error(char *msg);
 #endif

@@ -13,6 +13,11 @@
 
 static void	set_fd_redirections(t_cmd *cmd)
 {
+	t_red in_node;
+	t_red out_node;
+	
+	in_node = 
+
 	if (redlst_size(cmd->out_rd) > 0)
 		dup2(cmd->out_rd->fd, STDOUT_FILENO);
 	if (redlst_size(cmd->in_rd) > 0)
@@ -28,6 +33,7 @@ static void	execute_command(t_cmd *command, t_utils *utils)
 		manage_error(ERROR);
 	if (child == 0)
 	{
+		set_fd_redirections(command);
 		execve(command->full_path, command->args, utils->env_var);
 	}
 	wait(NULL);
@@ -35,7 +41,7 @@ static void	execute_command(t_cmd *command, t_utils *utils)
 
 void	init_execution(t_cmd *command, t_utils *utils)
 {
-	set_fd_redirections(command);
+	
 	execute_command(command, utils);
 	clean_exit(command);
 }

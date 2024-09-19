@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "../include/minishell.h"
 
-static t_red	*last_node(t_red *lst)
+t_red	*red_last_node(t_red *lst)
 {
 	if (!lst)
 		return (NULL);
@@ -24,7 +24,7 @@ void	add_fdnode_back(t_red **lst, t_red *new)
 {
 	t_red	*back;
 
-	back = last_node(*lst);
+	back = red_last_node(*lst);
 	if (!back)
 		*lst = new;
 	else
