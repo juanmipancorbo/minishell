@@ -14,4 +14,5 @@ static void	delete_herdocf(void)
 void	clean_exit(t_cmd *cmd)
 {
 	delete_herdocf();
+	(void)cmd;
 }
