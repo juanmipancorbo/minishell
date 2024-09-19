@@ -13,15 +13,15 @@
 
 static void	set_fd_redirections(t_cmd *cmd)
 {
-	t_red in_node;
-	t_red out_node;
+	t_red *in_node;
+	t_red *out_node;
 	
-	in_node = 
-
-	if (redlst_size(cmd->out_rd) > 0)
-		dup2(cmd->out_rd->fd, STDOUT_FILENO);
-	if (redlst_size(cmd->in_rd) > 0)
-		dup2(cmd->in_rd->fd, STDIN_FILENO);
+	in_node = red_last_node(cmd->in_rd);
+	out_node = red_last_node(cmd->out_rd);
+	if (out_node != NULL)
+		dup2(out_node->fd, STDOUT_FILENO);
+	if (in_node != NULL)
+		dup2(in_node->fd, STDIN_FILENO);
 }
 
 static void	execute_command(t_cmd *command, t_utils *utils)
