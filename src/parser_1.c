@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 19:13:32 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/19 18:16:15 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/19 21:14:29 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,19 +70,6 @@ static void	fill_cmd_full_path(t_cmd *cmds, char **env)
 		}
 		curr = curr->next;
 	}
-}
-
-static void	add_red(t_cmd *cmd, char *file, int type)
-{
-	t_red	*red;
-
-	red = create_red_node(file, type);
-	if (!red)
-		return ;
-	if (type == RD_IN || type == HEREDOC)
-		add_in_red(cmd, red);
-	else if (type == RD_OUT || type == APPEND)
-		add_out_red(cmd, red);
 }
 
 static void	parse_tkn(t_token *token, t_cmd *cmd)

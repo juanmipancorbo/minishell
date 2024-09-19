@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 20:48:49 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/17 18:27:57 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/19 21:12:42 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,37 @@ char	*expand_var(char *var, char **env)
 	return (ft_strdup(""));
 }
 
+void	insert_new_tokens(t_token *curr, char **split_words)
+{
+	t_token	*token;
+	t_token	*prev;
+	int		i;
+
+	prev = curr;
+	i = 0;
+	while (split_words[i])
+	{
+		if (i == 0)
+		{
+			free(curr->value);
+			curr->value = ft_strdup(split_words[i]);
+		}
+		else
+		{
+			token = new_token(WORD, ft_strdup(split_words[i]));
+			token->next = curr->next;
+			curr->next = token;
+			curr = token;
+		}
+		i++;
+	}
+}
+
 void	expand_tokens(t_token *tokens, char **env)
 {
 	t_token	*curr;
 	char	*expanded;
+	char	**split_words;
 
 	curr = tokens;
 	while (curr)
@@ -39,8 +66,10 @@ void	expand_tokens(t_token *tokens, char **env)
 		if (curr->type == VAR)
 		{
 			expanded = expand_var(curr->value, env);
-			free(curr->value);
-			curr->value = expanded;
+			split_words = ft_split(expanded, ' ');
+			free(expanded);
+			insert_new_tokens(curr, split_words);
+			ft_free_split(split_words);
 		}
 		curr = curr->next;
 	}
@@ -65,14 +94,6 @@ char	*concat_q(t_token *token)
 		curr = curr->next;
 	}
 	return (result);
-}
-
-static void	free_q(t_token **curr, t_token **end)
-{
-	*end = *curr;
-	*curr = (*curr)->next;
-	free((*end)->value);
-	free(*end);
 }
 
 void	between_q(t_token **tokens)

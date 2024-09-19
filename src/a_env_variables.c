@@ -31,6 +31,8 @@ void	dup_env_variables(t_utils *data, char **env)
 			manage_error(MALLOC_E);
 		i++;
 	}
+	// new_env[i] = "MY_VAR=ls -la";
+	// i++;
 	new_env[i] = NULL;
 	data->env_var = new_env;
 	return ;
