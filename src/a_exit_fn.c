@@ -11,7 +11,7 @@ static void	delete_herdocf(void)
 		unlink(HERDOC_F);
 }
 
-void	clean_exit(t_cmd *cmd)
+void	clean_exit(t_cmd **cmd)
 {
 	delete_herdocf();
 	(void)cmd;

@@ -46,17 +46,35 @@ static void	init_loop(char **argv, char **env)
 	}
 }
 
+// int	main(int argc, char **argv, char **env)
+// {
+// 	t_utils		data;
+
+// 	if (argc == 1)
+// 	{
+// 		ft_memset(&data, 0, sizeof(data));
+// 		dup_env_variables(&data, env);
+// 		print_var(data.env_var);
+// 		init_loop(argv, env);
+// 	}
+// 	free_env_copy(data.env_var);
+// 	return (0);
+// }
+t_cmd	*cmd_addnewnode(char **argv , char *full_path);
+void	dlstadd_back(t_cmd **cmd, t_cmd *node);
+
 int	main(int argc, char **argv, char **env)
 {
-	t_utils		data;
+	t_cmd	*cmd;
+	t_utils data;
 
-	if (argc == 1)
-	{
-		ft_memset(&data, 0, sizeof(data));
-		dup_env_variables(&data, env);
-		print_var(data.env_var);
-		init_loop(argv, env);
-	}
-	free_env_copy(data.env_var);
+	cmd = NULL;
+	data.env_var = env;
+	char *arg1[3]={"/bin/ls", "-a", NULL};
+	char *arg2[3]={"/bin/wc", "-l", NULL};
+	dlstadd_back(&cmd,cmd_addnewnode(arg1,arg1[0]));
+	dlstadd_back(&cmd,cmd_addnewnode(arg2,arg2[0]));
+
+
 	return (0);
 }

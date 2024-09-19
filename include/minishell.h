@@ -131,7 +131,7 @@ char	*ft_strcpy(char *dst, const char *src);
 /* ************************************************************************** */
 void	dup_env_variables(t_utils *data, char **env);
 
-void	init_execution(t_cmd *command, t_utils *utils);
+void	init_execution(t_cmd **command, t_utils *utils);
 
 /* ************************************************************************** */
 /*                                  FILE DESCRIPTORS                          */
@@ -147,6 +147,6 @@ t_red	*red_last_node(t_red *lst);
 /* ************************************************************************** */
 /*                                  FILE DESCRIPTORS                          */
 /* ************************************************************************** */
-void	clean_exit(t_cmd *cmd);
+void	clean_exit(t_cmd **cmd);
 void	manage_error(char *msg);
 #endif

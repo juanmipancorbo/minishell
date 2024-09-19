@@ -34,13 +34,19 @@ static void	execute_command(t_cmd *command, t_utils *utils)
 	if (child == 0)
 	{
 		set_fd_redirections(command);
-		execve(command->full_path, command->args, utils->env_var);
+		if(execve(command->full_path, command->args, utils->env_var) != 0)
+			manage_error(ERROR);
 	}
-	wait(NULL);
 }
 
-void	init_execution(t_cmd *command, t_utils *utils)
+void	init_execution(t_cmd **command, t_utils *utils)
 {
-	execute_command(command, utils);
-	clean_exit(command);
+	int np;
+	int pipe_fd[2][2];
+	t_cmd *cmd;
+
+	cmd = *command;
+
+	execute_command(cmd, utils);
+	//clean_exit(command);
 }
