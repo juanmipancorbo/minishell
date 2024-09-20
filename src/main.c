@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/19 21:04:31 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/20 20:30:28 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	init_loop(char **argv, char **env)
 		{
 			temp = tokens;
 			tokens = tokens->next;
-			free(temp->value);
+		//	free(temp->value);
 			free(temp);
 		}
 		free_cmds(cmds);

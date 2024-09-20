@@ -116,6 +116,7 @@ void	ft_free_split(char **split);
 void	print_cmds(t_cmd *cmds);
 void	free_cmds(t_cmd *cmds);
 void	free_q(t_token **curr, t_token **end);
+void	full_path_to_arg(t_cmd	*cmd);
 
 //* TEST FUNCTIONS *//
 void	print_tokens(t_token *tokens);

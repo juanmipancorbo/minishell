@@ -6,24 +6,11 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 19:13:32 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/20 19:05:38 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/20 21:54:09 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-static char	*check_local_exe(char *cmd)
-{
-	if (cmd[0] == '/' || (cmd[0] == '.' && (cmd[1] == '/' || cmd[1] == '.')))
-	{
-		if (access(cmd, X_OK) == 0 || access(cmd, F_OK) == 0)
-			return (ft_strdup(cmd));
-		return (NULL);
-	}
-	if (access(cmd, X_OK) == 0 || access(cmd, F_OK) == 0)
-		return (ft_strdup(cmd));
-	return (NULL);
-}
 
 static char	*find_exe(char **env, char *cmd)
 {
@@ -52,6 +39,30 @@ static char	*find_exe(char **env, char *cmd)
 	return (NULL);
 }
 
+static void	process_red(t_cmd *cmds)
+{
+	t_cmd	*curr;
+	t_red	*red;
+
+	curr = cmds;
+	while (curr)
+	{
+		red = curr->in_rd;
+		while (red)
+		{
+			set_file_descriptor(curr, red->file, red->type);
+			red = red->next;
+		}
+		red = curr->out_rd;
+		while (red)
+		{
+			set_file_descriptor(curr, red->file, red->type);
+			red = red->next;
+		}
+		curr = curr->next;
+	}
+}
+
 static void	fill_cmd_full_path(t_cmd *cmds, char **env)
 {
 	t_cmd	*curr;
@@ -61,15 +72,14 @@ static void	fill_cmd_full_path(t_cmd *cmds, char **env)
 	{
 		if (curr->args && curr->args[0])
 		{
-			curr->full_path = check_local_exe(curr->args[0]);
-			if (curr->full_path)
-				break ;
 			curr->full_path = find_exe(env, curr->args[0]);
 			if (!curr->full_path)
-				printf("Command not found: %s\n", curr->args[0]);
+				curr->full_path = ft_strdup(curr->args[0]);
+			full_path_to_arg(curr);
 		}
 		curr = curr->next;
 	}
+	process_red(cmds);
 }
 
 static void	parse_tkn(t_token *token, t_cmd *cmd)
@@ -85,8 +95,7 @@ static void	parse_tkn(t_token *token, t_cmd *cmd)
 			return ;
 		}
 		token = token->next;
-	//	add_red(cmd, token->value, token->prev->type);
-		set_file_descriptor(cmd, cmd->full_path, token->type);
+		add_red(cmd, token->value, token->prev->type);
 		return ;
 	}
 }
