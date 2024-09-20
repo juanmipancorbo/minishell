@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 19:13:32 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/19 21:14:29 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/20 19:05:38 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ static void	parse_tkn(t_token *token, t_cmd *cmd)
 			return ;
 		}
 		token = token->next;
-		add_red(cmd, token->value, token->prev->type);
+	//	add_red(cmd, token->value, token->prev->type);
+		set_file_descriptor(cmd, cmd->full_path, token->type);
 		return ;
 	}
 }

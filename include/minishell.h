@@ -70,7 +70,7 @@ typedef struct s_red
 typedef struct s_cmd
 {
 	char			**args;
-	char			*full_path;	
+	char			*full_path;
 	t_red			*in_rd;
 	t_red			*out_rd;
 	struct s_cmd	*next;

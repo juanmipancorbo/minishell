@@ -50,5 +50,5 @@ void	set_file_descriptor(t_cmd *cmd, char *path, t_tkn_type type)
 	set_fd[1] = set_rdout_fd;
 	set_fd[2] = set_append_fd;
 	set_fd[3] = set_herdoc_fd;
-	set_fd[type - 2](cmd, path);
+	//set_fd[type - 2](cmd, path);
 }
