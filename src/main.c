@@ -74,6 +74,7 @@ int	main(int argc, char **argv, char **env)
 	char *arg2[3]={"/bin/wc", "-l", NULL};
 	dlstadd_back(&cmd,cmd_addnewnode(arg1,arg1[0]));
 	dlstadd_back(&cmd,cmd_addnewnode(arg2,arg2[0]));
+	printf("%d\n",cmd_lst_size(&cmd));
 
 
 	return (0);

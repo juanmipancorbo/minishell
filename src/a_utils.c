@@ -1,6 +1,5 @@
 #include "../include/minishell.h"
 t_cmd	*dlst_lastnode(t_cmd **cmd);
-t_cmd	*dlst_lastnode(t_cmd **cmd);
 
 int	cmd_lst_size(t_cmd **cmd)
 {

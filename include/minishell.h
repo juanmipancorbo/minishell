@@ -130,23 +130,29 @@ char	*ft_strcpy(char *dst, const char *src);
 /*                                  EXECUTER                                  */
 /* ************************************************************************** */
 void	dup_env_variables(t_utils *data, char **env);
-
 void	init_execution(t_cmd **command, t_utils *utils);
+int		**create_pipes_fd(int np);
 
 /* ************************************************************************** */
 /*                                  FILE DESCRIPTORS                          */
 /* ************************************************************************** */
 void	add_fdnode_back(t_red **lst, t_red *new);
-t_red	*create_fd_node(char *path, int fd);
 void	set_file_descriptor(t_cmd *cmd, char *path, t_tkn_type type);
-int		redlst_size(t_red *lst);
 void	set_herdoc_fd(t_cmd *cmd, char *path);
 bool	check_files(char *path);
-t_red	*red_last_node(t_red *lst);
+
 
 /* ************************************************************************** */
-/*                                  FILE DESCRIPTORS                          */
+/*                                  EXIT & ERRORS     	                      */
 /* ************************************************************************** */
 void	clean_exit(t_cmd **cmd);
 void	manage_error(char *msg);
+
+/* ************************************************************************** */
+/*                                  LIST UTILS		                          */
+/* ************************************************************************** */
+int		cmd_lst_size(t_cmd **cmd);
+t_red	*red_last_node(t_red *lst);
+int		redlst_size(t_red *lst);
+t_red	*create_fd_node(char *path, int fd);
 #endif

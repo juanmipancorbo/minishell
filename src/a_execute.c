@@ -24,7 +24,7 @@ static void	set_fd_redirections(t_cmd *cmd)
 		dup2(in_node->fd, STDIN_FILENO);
 }
 
-static void	execute_command(t_cmd *command, t_utils *utils)
+static void	execute_command(t_cmd *cmd, t_utils *utils, int **pipes, int cmd_id)
 {
 	pid_t	child;
 
@@ -33,20 +33,33 @@ static void	execute_command(t_cmd *command, t_utils *utils)
 		manage_error(ERROR);
 	if (child == 0)
 	{
+		
 		set_fd_redirections(command);
-		if(execve(command->full_path, command->args, utils->env_var) != 0)
+		if(execve(cmd->full_path, cmd->args, utils->env_var) != 0)
 			manage_error(ERROR);
+	}
+	else
+	{
+
 	}
 }
 
 void	init_execution(t_cmd **command, t_utils *utils)
 {
-	int np;
-	int pipe_fd[2][2];
+	int cmd_id;
+	int **pipes_fd;
 	t_cmd *cmd;
 
 	cmd = *command;
+	cmd_id = 0;
+	pipes_fd = create_pipes_fd(cmd_lst_size(command));
 
-	execute_command(cmd, utils);
+	while (cmd != NULL)
+	{
+		execute_command(cmd, utils, pipes_fd, cmd_id); 
+		cmd_id++;
+		cmd = cmd->next;
+	}
+	// funcion limpiar fd
 	//clean_exit(command);
 }
