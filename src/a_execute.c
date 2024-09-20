@@ -35,12 +35,13 @@ static void	execute_command(t_cmd *cmd, t_utils *utils, int **pipes, int cmd_id)
 	{
 		
 		set_fd_redirections(cmd);
+		//set_pipes_fd(cmd,)
 		if(execve(cmd->full_path, cmd->args, utils->env_var) != 0)
 			manage_error(ERROR);
 	}
 	else
 	{
-
+			waitpid(child,NULL,0);
 	}
 }
 
@@ -56,10 +57,11 @@ void	init_execution(t_cmd **command, t_utils *utils)
 
 	while (cmd != NULL)
 	{
-		//execute_command(cmd, utils, pipes_fd, cmd_id); 
+		execute_command(cmd, utils, pipes_fd, cmd_id); 
 		cmd_id++;
 		cmd = cmd->next;
 	}
+	printf("fin proceso");
 	// funcion limpiar fd
 	//clean_exit(command);
 }
