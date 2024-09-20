@@ -1,15 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   a_pipes_fn.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/20 16:51:17 by apaterno          #+#    #+#             */
+/*   Updated: 2024/09/20 16:51:17 by apaterno         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
-int	**create_pipes_fd(int np)
+int	**create_pipes_fd(int cmd_nb)
 {
 	int	**pipe_fd;
 	int	i;
 	int	pipes_nb;
 
-	pipes_nb = np - 1;
-	if (np == 0)
+	if (cmd_nb == 0 || cmd_nb == 1)
 		return (0);
-	pipe_fd = malloc(sizeof(int *) * pipe_nb);
+	pipes_nb = cmd_nb - 1;
+	pipe_fd = malloc(sizeof(int *) * pipes_nb);
 	if (!pipe_fd)
 		manage_error("ERROR");
 	i = 0;
@@ -21,7 +33,7 @@ int	**create_pipes_fd(int np)
 		i++;
 	}
 	i = 0;
-	while (i < np)
+	while (i < pipes_nb)
 	{
 		pipe(pipe_fd[i]);
 		i++;
@@ -33,19 +45,20 @@ static void init_cmd_pipe(t_cmd *cmd, int cmd_id, int **pipes_fd, pid_t pid)
 {
 	if (pid == 0)
 	{
-		close(pipe_fd[cmd_id][READ_END]);
-		dup2(pipe_fd[cmd_id][WRITE_END], STDOUT_FILENO);
-		close(pipe_fd[cmd_id][WRITE_END]);
+		close(pipes_fd[cmd_id][READ_END]);
+		dup2(pipes_fd[cmd_id][WRITE_END], STDOUT_FILENO);
+		close(pipes_fd[cmd_id][WRITE_END]);
+		
 		while (cmd->next->next != NULL)
 		{
 			cmd_id++;
-			close(pipe_fd[cmd_id][READ_END]);
-			close(pipe_fd[cmd_id][WRITE_END]);
+			close(pipes_fd[cmd_id][READ_END]);
+			close(pipes_fd[cmd_id][WRITE_END]);
 			cmd = cmd->next;
 		}
 	}
 	else
-		close(pipe_fd[cmd_id][WRITE_END]);
+		close(pipes_fd[cmd_id][WRITE_END]);
 }
 
 void set_pipes_fd(t_cmd *cmd, int cmd_id , int **pipes_fd , pid_t pid)

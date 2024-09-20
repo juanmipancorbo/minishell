@@ -34,7 +34,7 @@ static void	execute_command(t_cmd *cmd, t_utils *utils, int **pipes, int cmd_id)
 	if (child == 0)
 	{
 		
-		set_fd_redirections(command);
+		set_fd_redirections(cmd);
 		if(execve(cmd->full_path, cmd->args, utils->env_var) != 0)
 			manage_error(ERROR);
 	}
@@ -56,7 +56,7 @@ void	init_execution(t_cmd **command, t_utils *utils)
 
 	while (cmd != NULL)
 	{
-		execute_command(cmd, utils, pipes_fd, cmd_id); 
+		//execute_command(cmd, utils, pipes_fd, cmd_id); 
 		cmd_id++;
 		cmd = cmd->next;
 	}

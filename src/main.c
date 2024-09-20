@@ -6,7 +6,7 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/20 16:30:40 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/09/20 17:10:42 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,16 @@ void	dlstadd_back(t_cmd **cmd, t_cmd *node);
 
 int	main(int argc, char **argv, char **env)
 {
-	t_utils		data;
+	t_cmd *cmd;
+	t_utils utils;
 
-	if (argc == 1)
-	{
-		ft_memset(&data, 0, sizeof(data));
-		dup_env_variables(&data, env);
-		print_var(data.env_var);
-		init_loop(argv, data.env_var);
-	}
-	free_env_copy(data.env_var);
+	char *arg1[3]={"/bin/ls", "-a", NULL};
+	char *arg2[3]={"/bin/wc", "-l", NULL};
+	cmd = NULL;
+	utils.env_var = env;
+	
+	dlstadd_back(&cmd,cmd_addnewnode(arg1,arg1[0]));
+	dlstadd_back(&cmd,cmd_addnewnode(arg2,arg2[0]));
+	init_execution(&cmd, &utils);
 	return (0);
 }
