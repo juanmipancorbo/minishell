@@ -103,6 +103,7 @@ t_cmd	*to_parse(t_token *tokens, char **env);
 t_cmd	*add_pipe(t_cmd *curr);
 void	add_arg(t_cmd *cmd, char *arg);
 t_red	*create_red_node(char *file, int type);
+void	add_red(t_cmd *cmd, char *file, int type);
 void	add_in_red(t_cmd *cmd, t_red *red);
 void	add_out_red(t_cmd *cmd, t_red *red);
 t_cmd	*create_cmd_node(void);
@@ -112,12 +113,14 @@ void	between_q(t_token **tokens);
 char	*join_path_cmd(char *path, char *cmd);
 char	*get_env_value(char **env, const char *var_name);
 void	ft_free_split(char **split);
+void	print_cmds(t_cmd *cmds);
+void	free_cmds(t_cmd *cmds);
+void	free_q(t_token **curr, t_token **end);
 
 //* TEST FUNCTIONS *//
 void	print_tokens(t_token *tokens);
 void	print_var(char **env);
-void	print_cmds(t_cmd *cmds);
-void	free_cmds(t_cmd *cmds);
+
 
 /* ************************************************************************** */
 /*                                   UTILS                                    */

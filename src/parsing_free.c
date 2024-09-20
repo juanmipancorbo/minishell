@@ -6,11 +6,24 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 18:59:29 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/18 18:07:02 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/19 21:15:01 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	add_red(t_cmd *cmd, char *file, int type)
+{
+	t_red	*red;
+
+	red = create_red_node(file, type);
+	if (!red)
+		return ;
+	if (type == RD_IN || type == HEREDOC)
+		add_in_red(cmd, red);
+	else if (type == RD_OUT || type == APPEND)
+		add_out_red(cmd, red);
+}
 
 void	free_redirections(t_red *red)
 {
@@ -52,4 +65,12 @@ void	free_cmds(t_cmd *cmds)
 			free_redirections(temp->out_rd);
 		free(temp);
 	}
+}
+
+void	free_q(t_token **curr, t_token **end)
+{
+	*end = *curr;
+	*curr = (*curr)->next;
+	free((*end)->value);
+	free(*end);
 }

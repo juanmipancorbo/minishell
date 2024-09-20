@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:57:08 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/17 20:21:20 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/19 20:41:45 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static void	to_word(const char **input, t_token **head, t_token **curr)
 
 	start = *input;
 	while (**input && !ft_isspace(**input) && **input != '|'
-		&& **input != '<' && **input != '>')
+		&& **input != '<' && **input != '>' && **input != '"')
 		(*input)++;
 	len = *input - start;
 	value = ft_strndup(start, len);
