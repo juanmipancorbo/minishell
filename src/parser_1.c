@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 19:13:32 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/20 21:54:09 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:49:41 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,31 +39,28 @@ static char	*find_exe(char **env, char *cmd)
 	return (NULL);
 }
 
-static void	process_red(t_cmd *cmds)
+static void	fill_fd(t_cmd *cmd)
 {
-	t_cmd	*curr;
-	t_red	*red;
+	t_red	*in_rd;
+	t_red	*out_rd;
 
-	curr = cmds;
-	while (curr)
+	in_rd = cmd->in_rd;
+	out_rd = cmd->out_rd;
+
+	while (in_rd)
 	{
-		red = curr->in_rd;
-		while (red)
-		{
-			set_file_descriptor(curr, red->file, red->type);
-			red = red->next;
-		}
-		red = curr->out_rd;
-		while (red)
-		{
-			set_file_descriptor(curr, red->file, red->type);
-			red = red->next;
-		}
-		curr = curr->next;
+		set_file_descriptor(cmd, in_rd->file, in_rd->type);
+		in_rd = in_rd->next;
+	}
+
+	while (out_rd)
+	{
+		set_file_descriptor(cmd, out_rd->file, out_rd->type);
+		out_rd = out_rd->next;
 	}
 }
 
-static void	fill_cmd_full_path(t_cmd *cmds, char **env)
+static void	to_path_and_fd(t_cmd *cmds, char **env)
 {
 	t_cmd	*curr;
 
@@ -77,9 +74,9 @@ static void	fill_cmd_full_path(t_cmd *cmds, char **env)
 				curr->full_path = ft_strdup(curr->args[0]);
 			full_path_to_arg(curr);
 		}
+		fill_fd(curr);
 		curr = curr->next;
 	}
-	process_red(cmds);
 }
 
 static void	parse_tkn(t_token *token, t_cmd *cmd)
@@ -124,6 +121,6 @@ t_cmd	*to_parse(t_token *tokens, char **env)
 		}
 		tokens = tokens->next;
 	}
-	fill_cmd_full_path(head, env);
+	to_path_and_fd(head, env);
 	return (head);
 }
