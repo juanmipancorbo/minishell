@@ -45,20 +45,10 @@ static void init_cmd_pipe(t_cmd *cmd, int cmd_id, int **pipes_fd, pid_t pid)
 {
 	if (pid == 0)
 	{
-		close(pipes_fd[cmd_id][READ_END]);
-		dup2(pipes_fd[cmd_id][WRITE_END], STDOUT_FILENO);
-		close(pipes_fd[cmd_id][WRITE_END]);
-		cmd = cmd->next;
-		while (cmd->next != NULL)
-		{
-			cmd_id++;
-			close(pipes_fd[cmd_id][READ_END]);
-			close(pipes_fd[cmd_id][WRITE_END]);
-			cmd = cmd->next;
-		}
+		
 	}
 	else
-		close(pipes_fd[cmd_id][WRITE_END]);
+		
 }
 
 static void end_cmd_pipe(t_cmd *cmd, int cmd_id, int **pipes_fd, pid_t pid)
@@ -83,7 +73,7 @@ void set_pipes_fd(t_cmd *cmd, int cmd_id , int **pipes_fd , pid_t pid)
 	if(cmd->prev == NULL)
 		init_cmd_pipe(cmd, cmd_id, pipes_fd, pid);
 	if(cmd->next == NULL)
-		end(cmd,cmd_id,pipes_fd,pid);
+		end_cmd_pipe(cmd,cmd_id,pipes_fd,pid);
 	else;
 }
 

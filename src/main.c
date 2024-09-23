@@ -68,13 +68,13 @@ int	main(int argc, char **argv, char **env)
 	t_cmd *cmd;
 	t_utils utils;
 
-	char *arg1[3]={"/bin/ls", "-a", NULL};
-	//char *arg2[3]={"/bin/wc", "-l", NULL};
+	char *arg1[3]={"/bin/ls", "-l", NULL};
+	char *arg2[3]={"/bin/wc", "-l", NULL};
 	cmd = NULL;
 	utils.env_var = env;
 	
 	dlstadd_back(&cmd,cmd_addnewnode(arg1,arg1[0]));
-	//dlstadd_back(&cmd,cmd_addnewnode(arg2,arg2[0]));
+	dlstadd_back(&cmd,cmd_addnewnode(arg2,arg2[0]));
 	init_execution(&cmd, &utils);
 	return (0);
 }
