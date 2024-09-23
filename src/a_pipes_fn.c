@@ -45,17 +45,57 @@ static void init_cmd_pipe(t_cmd *cmd, int cmd_id, int **pipes_fd, pid_t pid)
 {
 	if (pid == 0)
 	{
-		
+		close(pipes_fd[cmd_id][READ_END]);
+
+
+		dup2(pipes_fd[cmd_id][WRITE_END], STDOUT_FILENO);
+		close(pipes_fd[cmd_id][WRITE_END]);
+
+		cmd = cmd->next;
+		while(cmd->next != NULL)
+		{
+			cmd_id++;
+			close(pipes_fd[cmd_id][READ_END]);
+			close(pipes_fd[cmd_id][WRITE_END]);
+			cmd = cmd->next;
+		}
 	}
 	else
+		close(pipes_fd[cmd_id][WRITE_END]);
 		
+}
+static void middle_cmd_pipe(t_cmd *cmd, int cmd_id,int **pipes_fd, pid_t pid)
+{
+	if (pid == 0)
+	{
+		close(pipes_fd[cmd_id][READ_END]);
+
+		dup2(pipes_fd[cmd_id -1][READ_END], STDIN_FILENO);
+		close(pipes_fd[cmd_id -1][READ_END]);
+		dup2(pipes_fd[cmd_id][WRITE_END], STDOUT_FILENO);
+		close(pipes_fd[cmd_id][WRITE_END]);
+
+		cmd = cmd->next;
+		while(cmd->next != NULL)
+		{
+			cmd_id++;
+			close(pipes_fd[cmd_id][READ_END]);
+			close(pipes_fd[cmd_id][WRITE_END]);
+			cmd = cmd->next;
+		}
+	}
+	else
+	{
+		close(pipes_fd[cmd_id -1][READ_END]);
+		close(pipes_fd[cmd_id][WRITE_END]);
+	}
 }
 
 static void end_cmd_pipe(t_cmd *cmd, int cmd_id, int **pipes_fd, pid_t pid)
 {
 	if (pid == 0)
 	{
-		dup2(pipes_fd[cmd_id - 1][READ_END], STDOUT_FILENO);
+		dup2(pipes_fd[cmd_id - 1][READ_END], STDIN_FILENO);
 		close(pipes_fd[cmd_id - 1][READ_END]);
 	}
 	else
@@ -70,10 +110,11 @@ void set_pipes_fd(t_cmd *cmd, int cmd_id , int **pipes_fd , pid_t pid)
 	if (pipes_fd == 0)
 		return;
 
-	if(cmd->prev == NULL)
+	if(cmd->prev == NULL && cmd->next != NULL)
 		init_cmd_pipe(cmd, cmd_id, pipes_fd, pid);
-	if(cmd->next == NULL)
+	else if(cmd->next == NULL && cmd->prev != NULL)
 		end_cmd_pipe(cmd,cmd_id,pipes_fd,pid);
-	else;
+	else
+		middle_cmd_pipe(cmd,cmd_id,pipes_fd,pid);
 }
 
