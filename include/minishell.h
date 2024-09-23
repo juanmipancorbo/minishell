@@ -29,7 +29,7 @@
 # define ERROR "Error"
 # define WRITE_END 1
 # define READ_END 0
-# define HERDOC_F "./herdoc_tmp"
+# define HEREDOC_F "./herdoc_tmp"
 
 /* ************************************************************************** */
 /*                                OPCODE / STRUCTS                            */
@@ -117,6 +117,8 @@ void	print_cmds(t_cmd *cmds);
 void	free_cmds(t_cmd *cmds);
 void	free_q(t_token **curr, t_token **end);
 void	full_path_to_arg(t_cmd	*cmd);
+void	read_loop(char *str, char *filename);
+char	*to_heredoc_filename(void);
 
 //* TEST FUNCTIONS *//
 void	print_tokens(t_token *tokens);
@@ -134,11 +136,10 @@ char	*ft_strcpy(char *dst, const char *src);
 /*                                  EXECUTER                                  */
 /* ************************************************************************** */
 void	dup_env_variables(t_utils *data, char **env);
-
 void	init_execution(t_cmd *command, t_utils *utils);
 
 /* ************************************************************************** */
-/*                                  FILE DESCRIPTORS                          */
+/*                               FILE DESCRIPTORS                             */
 /* ************************************************************************** */
 void	add_fdnode_back(t_red **lst, t_red *new);
 t_red	*create_fd_node(char *path, int fd);
@@ -147,10 +148,6 @@ int		redlst_size(t_red *lst);
 void	set_herdoc_fd(t_cmd *cmd, char *path);
 bool	check_files(char *path);
 t_red	*red_last_node(t_red *lst);
-
-/* ************************************************************************** */
-/*                                  FILE DESCRIPTORS                          */
-/* ************************************************************************** */
 void	clean_exit(t_cmd *cmd);
 void	manage_error(char *msg);
 #endif

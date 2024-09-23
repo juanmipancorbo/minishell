@@ -17,7 +17,7 @@ static void	read_loop(char *str)
 	char	*line;
 	int		fd;
 
-	fd = open(HERDOC_F, O_WRONLY | O_CREAT | O_APPEND | O_TRUNC, 0777);
+	fd = open(HEREDOC_F, O_WRONLY | O_CREAT | O_APPEND | O_TRUNC, 0777);
 	if (fd < 0)
 		manage_error(ERROR);
 	while (1)
@@ -42,7 +42,7 @@ void	set_herdoc_fd(t_cmd *cmd, char *path)
 	int	fd;
 
 	read_loop(path);
-	fd = open(HERDOC_F, O_RDONLY);
+	fd = open(HEREDOC_F, O_RDONLY);
 	if (fd < 0)
 		manage_error(ERROR);
 	add_fdnode_back(&cmd->in_rd, create_fd_node(path, fd));

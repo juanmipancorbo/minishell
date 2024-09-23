@@ -14,9 +14,10 @@ NAME		= minishell
 
 
 SRC_FILES 	= main.c tokenizer_1.c tokenizer_2.c utils.c parser_1.c parser_2.c\
-			parser_3.c expander.c parsing_utils.c a_env_variables.c\
-			file_descriptors.c a_execute.c errors_fn.c a_list_fn.c\
-			parsing_test.c a_herdoc.c  a_exit_fn.c
+			parser_3.c expander.c parsing_utils.c file_descriptors.c\
+			parsing_test.c heredoc.c a_env_variables.c a_execute.c errors_fn.c\
+			a_list_fn.c a_exit_fn.c\
+			
 SRCS		= $(addprefix src/, $(SRC_FILES))
 OBJS		= $(patsubst src/%.c, obj/%.o, $(SRCS))
 HEADER		= include/minishell.h

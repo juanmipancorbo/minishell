@@ -19,8 +19,8 @@ bool	check_files(char *path)
 
 static void	delete_herdocf(void)
 {
-	if (check_files(HERDOC_F) == 0)
-		unlink(HERDOC_F);
+	if (check_files(HEREDOC_F) == 0)
+		unlink(HEREDOC_F);
 }
 
 void	clean_exit(t_cmd *cmd)
