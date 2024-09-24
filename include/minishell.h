@@ -158,6 +158,7 @@ int		cmd_lst_size(t_cmd **cmd);
 t_red	*red_last_node(t_red *lst);
 int		redlst_size(t_red *lst);
 t_red	*create_fd_node(char *path, int fd);
+void close_fd_redlst(t_cmd *cmd);
 
 /* ************************************************************************** */
 /*                                  PIPES FUNCTIONS		                          */
@@ -166,5 +167,3 @@ void set_pipes_fd(t_cmd *cmd, int cmd_id , int **pipes_fd , pid_t pid);
 
 #endif
 
-
-///TEST FUNCTIONS ///

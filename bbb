@@ -1,0 +1,10 @@
+total 72
+-rwxrwxrwx 1 pater pater  1909 Sep 20 11:30 Makefile
+-rwxrwxrwx 1 pater pater     0 Sep 24 16:41 aaa
+-rwxrwxrwx 1 pater pater     0 Sep 24 16:41 bbb
+drwxrwxrwx 1 pater pater   512 Sep 21 12:42 include
+drwxrwxrwx 1 pater pater   512 Sep 24 15:31 libft
+-rwxrwxrwx 1 pater pater 68384 Sep 24 16:41 minishell
+drwxrwxrwx 1 pater pater   512 Sep 24 16:41 obj
+drwxrwxrwx 1 pater pater   512 Sep 21 12:42 src
+drwxrwxrwx 1 pater pater   512 Sep 24 16:11 tester
