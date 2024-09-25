@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 19:13:32 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/23 20:26:18 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/25 18:56:47 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,11 @@ static void	fill_fd(t_cmd *cmd)
 
 	in_rd = cmd->in_rd;
 	out_rd = cmd->out_rd;
-
 	while (in_rd)
 	{
 		set_file_descriptor(cmd, in_rd->file, in_rd->type);
 		in_rd = in_rd->next;
 	}
-
 	while (out_rd)
 	{
 		set_file_descriptor(cmd, out_rd->file, out_rd->type);
@@ -85,12 +83,12 @@ static void	parse_tkn(t_token *token, t_cmd *cmd)
 		add_arg(cmd, token->value);
 	else if (token->type == RD_IN || token->type == RD_OUT
 		|| token->type == APPEND || token->type == HEREDOC)
-	{
-		if (!token->next || token->next->type != WORD)
 		{
-			printf("Error: A file was expected.\n");
-			return ;
-		}
+			if (!token->next || token->next->type != WORD)
+			{
+				printf("Error: A file was expected.\n");
+				return ;
+			}
 		token = token->next;
 		add_red(cmd, token->value, token->prev->type);
 		return ;

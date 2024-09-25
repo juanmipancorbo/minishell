@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   a_herdoc.c                                         :+:      :+:    :+:   */
+/*   a_heredoc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -37,7 +37,7 @@ static void	read_loop(char *str)
 	close(fd);
 }
 
-void	set_herdoc_fd(t_cmd *cmd, char *path)
+void	set_heredoc_fd(t_cmd *cmd, char *path)
 {
 	int	fd;
 
@@ -45,5 +45,5 @@ void	set_herdoc_fd(t_cmd *cmd, char *path)
 	fd = open(HEREDOC_F, O_RDONLY);
 	if (fd < 0)
 		manage_error(ERROR);
-	add_fdnode_back(&cmd->in_rd, create_fd_node(path, fd));
+	cmd->in_rd->fd = fd;
 }

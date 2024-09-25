@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_descriptors.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
+/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/23 17:43:08 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/23 20:29:28 by jpancorb         ###   ########.fr       */
+/*   Created: 2024/09/10 12:36:35 by apaterno          #+#    #+#             */
+/*   Updated: 2024/09/10 12:36:35 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,19 +49,6 @@ static void	set_append_fd(t_cmd *cmd, char *path)
 		return ;
 	}
 	cmd->out_rd->fd = fd;
-}
-
-static void	set_heredoc_fd(t_cmd *cmd, char *path)
-{
-	int		fd;
-	char	*filename;
-
-	filename = to_heredoc_filename();
-	read_loop(path, filename);
-	fd = open(filename, O_RDONLY);
-	if (fd < 0)
-		manage_error("Error: Set_heredoc_fd.");
-	cmd->in_rd->fd = fd;
 }
 
 void	set_file_descriptor(t_cmd *cmd, char *path, t_tkn_type type)
