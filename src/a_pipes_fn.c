@@ -88,6 +88,7 @@ static void	middle_cmd_pipe(t_cmd *cmd, int cmd_id, int **pipes_fd, pid_t pid)
 
 static void	end_cmd_pipe(t_cmd *cmd, int cmd_id, int **pipes_fd, pid_t pid)
 {
+	(void)cmd;
 	if (pid == 0)
 	{
 		dup2(pipes_fd[cmd_id - 1][READ_END], STDIN_FILENO);
@@ -99,8 +100,6 @@ static void	end_cmd_pipe(t_cmd *cmd, int cmd_id, int **pipes_fd, pid_t pid)
 
 void	set_pipes_fd(t_cmd *cmd, int cmd_id, int **pipes_fd, pid_t pid)
 {
-	int	i;
-
 	if (pipes_fd == 0)
 		return ;
 	if (cmd->prev == NULL && cmd->next != NULL)
