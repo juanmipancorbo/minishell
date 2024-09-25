@@ -51,6 +51,17 @@ static void	set_append_fd(t_cmd *cmd, char *path)
 	cmd->out_rd->fd = fd;
 }
 
+static void	set_heredoc_fd(t_cmd *cmd, char *path)
+{
+	int	fd;
+
+	read_loop(path);
+	fd = open(HEREDOC_F, O_RDONLY);
+	if (fd < 0)
+		manage_error(ERROR);
+	cmd->in_rd->fd = fd;
+}
+
 void	set_file_descriptor(t_cmd *cmd, char *path, t_tkn_type type)
 {
 	void	(*set_fd[4])(t_cmd *cmd, char *path);

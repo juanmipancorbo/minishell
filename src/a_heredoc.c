@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-static void	read_loop(char *str)
+void	read_loop(char *str)
 {
 	char	*line;
 	int		fd;
@@ -35,15 +35,4 @@ static void	read_loop(char *str)
 		free(line);
 	}
 	close(fd);
-}
-
-void	set_heredoc_fd(t_cmd *cmd, char *path)
-{
-	int	fd;
-
-	read_loop(path);
-	fd = open(HEREDOC_F, O_RDONLY);
-	if (fd < 0)
-		manage_error(ERROR);
-	cmd->in_rd->fd = fd;
 }

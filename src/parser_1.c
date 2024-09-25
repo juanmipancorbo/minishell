@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 19:13:32 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/25 18:56:47 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/25 19:46:26 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,12 @@ static void	parse_tkn(t_token *token, t_cmd *cmd)
 		add_arg(cmd, token->value);
 	else if (token->type == RD_IN || token->type == RD_OUT
 		|| token->type == APPEND || token->type == HEREDOC)
+	{
+		if (!token->next || token->next->type != WORD)
 		{
-			if (!token->next || token->next->type != WORD)
-			{
-				printf("Error: A file was expected.\n");
-				return ;
-			}
+			printf("Error: A file was expected.\n");
+			return ;
+		}
 		token = token->next;
 		add_red(cmd, token->value, token->prev->type);
 		return ;
