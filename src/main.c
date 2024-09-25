@@ -46,44 +46,17 @@ static void	init_loop(char **argv, char **env)
 	}
 }
 
-// int	main(int argc, char **argv, char **env)
-// {
-// 	t_utils		data;
-
-// 	if (argc == 1)
-// 	{
-// 		ft_memset(&data, 0, sizeof(data));
-// 		dup_env_variables(&data, env);
-// 		print_var(data.env_var);
-// 		init_loop(argv, env);
-// 	}
-// 	free_env_copy(data.env_var);
-// 	return (0);
-// }
-t_cmd	*cmd_addnewnode(char **argv , char *full_path);
-void	dlstadd_back(t_cmd **cmd, t_cmd *node);
-t_cmd	*dlst_lastnode(t_cmd **cmd);
-
 int	main(int argc, char **argv, char **env)
 {
-	t_cmd *cmd;
-	t_utils utils;
+	t_utils		data;
 
-	char *arg1[3]={"/bin/ls", "-l", NULL};
-	char *arg2[3]={"/bin/grep", "12", NULL};
-	//char *arg3[3]={"/bin/grep", "23", NULL};
-	//char *arg4[3]={"/bin/grep", "tester", NULL};
-	char *arg5[3]={"/bin/wc", "-l", NULL};
-	cmd = NULL;
-	utils.env_var = env;
-	dlstadd_back(&cmd,cmd_addnewnode(arg1,arg1[0]));
-	set_file_descriptor(cmd,"aaa",RD_OUT);
-	set_file_descriptor(cmd,"bbb",RD_OUT);
-	//dlstadd_back(&cmd,cmd_addnewnode(arg2,arg2[0]));
-	//set_file_descriptor(dlst_lastnode(&cmd),"aaa",RD_IN);
-	//dlstadd_back(&cmd,cmd_addnewnode(arg3,arg3[0]));
-	//dlstadd_back(&cmd,cmd_addnewnode(arg4,arg4[0]));
-	//dlstadd_back(&cmd,cmd_addnewnode(arg5,arg5[0]));
-	init_execution(&cmd, &utils);
+	if (argc == 1)
+	{
+		ft_memset(&data, 0, sizeof(data));
+		dup_env_variables(&data, env);
+		print_var(data.env_var);
+		init_loop(argv, env);
+	}
+	free_env_copy(data.env_var);
 	return (0);
 }

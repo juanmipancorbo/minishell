@@ -24,7 +24,7 @@ static void	set_fd_redirections(t_cmd *cmd)
 		dup2(in_node->fd, STDIN_FILENO);
 }
 
-static void	execute_command(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
+static void	exec_cmd(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
 {
 	pid_t	child;
 
@@ -32,39 +32,35 @@ static void	execute_command(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_
 	if (child == -1)
 		manage_error(ERROR);
 	if (child == 0)
-	{	
-
+	{
 		set_pipes_fd(cmd, cmd_id, pipes_fd, child);
 		set_fd_redirections(cmd);
-		if(execve(cmd->full_path, cmd->args, utils->env_var) != 0)
+		if (execve(cmd->full_path, cmd->args, utils->env_var) != 0)
 			manage_error(ERROR);
 	}
 	else
 	{
 		set_pipes_fd(cmd, cmd_id, pipes_fd, child);
 		close_fd_redlst(cmd);
-		waitpid(child,NULL,0);
+		waitpid(child, NULL, 0);
 	}
 }
 
 void	init_execution(t_cmd **command, t_utils *utils)
 {
-	int cmd_id;
-	int **pipes_fd;
-	t_cmd *cmd;
+	int		cmd_id;
+	int		**pipes_fd;
+	t_cmd	*cmd;
 
 	cmd = *command;
 	cmd_id = 0;
 	pipes_fd = create_pipes_fd(cmd_lst_size(command));
-
 	while (cmd != NULL)
 	{
-		execute_command(cmd, utils, pipes_fd, cmd_id);
+		exec_cmd(cmd, utils, pipes_fd, cmd_id);
 		cmd_id++;
 		cmd = cmd->next;
 	}
-	printf("fin proceso\n");
-
 	// funcion limpiar fd
 	//clean_exit(command);
 }

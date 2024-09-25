@@ -56,20 +56,19 @@ int	redlst_size(t_red *lst)
 	return (i);
 }
 
-void close_fd_redlst(t_cmd *cmd)
+void	close_fd_redlst(t_cmd *cmd)
 {
-	t_red *in;
-	t_red *out;
+	t_red	*in;
+	t_red	*out;
 
 	in = cmd->in_rd;
 	out = cmd->out_rd;
-	
-	while(in != NULL)
+	while (in != NULL)
 	{
 		close(in->fd);
 		in = in->next;
 	}
-	while (out !=NULL)
+	while (out != NULL)
 	{
 		close(out->fd);
 		out = out->next;
