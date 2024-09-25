@@ -29,7 +29,7 @@
 # define ERROR "Error"
 # define WRITE_END 1
 # define READ_END 0
-# define HERDOC_F "./herdoc_tmp"
+# define HEREDOC_F "./heredoc_tmp"
 
 /* ************************************************************************** */
 /*                                OPCODE / STRUCTS                            */
@@ -70,7 +70,7 @@ typedef struct s_red
 typedef struct s_cmd
 {
 	char			**args;
-	char			*full_path;	
+	char			*full_path;
 	t_red			*in_rd;
 	t_red			*out_rd;
 	struct s_cmd	*next;
@@ -116,6 +116,7 @@ void	ft_free_split(char **split);
 void	print_cmds(t_cmd *cmds);
 void	free_cmds(t_cmd *cmds);
 void	free_q(t_token **curr, t_token **end);
+void	full_path_to_arg(t_cmd	*cmd);
 
 //* TEST FUNCTIONS *//
 void	print_tokens(t_token *tokens);
@@ -136,11 +137,11 @@ void	init_execution(t_cmd **command, t_utils *utils);
 int		**create_pipes_fd(int np);
 
 /* ************************************************************************** */
-/*                                  FILE DESCRIPTORS                          */
+/*                               FILE DESCRIPTORS                             */
 /* ************************************************************************** */
 void	add_fdnode_back(t_red **lst, t_red *new);
 void	set_file_descriptor(t_cmd *cmd, char *path, t_tkn_type type);
-void	set_herdoc_fd(t_cmd *cmd, char *path);
+void	read_loop(char *str);
 t_bool	check_files(char *path);
 
 /* ************************************************************************** */

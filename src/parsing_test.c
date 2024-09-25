@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 21:22:50 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/18 19:35:24 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/20 19:14:02 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	print_cmds(t_cmd *cmds)
 			while (in_rd)
 			{
 				printf("    Type: %d, File: %s\n", in_rd->type, in_rd->file);
+				if (in_rd->fd)
+					printf("    Fd: %d\n", in_rd->fd);
 				in_rd = in_rd->next;
 			}
 		}
@@ -70,6 +72,8 @@ void	print_cmds(t_cmd *cmds)
 			while (out_rd)
 			{
 				printf("    Type: %d, File: %s\n", out_rd->type, out_rd->file);
+				if (out_rd->fd)
+					printf("    Fd: %d\n", out_rd->fd);
 				out_rd = out_rd->next;
 			}
 		}

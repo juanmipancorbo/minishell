@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_free.c                                     :+:      :+:    :+:   */
+/*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 18:59:29 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/19 21:15:01 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/25 19:44:08 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,15 @@ void	add_red(t_cmd *cmd, char *file, int type)
 		add_in_red(cmd, red);
 	else if (type == RD_OUT || type == APPEND)
 		add_out_red(cmd, red);
+}
+
+void	full_path_to_arg(t_cmd	*cmd)
+{
+	if (cmd->full_path)
+	{
+		free(cmd->args[0]);
+		cmd->args[0] = ft_strdup(cmd->full_path);
+	}
 }
 
 void	free_redirections(t_red *red)

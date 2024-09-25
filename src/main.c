@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/20 17:57:11 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/09/25 20:08:09 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	init_loop(char **argv, char **env)
 		{
 			temp = tokens;
 			tokens = tokens->next;
-			free(temp->value);
+		//	free(temp->value);
 			free(temp);
 		}
 		free_cmds(cmds);
@@ -54,8 +54,8 @@ int	main(int argc, char **argv, char **env)
 	{
 		ft_memset(&data, 0, sizeof(data));
 		dup_env_variables(&data, env);
-		print_var(data.env_var);
-		init_loop(argv, env);
+	//	print_var(data.env_var);
+		init_loop(argv, data.env_var);
 	}
 	free_env_copy(data.env_var);
 	return (0);
