@@ -77,11 +77,11 @@ typedef struct s_cmd
 	struct s_cmd	*prev;
 }							t_cmd;
 
-typedef enum
+typedef enum s_bool
 {
 	FALSE,
 	TRUE
-}bool;
+}	t_bool;
 
 /* ************************************************************************** */
 /*                                  TOKENIZER                                 */
@@ -121,7 +121,6 @@ void	free_q(t_token **curr, t_token **end);
 void	print_tokens(t_token *tokens);
 void	print_var(char **env);
 
-
 /* ************************************************************************** */
 /*                                   UTILS                                    */
 /* ************************************************************************** */
@@ -142,8 +141,7 @@ int		**create_pipes_fd(int np);
 void	add_fdnode_back(t_red **lst, t_red *new);
 void	set_file_descriptor(t_cmd *cmd, char *path, t_tkn_type type);
 void	set_herdoc_fd(t_cmd *cmd, char *path);
-bool	check_files(char *path);
-
+t_bool	check_files(char *path);
 
 /* ************************************************************************** */
 /*                                  EXIT & ERRORS     	                      */
@@ -158,12 +156,11 @@ int		cmd_lst_size(t_cmd **cmd);
 t_red	*red_last_node(t_red *lst);
 int		redlst_size(t_red *lst);
 t_red	*create_fd_node(char *path, int fd);
-void close_fd_redlst(t_cmd *cmd);
+void	close_fd_redlst(t_cmd *cmd);
 
 /* ************************************************************************** */
-/*                                  PIPES FUNCTIONS		                          */
+/*                                  PIPES FUNCTIONS		                      */
 /* ************************************************************************** */
-void set_pipes_fd(t_cmd *cmd, int cmd_id , int **pipes_fd , pid_t pid);
+void	set_pipes_fd(t_cmd *cmd, int cmd_id, int **pipes_fd, pid_t pid);
 
 #endif
-

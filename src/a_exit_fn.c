@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-bool	check_files(char *path)
+t_bool	check_files(char *path)
 {
 	return (access(path, F_OK));
 }
