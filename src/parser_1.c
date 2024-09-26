@@ -6,24 +6,11 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 19:13:32 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/19 21:14:29 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/25 19:46:26 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-static char	*check_local_exe(char *cmd)
-{
-	if (cmd[0] == '/' || (cmd[0] == '.' && (cmd[1] == '/' || cmd[1] == '.')))
-	{
-		if (access(cmd, X_OK) == 0 || access(cmd, F_OK) == 0)
-			return (ft_strdup(cmd));
-		return (NULL);
-	}
-	if (access(cmd, X_OK) == 0 || access(cmd, F_OK) == 0)
-		return (ft_strdup(cmd));
-	return (NULL);
-}
 
 static char	*find_exe(char **env, char *cmd)
 {
@@ -52,7 +39,26 @@ static char	*find_exe(char **env, char *cmd)
 	return (NULL);
 }
 
-static void	fill_cmd_full_path(t_cmd *cmds, char **env)
+static void	fill_fd(t_cmd *cmd)
+{
+	t_red	*in_rd;
+	t_red	*out_rd;
+
+	in_rd = cmd->in_rd;
+	out_rd = cmd->out_rd;
+	while (in_rd)
+	{
+		set_file_descriptor(cmd, in_rd->file, in_rd->type);
+		in_rd = in_rd->next;
+	}
+	while (out_rd)
+	{
+		set_file_descriptor(cmd, out_rd->file, out_rd->type);
+		out_rd = out_rd->next;
+	}
+}
+
+static void	to_path_and_fd(t_cmd *cmds, char **env)
 {
 	t_cmd	*curr;
 
@@ -61,13 +67,12 @@ static void	fill_cmd_full_path(t_cmd *cmds, char **env)
 	{
 		if (curr->args && curr->args[0])
 		{
-			curr->full_path = check_local_exe(curr->args[0]);
-			if (curr->full_path)
-				break ;
 			curr->full_path = find_exe(env, curr->args[0]);
 			if (!curr->full_path)
-				printf("Command not found: %s\n", curr->args[0]);
+				curr->full_path = ft_strdup(curr->args[0]);
+			full_path_to_arg(curr);
 		}
+		fill_fd(curr);
 		curr = curr->next;
 	}
 }
@@ -114,6 +119,6 @@ t_cmd	*to_parse(t_token *tokens, char **env)
 		}
 		tokens = tokens->next;
 	}
-	fill_cmd_full_path(head, env);
+	to_path_and_fd(head, env);
 	return (head);
 }
