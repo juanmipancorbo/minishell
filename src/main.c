@@ -6,7 +6,7 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/20 17:57:11 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/09/26 17:44:41 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,34 +46,17 @@ static void	init_loop(char **argv, char **env)
 	}
 }
 
-// int	main(int argc, char **argv, char **env)
-// {
-// 	t_utils		data;
-
-// 	if (argc == 1)
-// 	{
-// 		ft_memset(&data, 0, sizeof(data));
-// 		dup_env_variables(&data, env);
-// 		print_var(data.env_var);
-// 		init_loop(argv, env);
-// 	}
-// 	free_env_copy(data.env_var);
-// 	return (0);
-// }
-
-int main(int argc, char **argv, char **env)
+int	main(int argc, char **argv, char **env)
 {
-	t_cmd test;
-	t_utils utils;
+	t_utils		data;
 
-	utils.env_var = env;
-	test.args = argv;
-
-
-	test.built_in = indetyfy_buitin(argv[1]);
-	if (test.built_in != NULL)
-		test.built_in(&test, &utils);
-	else
-		printf("comando error\n");
-	return(0);
+	if (argc == 1)
+	{
+		ft_memset(&data, 0, sizeof(data));
+		dup_env_variables(&data, env);
+		print_var(data.env_var);
+		init_loop(argv, env);
+	}
+	free_env_copy(data.env_var);
+	return (0);
 }
