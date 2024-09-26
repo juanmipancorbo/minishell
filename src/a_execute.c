@@ -61,6 +61,5 @@ void	init_execution(t_cmd **command, t_utils *utils)
 		cmd_id++;
 		cmd = cmd->next;
 	}
-	// funcion limpiar fd
-	//clean_exit(command);
+	
 }

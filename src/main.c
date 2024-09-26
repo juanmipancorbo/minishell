@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
+/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/25 20:08:09 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/26 17:03:54 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static void	init_loop(char **argv, char **env)
+static void	init_loop(char **argv, t_utils *data)
 {
 	char	*input;
 	t_token	*tokens;
@@ -32,7 +32,9 @@ static void	init_loop(char **argv, char **env)
 			add_history(input);
 		tokens = to_tokenize(input);
 		print_tokens(tokens);
-		cmds = to_parse(tokens, env);
+		cmds = to_parse(tokens, data->env_var);
+		// init_execution
+		// funcion clean_exit
 		print_cmds(cmds);
 		free(input);
 		while (tokens)
@@ -55,8 +57,8 @@ int	main(int argc, char **argv, char **env)
 		ft_memset(&data, 0, sizeof(data));
 		dup_env_variables(&data, env);
 	//	print_var(data.env_var);
-		init_loop(argv, data.env_var);
+		init_loop(argv, &data);
 	}
-	free_env_copy(data.env_var);
+	//free_env_copy(data.env_var);
 	return (0);
 }
