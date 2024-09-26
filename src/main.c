@@ -46,17 +46,34 @@ static void	init_loop(char **argv, char **env)
 	}
 }
 
-int	main(int argc, char **argv, char **env)
-{
-	t_utils		data;
+// int	main(int argc, char **argv, char **env)
+// {
+// 	t_utils		data;
 
-	if (argc == 1)
-	{
-		ft_memset(&data, 0, sizeof(data));
-		dup_env_variables(&data, env);
-		print_var(data.env_var);
-		init_loop(argv, env);
-	}
-	free_env_copy(data.env_var);
-	return (0);
+// 	if (argc == 1)
+// 	{
+// 		ft_memset(&data, 0, sizeof(data));
+// 		dup_env_variables(&data, env);
+// 		print_var(data.env_var);
+// 		init_loop(argv, env);
+// 	}
+// 	free_env_copy(data.env_var);
+// 	return (0);
+// }
+
+int main(int argc, char **argv, char **env)
+{
+	t_cmd test;
+	t_utils utils;
+
+	utils.env_var = env;
+	test.args = argv;
+
+
+	test.built_in = indetyfy_buitin(argv[1]);
+	if (test.built_in != NULL)
+		test.built_in(&test, &utils);
+	else
+		printf("comando error\n");
+	return(0);
 }
