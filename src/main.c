@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/26 17:03:54 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/09/26 18:22:29 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	init_loop(char **argv, t_utils *data)
 		{
 			temp = tokens;
 			tokens = tokens->next;
-		//	free(temp->value);
+			free(temp->value);
 			free(temp);
 		}
 		free_cmds(cmds);
