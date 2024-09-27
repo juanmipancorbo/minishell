@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/27 18:55:47 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/27 19:16:50 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,36 @@ static void	clean_loop(char *input, t_token *tokens, t_cmd *cmds)
 	free_cmds(cmds);
 }
 
+static int	build_prompt_parts(char **env_var, char **user, char **machine,
+	char **path)
+{
+	char	*temp;
+
+	*user = expand_var("USER", env_var);
+	temp = expand_var("SESSION_MANAGER", env_var);
+	*machine = malloc(8);
+	if (!*machine)
+		return (0);
+	ft_strlcpy(*machine, (strchr(temp, '/')) + 1, 8);
+	*path = expand_var("PWD", env_var);
+	temp = replace_str(temp, expand_var("HOME", env_var));
+	*path = replace_str(*path, copy_after_str(*path, temp));
+	free(temp);
+	if (!*user || !*machine || !*path)
+		return (0);
+	return (1);
+}
+
 static char	*to_prompt(char **env_var)
 {
 	char	*prompt;
 	char	*user;
 	char	*machine;
 	char	*path;
-	char	*temp;
 	size_t	len;
 
-	user = expand_var("USER", env_var);
-	temp = expand_var("SESSION_MANAGER", env_var);
-	machine = malloc(8);
-	if (!machine)
+	if (!build_prompt_parts(env_var, &user, &machine, &path))
 		return (NULL);
-	ft_strlcpy(machine, (strchr(temp, '/')) + 1, 8);
-	path = expand_var("PWD", env_var);
-	temp = replace_str(temp, expand_var("HOME", env_var));
-	path = replace_str(path, copy_after_str(path, temp));
 	len = strlen(user) + strlen(machine) + strlen(path) + 9;
 	prompt = malloc(len);
 	if (!prompt)
@@ -56,7 +68,7 @@ static char	*to_prompt(char **env_var)
 	ft_strlcat(prompt, ":~", len);
 	ft_strlcat(prompt, path, len);
 	ft_strlcat(prompt, "$ ", len);
-	to_free_four(user, machine, path, temp);
+	to_free_four(user, machine, path, NULL);
 	return (prompt);
 }
 
