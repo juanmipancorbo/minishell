@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 19:40:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/27 17:06:58 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/27 17:57:56 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	to_variable(const char **input, t_token **head, t_token **curr)
 	size_t		len;
 
 	(*input)++;
-	if (**input && (!ft_isalnum(**input) || **input != '_'))
+	if (**input && (!ft_isalnum(**input) && **input != '_'))
 		return ;
 	start = *input;
 	while (**input && (ft_isalnum(**input) || **input == '_'))

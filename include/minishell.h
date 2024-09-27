@@ -129,6 +129,9 @@ void	print_var(char **env);
 int		ft_isspace(char c);
 char	*ft_strndup(const char *s, size_t n);
 char	*ft_strcpy(char *dst, const char *src);
+char	*copy_after_str(const char *src, const char *target);
+char	*replace_str(char *old_str, char *new_str);
+void	to_free_four(char *a, char *b, char *c, char *d);
 
 /* ************************************************************************** */
 /*                                  EXECUTER                                  */

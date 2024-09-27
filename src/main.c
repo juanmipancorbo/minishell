@@ -6,48 +6,25 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/27 17:00:57 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/27 18:55:47 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static void	to_free_all(char *a, char *b, char *c, char *d)
+static void	clean_loop(char *input, t_token *tokens, t_cmd *cmds)
 {
-	if (a)
-		free(a);
-	if (b)
-		free(b);
-	if (c)
-		free(c);
-	if (d)
-		free(d);
-}
+	t_token	*temp;
 
-static char	*copy_after_str(const char *src, const char *target)
-{
-	char	*result;
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	while (src[i])
+	free(input);
+	while (tokens)
 	{
-		if (strncmp(&src[i], target, strlen(target)) == 0)
-		{
-			i += strlen(target);
-			result = (char *)malloc(strlen(src) - i + 1);
-			if (!result)
-				return (NULL);
-			while (src[i])
-				result[j++] = src[i++];
-			result[j] = '\0';
-			return (result);
-		}
-		i++;
+		temp = tokens;
+		tokens = tokens->next;
+		free(temp->value);
+		free(temp);
 	}
-	return (NULL);
+	free_cmds(cmds);
 }
 
 static char	*to_prompt(char **env_var)
@@ -57,25 +34,29 @@ static char	*to_prompt(char **env_var)
 	char	*machine;
 	char	*path;
 	char	*temp;
+	size_t	len;
 
 	user = expand_var("USER", env_var);
 	temp = expand_var("SESSION_MANAGER", env_var);
 	machine = malloc(8);
+	if (!machine)
+		return (NULL);
 	ft_strlcpy(machine, (strchr(temp, '/')) + 1, 8);
-	machine[7] = '\0';
 	path = expand_var("PWD", env_var);
-	temp = expand_var("HOME", env_var);
-	path = copy_after_str(path, temp);
-	prompt = malloc(strlen(user) + strlen(machine) + strlen(path) + 4);
+	temp = replace_str(temp, expand_var("HOME", env_var));
+	path = replace_str(path, copy_after_str(path, temp));
+	len = strlen(user) + strlen(machine) + strlen(path) + 9;
+	prompt = malloc(len);
 	if (!prompt)
 		return (NULL);
-	ft_strlcat(prompt, user, strlen(user) + 1);
-	ft_strlcat(prompt, "@", strlen(prompt) + 2);
-	ft_strlcat(prompt, machine, strlen(prompt) + strlen(machine) + 1);
-	ft_strlcat(prompt, ":~", strlen(prompt) + 3);
-	ft_strlcat(prompt, path, strlen(prompt) + strlen(path) + 1);
-	ft_strlcat(prompt, "$ ", strlen(prompt) + 3);
-	to_free_all(user, machine, path, temp);
+	*prompt = '\0';
+	ft_strlcat(prompt, user, len);
+	ft_strlcat(prompt, "@", len);
+	ft_strlcat(prompt, machine, len);
+	ft_strlcat(prompt, ":~", len);
+	ft_strlcat(prompt, path, len);
+	ft_strlcat(prompt, "$ ", len);
+	to_free_four(user, machine, path, temp);
 	return (prompt);
 }
 
@@ -84,7 +65,6 @@ static void	init_loop(char **argv, t_utils *data)
 	char	*input;
 	char	*prompt;
 	t_token	*tokens;
-	t_token	*temp;
 	t_cmd	*cmds;
 
 	(void)argv;
@@ -102,20 +82,12 @@ static void	init_loop(char **argv, t_utils *data)
 		tokens = to_tokenize(input);
 		print_tokens(tokens);
 		cmds = to_parse(tokens, data->env_var);
-		// init_execution
-		// funcion clean_exit
 		print_cmds(cmds);
-		free(input);
-		while (tokens)
-		{
-			temp = tokens;
-			tokens = tokens->next;
-			free(temp->value);
-			free(temp);
-		}
-		free_cmds(cmds);
+		// init_execution
+		clean_loop(input, tokens, cmds);
 	}
 	free_env_copy(data->env_var);
+	free(prompt);
 }
 
 int	main(int argc, char **argv, char **env)
