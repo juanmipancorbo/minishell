@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/27 19:16:50 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/30 16:30:33 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,13 @@ static char	*to_prompt(char **env_var)
 	return (prompt);
 }
 
-static void	init_loop(char **argv, t_utils *data)
+static void	init_loop(t_utils *data)
 {
 	char	*input;
 	char	*prompt;
 	t_token	*tokens;
 	t_cmd	*cmds;
 
-	(void)argv;
 	prompt = to_prompt(data->env_var);
 	while (1)
 	{
@@ -106,12 +105,12 @@ int	main(int argc, char **argv, char **env)
 {
 	t_utils		data;
 
-	if (argc == 1)
+	if (argc >= 1 && argv[0])
 	{
 		ft_memset(&data, 0, sizeof(data));
 		dup_env_variables(&data, env);
 		print_var(data.env_var);
-		init_loop(argv, &data);
+		init_loop(&data);
 	}
 	return (0);
 }
