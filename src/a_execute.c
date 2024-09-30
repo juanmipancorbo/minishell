@@ -37,7 +37,7 @@ static void	exec_builtin(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
 		{
 			set_pipes_fd(cmd, cmd_id, pipes_fd, child);
 			set_fd_redirections(cmd);
-			cmd->built_in(cmd,utils);
+			cmd->built_in(cmd, utils);
 			exit(EXIT_SUCCESS);
 		}
 		else
@@ -49,7 +49,7 @@ static void	exec_builtin(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
 	}
 	else
 	{
-		cmd->built_in(cmd,utils);
+		cmd->built_in(cmd, utils);
 	}
 }
 
@@ -88,7 +88,7 @@ void	init_execution(t_cmd **command, t_utils *utils)
 	{
 		if (cmd->built_in != NULL)
 			exec_builtin(cmd, utils, pipes_fd, cmd_id);
-		else	
+		else
 			exec_cmd(cmd, utils, pipes_fd, cmd_id);
 		cmd_id++;
 		cmd = cmd->next;
