@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/30 16:30:33 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/30 18:13:22 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,14 @@ static char	*to_prompt(char **env_var)
 	return (prompt);
 }
 
-static void	init_loop(t_utils *data)
+static void	init_loop(t_utils *utils)
 {
 	char	*input;
 	char	*prompt;
 	t_token	*tokens;
 	t_cmd	*cmds;
 
-	prompt = to_prompt(data->env_var);
+	prompt = to_prompt(utils->env_var);
 	while (1)
 	{
 		input = readline(prompt);
@@ -92,25 +92,24 @@ static void	init_loop(t_utils *data)
 			add_history(input);
 		tokens = to_tokenize(input);
 		print_tokens(tokens);
-		cmds = to_parse(tokens, data->env_var);
+		cmds = to_parse(tokens, utils);
 		print_cmds(cmds);
 		// init_execution
 		clean_loop(input, tokens, cmds);
 	}
-	free_env_copy(data->env_var);
+	free_env_copy(utils->env_var);
 	free(prompt);
 }
 
 int	main(int argc, char **argv, char **env)
 {
-	t_utils		data;
+	t_utils		utils;
 
 	if (argc >= 1 && argv[0])
 	{
-		ft_memset(&data, 0, sizeof(data));
-		dup_env_variables(&data, env);
-		print_var(data.env_var);
-		init_loop(&data);
+		dup_env_variables(&utils, env);
+		print_var(utils.env_var);
+		init_loop(&utils);
 	}
 	return (0);
 }

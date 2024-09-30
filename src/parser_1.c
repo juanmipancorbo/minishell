@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 19:13:32 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/25 19:46:26 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/30 18:31:43 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,19 @@ static void	fill_fd(t_cmd *cmd)
 	}
 }
 
-static void	to_path_and_fd(t_cmd *cmds, char **env)
+static void	to_path_and_fd(t_cmd *cmds, t_utils *utils)
 {
 	t_cmd	*curr;
 
 	curr = cmds;
 	while (curr)
 	{
-		if (curr->args && curr->args[0])
+		if (curr->args && curr->args[0] && !ft_isspace(*curr->args[0]))
 		{
-			curr->full_path = find_exe(env, curr->args[0]);
+			curr->built_in = indentify_builtin(curr->args[0]);
+			if (curr->built_in)
+				curr->built_in(cmds, utils);
+			curr->full_path = find_exe(utils->env_var, curr->args[0]);
 			if (!curr->full_path)
 				curr->full_path = ft_strdup(curr->args[0]);
 			full_path_to_arg(curr);
@@ -95,12 +98,12 @@ static void	parse_tkn(t_token *token, t_cmd *cmd)
 	}
 }
 
-t_cmd	*to_parse(t_token *tokens, char **env)
+t_cmd	*to_parse(t_token *tokens, t_utils *utils)
 {
 	t_cmd	*head;
 	t_cmd	*curr;
 
-	expand_tokens(tokens, env);
+	expand_tokens(tokens, utils->env_var);
 	between_q(&tokens);
 	head = create_cmd_node();
 	if (!head)
@@ -119,6 +122,6 @@ t_cmd	*to_parse(t_token *tokens, char **env)
 		}
 		tokens = tokens->next;
 	}
-	to_path_and_fd(head, env);
+	to_path_and_fd(head, utils);
 	return (head);
 }
