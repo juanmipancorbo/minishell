@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 19:13:32 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/30 18:00:04 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/30 18:31:43 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,11 @@ static void	to_path_and_fd(t_cmd *cmds, t_utils *utils)
 	curr = cmds;
 	while (curr)
 	{
-		curr->built_in = indentify_builtin(curr->args[0]);
-		if (curr->built_in)
-			curr->built_in(cmds, utils);
-		if (curr->args && curr->args[0])
+		if (curr->args && curr->args[0] && !ft_isspace(*curr->args[0]))
 		{
+			curr->built_in = indentify_builtin(curr->args[0]);
+			if (curr->built_in)
+				curr->built_in(cmds, utils);
 			curr->full_path = find_exe(utils->env_var, curr->args[0]);
 			if (!curr->full_path)
 				curr->full_path = ft_strdup(curr->args[0]);
