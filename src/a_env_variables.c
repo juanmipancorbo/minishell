@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-void	dup_env_variables(t_utils *data, char **env)
+void	dup_env_variables(t_utils *utils, char **env)
 {
 	int		i;
 	char	**new_env;
@@ -32,5 +32,5 @@ void	dup_env_variables(t_utils *data, char **env)
 		i++;
 	}
 	new_env[i] = NULL;
-	data->env_var = new_env;
+	utils->env_var = new_env;
 }

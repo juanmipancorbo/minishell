@@ -100,7 +100,7 @@ t_token	*to_tokenize(const char *input);
 /* ************************************************************************** */
 /*                                   PARSER                                   */
 /* ************************************************************************** */
-t_cmd	*to_parse(t_token *tokens, char **env);
+t_cmd	*to_parse(t_token *tokens, t_utils *utils);
 t_cmd	*add_pipe(t_cmd *curr);
 void	add_arg(t_cmd *cmd, char *arg);
 t_red	*create_red_node(char *file, int type);
@@ -136,7 +136,7 @@ void	to_free_four(char *a, char *b, char *c, char *d);
 /* ************************************************************************** */
 /*                                  EXECUTER                                  */
 /* ************************************************************************** */
-void	dup_env_variables(t_utils *data, char **env);
+void	dup_env_variables(t_utils *utils, char **env);
 void	init_execution(t_cmd **command, t_utils *utils);
 int		**create_pipes_fd(int np);
 
