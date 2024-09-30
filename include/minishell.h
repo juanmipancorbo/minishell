@@ -73,7 +73,7 @@ typedef struct s_cmd
 	char			*full_path;
 	t_red			*in_rd;
 	t_red			*out_rd;
-	int 			(*built_in)(struct s_cmd *, t_utils *);
+	int				(*built_in)(struct s_cmd *, t_utils *);
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 }							t_cmd;
@@ -171,7 +171,7 @@ void	set_pipes_fd(t_cmd *cmd, int cmd_id, int **pipes_fd, pid_t pid);
 /* ************************************************************************** */
 /*                                  BUILT IN			                      */
 /* ************************************************************************** */
-int		(*indetyfy_buitin(char *str))(t_cmd *cmd, t_utils *utils);
+int		(*indentify_builtin(char *str))(t_cmd *cmd, t_utils *utils);
 int		ft_cd(t_cmd *cmd, t_utils *utils);
 int		ft_echo(t_cmd *cmd, t_utils *utils);
 int		ft_env(t_cmd *cmd, t_utils *utils);

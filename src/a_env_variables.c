@@ -33,5 +33,4 @@ void	dup_env_variables(t_utils *data, char **env)
 	}
 	new_env[i] = NULL;
 	data->env_var = new_env;
-	return ;
 }

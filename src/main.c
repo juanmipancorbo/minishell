@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/30 16:30:33 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/09/30 16:41:22 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ int	main(int argc, char **argv, char **env)
 
 	if (argc >= 1 && argv[0])
 	{
-		ft_memset(&data, 0, sizeof(data));
 		dup_env_variables(&data, env);
 		print_var(data.env_var);
 		init_loop(&data);

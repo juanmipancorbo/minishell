@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-int	(*indetyfy_buitin(char *str))(t_cmd *cmd, t_utils *utils)
+int	(*indentify_builtin(char *str))(t_cmd *cmd, t_utils *utils)
 {
 	int			i;
 	static void	*built_in[7][2] = {
