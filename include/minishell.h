@@ -179,4 +179,5 @@ int		ft_export(t_cmd *cmd, t_utils *utils);
 int		ft_pwd(t_cmd *cmd, t_utils *utils);
 int		ft_unset(t_cmd *cmd, t_utils *utils);
 int		ft_exit(t_cmd *cmd, t_utils *utils);
+t_bool	is_forked(t_cmd *cmd);
 #endif

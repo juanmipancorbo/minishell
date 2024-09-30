@@ -2,8 +2,6 @@
 
 int	ft_pwd(t_cmd *cmd, t_utils *utils)
 {
-	printf("%s\n", cmd->args[1]);
-	printf("%s\n", utils->env_var[2]);
-	printf("pwd\n");
+	write(1,cmd->args[0],ft_strlen(cmd->args[0]));
 	return (EXIT_SUCCESS);
 }

@@ -22,3 +22,13 @@ int	(*indetyfy_buitin(char *str))(t_cmd *cmd, t_utils *utils)
 	}
 	return (NULL);
 }
+
+t_bool is_forked(t_cmd *cmd)
+{
+	if (!ft_strncmp(cmd->args[0],"echo", ft_strlen(cmd->args[0])) ||\
+		!ft_strncmp(cmd->args[0],"pwd", ft_strlen(cmd->args[0])) ||\
+		!ft_strncmp(cmd->args[0],"env", ft_strlen(cmd->args[0])))
+		return (TRUE);
+	else
+		return (FALSE);
+}

@@ -24,6 +24,35 @@ static void	set_fd_redirections(t_cmd *cmd)
 		dup2(in_node->fd, STDIN_FILENO);
 }
 
+static void	exec_builtin(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
+{
+	pid_t	child;
+
+	if (is_forked(cmd))
+	{
+		child = fork();
+		if (child == -1)
+			manage_error(ERROR);
+		if (child == 0)
+		{
+			set_pipes_fd(cmd, cmd_id, pipes_fd, child);
+			set_fd_redirections(cmd);
+			cmd->built_in(cmd,utils);
+			exit(EXIT_SUCCESS);
+		}
+		else
+		{
+			set_pipes_fd(cmd, cmd_id, pipes_fd, child);
+			close_fd_redlst(cmd);
+			waitpid(child, NULL, 0);
+		}
+	}
+	else
+	{
+		cmd->built_in(cmd,utils);
+	}
+}
+
 static void	exec_cmd(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
 {
 	pid_t	child;
@@ -57,7 +86,10 @@ void	init_execution(t_cmd **command, t_utils *utils)
 	pipes_fd = create_pipes_fd(cmd_lst_size(command));
 	while (cmd != NULL)
 	{
-		exec_cmd(cmd, utils, pipes_fd, cmd_id);
+		if (cmd->built_in != NULL)
+			exec_builtin(cmd, utils, pipes_fd, cmd_id);
+		else	
+			exec_cmd(cmd, utils, pipes_fd, cmd_id);
 		cmd_id++;
 		cmd = cmd->next;
 	}
