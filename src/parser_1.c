@@ -68,12 +68,21 @@ static void	to_path_and_fd(t_cmd *cmds, t_utils *utils)
 		if (curr->args && curr->args[0] && !ft_isspace(*curr->args[0]))
 		{
 			curr->built_in = indentify_builtin(curr->args[0]);
+			//verificacion ejecucion funcion Builtin
+			// if (curr->built_in)
+			// 	curr->built_in(cmds, utils);
+			//// modificacion agustin //
 			if (curr->built_in)
-				curr->built_in(cmds, utils);
-			curr->full_path = find_exe(utils->env_var, curr->args[0]);
-			if (!curr->full_path)
-				curr->full_path = ft_strdup(curr->args[0]);
-			full_path_to_arg(curr);
+			{
+				curr->full_path = curr->args[0];
+			}
+			else
+			{
+				curr->full_path = find_exe(utils->env_var, curr->args[0]);
+				if (!curr->full_path)
+					curr->full_path = ft_strdup(curr->args[0]);
+				full_path_to_arg(curr);
+			}
 		}
 		fill_fd(curr);
 		curr = curr->next;

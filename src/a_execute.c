@@ -49,6 +49,7 @@ static void	exec_builtin(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
 	}
 	else
 	{
+		printf("bui\n");
 		cmd->built_in(cmd, utils);
 	}
 }
@@ -84,6 +85,7 @@ void	init_execution(t_cmd **command, t_utils *utils)
 	cmd = *command;
 	cmd_id = 0;
 	pipes_fd = create_pipes_fd(cmd_lst_size(command));
+	//print_cmds(cmd);
 	while (cmd != NULL)
 	{
 		if (cmd->built_in != NULL)

@@ -77,6 +77,7 @@ void	print_cmds(t_cmd *cmds)
 				out_rd = out_rd->next;
 			}
 		}
+		printf("bi:%p\n", cmds->built_in);
 		cmds = cmds->next;
 	}
 }

@@ -79,25 +79,41 @@ static void	init_loop(t_utils *utils)
 	t_token	*tokens;
 	t_cmd	*cmds;
 
-	prompt = to_prompt(utils->env_var);
-	while (1)
-	{
-		input = readline(prompt);
-		if (!input)
-		{
-			printf("exit\n");
-			break ;
-		}
-		if (*input)
-			add_history(input);
-		tokens = to_tokenize(input);
-		print_tokens(tokens);
-		cmds = to_parse(tokens, utils);
-		print_cmds(cmds);
-		// init_execution
-		clean_loop(input, tokens, cmds);
-	}
-	free_env_copy(utils->env_var);
+	//prompt = to_prompt(utils->env_var); // da fallo
+	//prompt = ft_strdup("minishel: ");
+	// while (1)
+	// {
+	// 	input = readline(prompt);
+	// 	if (!input)
+	// 	{
+	// 		printf("exit\n");
+	// 		break ;
+	// 	}
+	// 	if (*input)
+	// 		add_history(input);
+	// 	tokens = to_tokenize(input);
+	// 	//print_tokens(tokens);
+	// 	cmds = to_parse(tokens, utils);
+	// 	//print_cmds(cmds);
+	// 	init_execution(&cmds, utils);
+	// 	clean_loop(input, tokens, cmds);
+	// }
+	// 	input = readline(prompt);
+	// 	if (!input)
+	// 	{
+	// 		printf("exit\n");
+	// 		break ;
+	// 	}
+
+	input =ft_strdup("env");
+	tokens = to_tokenize(input);
+	//print_tokens(tokens);
+	cmds = to_parse(tokens, utils);
+	//print_cmds(cmds);
+	init_execution(&cmds, utils);
+	//clean_loop(input, tokens, cmds);
+
+	free_env_copy(utils->env_var); // consulta
 	free(prompt);
 }
 
@@ -108,7 +124,7 @@ int	main(int argc, char **argv, char **env)
 	if (argc >= 1 && argv[0])
 	{
 		dup_env_variables(&utils, env);
-		print_var(utils.env_var);
+		//print_var(utils.env_var);
 		init_loop(&utils);
 	}
 	return (0);
