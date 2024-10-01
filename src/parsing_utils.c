@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 18:59:29 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/26 18:18:15 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/10/01 18:52:07 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,17 @@ void	free_redirections(t_red *red)
 	}
 }
 
+static void	free_cmds_more(t_cmd *cmd)
+{
+	if (cmd->full_path)
+		free(cmd->full_path);
+	if (cmd->in_rd)
+		free_redirections(cmd->in_rd);
+	if (cmd->out_rd)
+		free_redirections(cmd->out_rd);
+	free(cmd);
+}
+
 void	free_cmds(t_cmd *cmds)
 {
 	t_cmd	*temp;
@@ -57,25 +68,12 @@ void	free_cmds(t_cmd *cmds)
 			i = 0;
 			while (temp->args[i])
 			{
-				free(temp->args[i]);
+				if (!temp->built_in)
+					free(temp->args[i]);
 				i++;
 			}
 			free(temp->args);
 		}
-		if (temp->full_path)
-			free(temp->full_path);
-		if (temp->in_rd)
-			free_redirections(temp->in_rd);
-		if (temp->out_rd)
-			free_redirections(temp->out_rd);
-		free(temp);
+		free_cmds_more(temp);
 	}
-}
-
-void	free_q(t_token **curr, t_token **end)
-{
-	*end = *curr;
-	*curr = (*curr)->next;
-	free((*end)->value);
-	free(*end);
 }

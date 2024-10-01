@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 17:16:38 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/27 17:53:39 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/10/01 18:59:15 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,12 @@ void	to_free_four(char *a, char *b, char *c, char *d)
 		free(c);
 	if (d)
 		free(d);
+}
+
+void	free_q(t_token **curr, t_token **end)
+{
+	*end = *curr;
+	*curr = (*curr)->next;
+	free((*end)->value);
+	free(*end);
 }
