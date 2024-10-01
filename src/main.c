@@ -91,10 +91,10 @@ static void	init_loop(t_utils *utils)
 		if (*input)
 			add_history(input);
 		tokens = to_tokenize(input);
-		print_tokens(tokens);
+		//print_tokens(tokens);
 		cmds = to_parse(tokens, utils);
-		print_cmds(cmds);
-		// init_execution
+		//print_cmds(cmds);
+		init_execution(&cmds, utils);
 		clean_loop(input, tokens, cmds);
 	}
 	free_env_copy(utils->env_var);
@@ -108,7 +108,6 @@ int	main(int argc, char **argv, char **env)
 	if (argc >= 1 && argv[0])
 	{
 		dup_env_variables(&utils, env);
-		print_var(utils.env_var);
 		init_loop(&utils);
 	}
 	return (0);

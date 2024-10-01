@@ -35,6 +35,9 @@ void	insert_new_tokens(t_token *curr, char **split_words)
 	int		i;
 
 	prev = curr;
+	/////
+	(void)prev;
+	///////
 	i = 0;
 	while (split_words[i])
 	{
