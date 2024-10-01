@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/01 18:35:05 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/10/01 19:42:20 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,9 @@ static void	init_loop(t_utils *utils)
 		if (*input)
 			add_history(input);
 		tokens = to_tokenize(input);
-		print_tokens(tokens);
+		// print_tokens(tokens);
 		cmds = to_parse(tokens, utils);
-		print_cmds(cmds);
+		// print_cmds(cmds);
 		init_execution(&cmds, utils);
 		clean_loop(input, tokens, cmds);
 	}
