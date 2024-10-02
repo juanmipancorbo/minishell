@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/02 18:20:43 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/10/02 18:58:50 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	clean_loop(char *input, t_token *tokens, t_cmd *cmds)
 		temp = tokens;
 		tokens = tokens->next;
 		free(temp->value);
+	//	printf("Free token value.\n");
 		free(temp);
 	}
 	free_cmds(cmds);
@@ -112,5 +113,3 @@ int	main(int argc, char **argv, char **env)
 	}
 	return (0);
 }
-
-

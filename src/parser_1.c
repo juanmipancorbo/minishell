@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 19:13:32 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/02 17:49:52 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/10/02 18:58:52 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ static void	to_path_and_fd(t_cmd *cmds, t_utils *utils)
 		if (curr->args && curr->args[0] && !ft_isspace(*curr->args[0]))
 		{
 			curr->built_in = indentify_builtin(curr->args[0]);
-			// if (curr->built_in)
-			// 	curr->built_in(cmds, utils);
 			if (!curr->built_in)
 			{
 				curr->full_path = find_exe(utils->env_var, curr->args[0]);
