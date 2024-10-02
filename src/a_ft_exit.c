@@ -13,6 +13,8 @@
 
 int	ft_exit(t_cmd *cmd, t_utils *utils)
 {
+	(void)cmd;
+	(void)utils;
 	printf("exit\n");
 	return (EXIT_SUCCESS);
 }
