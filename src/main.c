@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/02 18:58:50 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/10/02 19:28:17 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,8 @@ static void	init_loop(t_utils *utils)
 		// print_tokens(tokens);
 		cmds = to_parse(tokens, utils);
 		// print_cmds(cmds);
-		init_execution(&cmds, utils);
+		if (*input)
+			init_execution(&cmds, utils);
 		clean_loop(input, tokens, cmds);
 	}
 	free_env_copy(utils->env_var);
