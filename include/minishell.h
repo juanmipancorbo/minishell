@@ -144,7 +144,7 @@ int		**create_pipes_fd(int np);
 /*                               FILE DESCRIPTORS                             */
 /* ************************************************************************** */
 void	add_fdnode_back(t_red **lst, t_red *new);
-void	set_file_descriptor(t_cmd *cmd, char *path, t_tkn_type type);
+void	set_file_descriptor(t_red *red);
 void	read_loop(char *str);
 t_bool	check_files(char *path);
 

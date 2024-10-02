@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
+/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 19:13:32 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/01 18:05:30 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/10/02 17:49:52 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ static void	fill_fd(t_cmd *cmd)
 	out_rd = cmd->out_rd;
 	while (in_rd)
 	{
-		set_file_descriptor(cmd, in_rd->file, in_rd->type);
+		set_file_descriptor(in_rd);
 		in_rd = in_rd->next;
 	}
 	while (out_rd)
 	{
-		set_file_descriptor(cmd, out_rd->file, out_rd->type);
+		set_file_descriptor(out_rd);
 		out_rd = out_rd->next;
 	}
 }
