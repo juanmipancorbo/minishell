@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 20:06:25 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/19 21:14:42 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/10/02 18:22:40 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_cmd	*create_cmd_node(void)
 	cmd->out_rd = NULL;
 	cmd->next = NULL;
 	cmd->prev = NULL;
+	cmd->built_in = NULL;
 	return (cmd);
 }
 

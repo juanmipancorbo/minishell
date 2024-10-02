@@ -13,7 +13,7 @@
 
 NAME		= minishell
 
-SRC_FILES 	=main.c tokenizer_1.c tokenizer_2.c utils.c parser_1.c parser_2.c\
+SRC_FILES 	= main.c tokenizer_1.c tokenizer_2.c utils.c parser_1.c parser_2.c\
             parser_3.c expander.c parsing_utils.c a_env_variables.c utils_2.c\
             a_execute.c errors_fn.c file_descriptors.c a_list_fn.c parsing_test.c\
             a_heredoc.c  a_exit_fn.c a_utils.c a_pipes_fn.c a_ft_cd.c\

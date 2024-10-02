@@ -25,10 +25,14 @@ int	(*indentify_builtin(char *str))(t_cmd *cmd, t_utils *utils)
 
 t_bool	is_forked(t_cmd *cmd)
 {
-	if (!ft_strncmp(cmd->args[0], "echo", ft_strlen(cmd->args[0])) \
-		|| !ft_strncmp(cmd->args[0], "pwd", ft_strlen(cmd->args[0])) \
-		|| !ft_strncmp(cmd->args[0], "env", ft_strlen(cmd->args[0])))
-		return (TRUE);
-	else
-		return (FALSE);
+	if (cmd->args)
+	{
+		if (!ft_strncmp(cmd->args[0], "echo", ft_strlen(cmd->args[0])) \
+			|| !ft_strncmp(cmd->args[0], "pwd", ft_strlen(cmd->args[0])) \
+			|| !ft_strncmp(cmd->args[0], "env", ft_strlen(cmd->args[0])))
+			return (TRUE);
+		else
+			return (FALSE);
+	}
+	return (TRUE);
 }
