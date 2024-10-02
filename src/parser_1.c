@@ -48,12 +48,12 @@ static void	fill_fd(t_cmd *cmd)
 	out_rd = cmd->out_rd;
 	while (in_rd)
 	{
-		set_file_descriptor(cmd, in_rd->file, in_rd->type);
+		set_file_descriptor(in_rd);
 		in_rd = in_rd->next;
 	}
 	while (out_rd)
 	{
-		set_file_descriptor(cmd, out_rd->file, out_rd->type);
+		set_file_descriptor(out_rd);
 		out_rd = out_rd->next;
 	}
 }
@@ -98,10 +98,11 @@ static void	parse_tkn(t_token *token, t_cmd *cmd)
 	{
 		if (!token->next || token->next->type != WORD)
 		{
-			printf("Error: A file was expected.\n");
+					printf("Error: A file was expected.\n");
 			return ;
 		}
 		token = token->next;
+		//// incorporar file descriptor al nodo // 
 		add_red(cmd, token->value, token->prev->type);
 		return ;
 	}

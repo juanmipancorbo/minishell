@@ -16,6 +16,7 @@ void	add_red(t_cmd *cmd, char *file, int type)
 {
 	t_red	*red;
 
+	/// agregar file descriptor //
 	red = create_red_node(file, type);
 	if (!red)
 		return ;

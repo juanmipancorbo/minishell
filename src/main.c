@@ -105,7 +105,7 @@ static void	init_loop(t_utils *utils)
 	// 		break ;
 	// 	}
 
-	input =ft_strdup("env");
+	input =ft_strdup("ls -l > aaa > bbb");
 	tokens = to_tokenize(input);
 	//print_tokens(tokens);
 	cmds = to_parse(tokens, utils);
