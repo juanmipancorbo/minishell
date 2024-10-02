@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/02 19:28:17 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/10/02 21:02:49 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,11 @@ static void	init_loop(t_utils *utils)
 	t_token	*tokens;
 	t_cmd	*cmds;
 
-	prompt = to_prompt(utils->env_var);
 	while (1)
 	{
+		prompt = to_prompt(utils->env_var);
 		input = readline(prompt);
+		free(prompt);
 		if (!input)
 		{
 			printf("exit\n");
@@ -100,7 +101,6 @@ static void	init_loop(t_utils *utils)
 		clean_loop(input, tokens, cmds);
 	}
 	free_env_copy(utils->env_var);
-	free(prompt);
 }
 
 int	main(int argc, char **argv, char **env)
