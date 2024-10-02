@@ -13,7 +13,14 @@
 
 int	ft_env(t_cmd *cmd, t_utils *utils)
 {
-	(void)utils;
-	write(1, cmd->args[0], ft_strlen(cmd->args[0]));
+	int	i;
+
+	(void)cmd;
+	i = 0;
+	while (utils->env_var[i])
+	{
+		ft_putendl_fd(utils->env_var[i], STDOUT_FILENO);
+		i++;
+	}
 	return (EXIT_SUCCESS);
 }
