@@ -132,6 +132,7 @@ char	*ft_strcpy(char *dst, const char *src);
 char	*copy_after_str(const char *src, const char *target);
 char	*replace_str(char *old_str, char *new_str);
 void	to_free_four(char *a, char *b, char *c, char *d);
+char	*ft_strjoin_free(char *s1, char const *s2);
 
 /* ************************************************************************** */
 /*                                  EXECUTER                                  */
@@ -149,13 +150,13 @@ void	read_loop(char *str);
 t_bool	check_files(char *path);
 
 /* ************************************************************************** */
-/*                                  EXIT & ERRORS     	                      */
+/*                                EXIT & ERRORS     	                      */
 /* ************************************************************************** */
 void	clean_exit(t_cmd **cmd);
 void	manage_error(char *msg);
 
 /* ************************************************************************** */
-/*                                  LIST UTILS		                          */
+/*                                 LIST UTILS		                          */
 /* ************************************************************************** */
 int		cmd_lst_size(t_cmd **cmd);
 t_red	*red_last_node(t_red *lst);
@@ -164,7 +165,7 @@ t_red	*create_fd_node(char *path, int fd);
 void	close_fd_redlst(t_cmd *cmd);
 
 /* ************************************************************************** */
-/*                                  PIPES FUNCTIONS		                      */
+/*                               PIPES FUNCTIONS		                      */
 /* ************************************************************************** */
 void	set_pipes_fd(t_cmd *cmd, int cmd_id, int **pipes_fd, pid_t pid);
 
@@ -180,4 +181,6 @@ int		ft_pwd(t_cmd *cmd, t_utils *utils);
 int		ft_unset(t_cmd *cmd, t_utils *utils);
 int		ft_exit(t_cmd *cmd, t_utils *utils);
 t_bool	is_forked(t_cmd *cmd);
+int		replace_env_var(char *var_name, char *new_value, t_utils *utils);
+
 #endif

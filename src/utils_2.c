@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 17:16:38 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/01 18:59:15 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/10/02 20:19:32 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,29 @@ char	*replace_str(char *old_str, char *new_str)
 		free(old_str);
 	old_str = new_str;
 	return (old_str);
+}
+
+char	*ft_strjoin_free(char *s1, char const *s2)
+{
+	size_t	i;
+	size_t	y;
+	size_t	len;
+	char	*newstr;
+
+	i = 0;
+	y = 0;
+	len = ft_strlen(s1) + ft_strlen(s2);
+	newstr = malloc(sizeof(char) * (len + 1));
+	if (!newstr)
+		return (NULL);
+	while (s1[i])
+		newstr[i++] = s1[y++];
+	i = 0;
+	while (s2[i])
+		newstr[y++] = s2[i++];
+	newstr[y] = 0;
+	free(s1);
+	return (newstr);
 }
 
 void	to_free_four(char *a, char *b, char *c, char *d)
