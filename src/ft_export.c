@@ -34,11 +34,22 @@ int	ft_export(t_cmd *cmd, t_utils *utils)
 	char	*value;
 	int		i;
 
+	if (!cmd->args[1])
+	{
+		i = 0;
+		while (utils->env_var[i])
+		{
+			printf("declare -x %s\n", utils->env_var[i]);
+			i++;
+		}
+		return (0);
+	}
 	i = 1;
 	while (cmd->args[i])
 	{
 		var_name = ft_strdup(cmd->args[i]);
-		if (value == ft_strchr(var_name, '='))
+		value = ft_strchr(var_name, '=');
+		if (value)
 		{
 			*value = '\0';
 			value++;
