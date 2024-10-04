@@ -180,6 +180,10 @@ int		ft_export(t_cmd *cmd, t_utils *utils);
 int		ft_pwd(t_cmd *cmd, t_utils *utils);
 int		ft_unset(t_cmd *cmd, t_utils *utils);
 int		ft_exit(t_cmd *cmd, t_utils *utils);
+
+/* ************************************************************************** */
+/*                                BUILT IN UTILS			                  */
+/* ************************************************************************** */
 t_bool	is_forked(t_cmd *cmd);
 int		replace_env_var(char *var_name, char *new_value, t_utils *utils);
 
