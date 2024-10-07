@@ -38,6 +38,14 @@ static int	is_valid_identifier(char *str)
 	return (1);
 }
 
+// static void	to_export_var(char *arg, t_utils *utils)
+// {
+// 	char	*value;
+
+// 	value = ft_strdup(arg);
+// 	is (value[0] == )
+// }
+
 static void	to_env_var(char *arg, t_utils *utils)
 {
 	char	*var_name;
@@ -52,7 +60,7 @@ static void	to_env_var(char *arg, t_utils *utils)
 	}
 	else
 		return (free(var_name));
-	if (!is_valid_identifier(var_name) || arg[0] == '=')
+	if (!is_valid_identifier(var_name) || *arg == '=' || *arg == '$')
 	{
 		printf("bash: export: `%s': not a valid identifier\n", arg);
 		return (free(var_name));
@@ -70,6 +78,9 @@ int	ft_export(t_cmd *cmd, t_utils *utils)
 		return (print_env_var(utils));
 	i = 0;
 	while (cmd->args[++i])
+	{
+		// to_export_var(cmd->args[i], utils);
 		to_env_var(cmd->args[i], utils);
+	}
 	return (0);
 }

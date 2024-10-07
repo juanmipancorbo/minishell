@@ -57,6 +57,7 @@ typedef struct s_token
 typedef struct s_utils
 {
 	char	**env_var;
+	char	**export_var;
 }							t_utils;
 
 typedef struct s_red
