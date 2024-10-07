@@ -186,5 +186,6 @@ int		ft_exit(t_cmd *cmd, t_utils *utils);
 /* ************************************************************************** */
 t_bool	is_forked(t_cmd *cmd);
 int		replace_env_var(char *var_name, char *new_value, t_utils *utils);
+void	add_env_var(char *var_name, char *value, t_utils *utils);
 
 #endif
