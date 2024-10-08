@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   a_env_variables.c                                  :+:      :+:    :+:   */
+/*   env_variables.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/03 13:10:38 by apaterno          #+#    #+#             */
-/*   Updated: 2024/09/03 13:10:38 by apaterno         ###   ########.fr       */
+/*   Created: 2024/10/07 20:07:01 by jpancorb          #+#    #+#             */
+/*   Updated: 2024/10/07 20:07:01 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,31 @@ int	replace_env_var(char *var_name, char *new_value, t_utils *utils)
 	}
 	free(new_var);
 	return (-1);
+}
+
+void	add_env_var(char *var_name, char *value, t_utils *utils)
+{
+	char	**new_env_var;
+	char	*new_var;
+	int		i;
+
+	new_var = ft_strjoin(var_name, "=");
+	if (!new_var)
+		return ;
+	new_var = ft_strjoin_free(new_var, value);
+	if (!new_var)
+		return ;
+	i = 0;
+	while (utils->env_var[i])
+		i++;
+	new_env_var = malloc(sizeof(char *) * (i + 2));
+	if (!new_env_var)
+		return ;
+	i = -1;
+	while (utils->env_var[++i])
+		new_env_var[i] = utils->env_var[i];
+	new_env_var[i] = new_var;
+	new_env_var[i + 1] = NULL;
+	free(utils->env_var);
+	utils->env_var = new_env_var;
 }
