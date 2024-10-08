@@ -6,7 +6,7 @@
 /*   By: apaterno <apaterno@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 16:27:07 by apaterno          #+#    #+#             */
-/*   Updated: 2024/10/08 12:24:13 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/10/08 16:35:20 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 static void sig_handler(int sig)
 {
-	(void)sig;
-	write(1,"\n",1);
-	rl_replace_line("",0);
-	rl_on_new_line();
-	rl_redisplay();
+	if (sig == SIGINT )
+	{
+		write(1,"\n",1);
+		rl_replace_line("",0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
 }
 
 static void child_handler(int sig)
@@ -31,6 +33,7 @@ static void child_handler(int sig)
 	}
 	if (sig == SIGQUIT)
 	{
+		write(1,"Quit\n",5);
 		rl_on_new_line();
 	}
 }

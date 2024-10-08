@@ -6,7 +6,7 @@
 /*   By: apaterno <apaterno@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/08 12:41:43 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/10/08 16:24:52 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,9 @@ static void	init_loop(t_utils *utils)
 
 	while (1)
 	{
-		prompt = to_prompt(utils->env_var);
-		input = readline(prompt);
-		free(prompt);
+		//prompt = to_prompt(utils->env_var);
+		input = readline("mini>");
+		//free(prompt);
 		if (!input)
 		{
 			printf("exit\n");

@@ -58,11 +58,11 @@ static void	exec_cmd(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
 	pid_t	child;
 
 	child = fork();
+	init_signals(0);
 	if (child == -1)
 		manage_error(ERROR);
 	if (child == 0)
 	{
-		init_signals(0);
 		set_pipes_fd(cmd, cmd_id, pipes_fd, child);
 		set_fd_redirections(cmd);
 		if (execve(cmd->full_path, cmd->args, utils->env_var) != 0)
@@ -85,7 +85,6 @@ void	init_execution(t_cmd **command, t_utils *utils)
 	cmd = *command;
 	cmd_id = 0;
 	pipes_fd = create_pipes_fd(cmd_lst_size(command));
-	init_signals(0);
 	while (cmd != NULL)
 	{
 		if (cmd->built_in != NULL)
@@ -94,5 +93,6 @@ void	init_execution(t_cmd **command, t_utils *utils)
 			exec_cmd(cmd, utils, pipes_fd, cmd_id);
 		cmd_id++;
 		cmd = cmd->next;
+		init_signals(1);
 	}
 }
