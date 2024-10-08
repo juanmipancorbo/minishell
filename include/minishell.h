@@ -193,5 +193,5 @@ void	add_env_var(char *var_name, char *value, t_utils *utils);
 /*                                  SIGNALS			                          */
 /* ************************************************************************** */
 
-void init_signals(void);
+void init_signals(int i);
 #endif

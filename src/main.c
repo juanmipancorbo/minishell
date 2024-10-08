@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apaterno <apaterno@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/04 18:54:20 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/10/08 12:41:43 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int	main(int argc, char **argv, char **env)
 
 	if (argc >= 1 && argv[0])
 	{
-		init_signals();
+		init_signals(1);
 		dup_env_variables(&utils, env);
 		init_loop(&utils);
 	}
