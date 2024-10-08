@@ -46,11 +46,40 @@ static int	is_valid_identifier(char *str)
 // 	is (value[0] == )
 // }
 
+// static void	to_env_var(char *arg, t_utils *utils)
+// {
+// 	char	*var_name;
+// 	char	*value;
+
+// 	var_name = ft_strdup(arg);
+// 	value = ft_strchr(var_name, '=');
+// 	if (value)
+// 	{
+// 		*value = '\0';
+// 		value++;
+// 	}
+// 	else
+// 		return (free(var_name));
+// 	printf("Value: %s\n", arg);
+// 	if (!is_valid_identifier(var_name) || arg[0] == '=' || arg[0] == '$')
+// 	{
+// 		printf("bash: export: `%s': not a valid identifier\n", arg);
+// 		return (free(var_name));
+// 	}
+// 	if (replace_env_var(var_name, value, utils))
+// 		add_env_var(var_name, value, utils);
+// 	free(var_name);
+// }
 static void	to_env_var(char *arg, t_utils *utils)
 {
 	char	*var_name;
 	char	*value;
 
+	if (!is_valid_identifier(arg) || arg[0] == '=' || arg[0] == '$')
+	{
+		printf("bash: export: `%s': not a valid identifier\n", arg);
+		return ;
+	}
 	var_name = ft_strdup(arg);
 	value = ft_strchr(var_name, '=');
 	if (value)
@@ -60,11 +89,6 @@ static void	to_env_var(char *arg, t_utils *utils)
 	}
 	else
 		return (free(var_name));
-	if (!is_valid_identifier(var_name) || *arg == '=' || *arg == '$')
-	{
-		printf("bash: export: `%s': not a valid identifier\n", arg);
-		return (free(var_name));
-	}
 	if (replace_env_var(var_name, value, utils))
 		add_env_var(var_name, value, utils);
 	free(var_name);

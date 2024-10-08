@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 20:48:49 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/19 21:12:42 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/10/08 18:11:29 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,7 @@ void	insert_new_tokens(t_token *curr, char **split_words)
 	int		i;
 
 	prev = curr;
-	/////
 	(void)prev;
-	///////
 	i = 0;
 	while (split_words[i])
 	{
@@ -57,7 +55,7 @@ void	insert_new_tokens(t_token *curr, char **split_words)
 	}
 }
 
-void	expand_tokens(t_token *tokens, char **env)
+void	expand_tokens(t_token *tokens, t_utils *utils)
 {
 	t_token	*curr;
 	char	*expanded;
@@ -68,12 +66,15 @@ void	expand_tokens(t_token *tokens, char **env)
 	{
 		if (curr->type == VAR)
 		{
-			expanded = expand_var(curr->value, env);
+			expanded = expand_var(curr->value, utils->env_var);
 			split_words = ft_split(expanded, ' ');
 			free(expanded);
 			insert_new_tokens(curr, split_words);
 			ft_free_split(split_words);
 		}
+		if (curr->type == WORD && curr->value[0] == '$'
+			&& curr->value[1] == '$')
+			insert_new_tokens(curr, utils->pid);
 		curr = curr->next;
 	}
 }

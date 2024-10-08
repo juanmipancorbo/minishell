@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:57:08 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/19 20:41:45 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/10/08 17:29:16 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ t_token	*to_tokenize(const char *input)
 			to_redirect(&input, &head, &curr);
 		else if (*input == '|')
 			to_pipe(&input, &head, &curr);
-		else if (*input == '$')
+		else if (*input == '$' && input[1] != '$' && input[1])
 			to_variable(&input, &head, &curr);
 		else
 			to_word(&input, &head, &curr);

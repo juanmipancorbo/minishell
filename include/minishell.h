@@ -56,8 +56,10 @@ typedef struct s_token
 
 typedef struct s_utils
 {
+	char	**env;
 	char	**env_var;
 	char	**export_var;
+	int		pid;
 }							t_utils;
 
 typedef struct s_red
@@ -110,7 +112,7 @@ void	add_in_red(t_cmd *cmd, t_red *red);
 void	add_out_red(t_cmd *cmd, t_red *red);
 t_cmd	*create_cmd_node(void);
 char	*expand_var(char *var, char **env);
-void	expand_tokens(t_token *tokens, char **env);
+void	expand_tokens(t_token *tokens, t_utils *utils);
 void	between_q(t_token **tokens);
 char	*join_path_cmd(char *path, char *cmd);
 char	*get_env_value(char **env, const char *var_name);

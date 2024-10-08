@@ -18,6 +18,8 @@ void	dup_env_variables(t_utils *utils, char **env)
 	char	**new_env;
 
 	i = 0;
+	utils->env = env;
+	// meter algo que coja el PID del proceso
 	while (env[i])
 		i++;
 	new_env = malloc(sizeof(char *) * (i + 1));
