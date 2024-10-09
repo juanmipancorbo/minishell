@@ -23,7 +23,7 @@ void	read_loop(char *str)
 	while (1)
 	{
 		line = readline(">");
-		if (!ft_strncmp(line, str, ft_strlen(str)))
+		if (!ft_strncmp(line, str, ft_strlen(str) + 1))
 		{
 			free(line);
 			return ;
