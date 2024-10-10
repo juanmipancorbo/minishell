@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/10 17:06:50 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/10/10 18:25:15 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ static void	clean_loop(char *input, t_token *tokens, t_cmd *cmds)
 		temp = tokens;
 		tokens = tokens->next;
 		free(temp->value);
-	//	printf("Free token value.\n");
 		free(temp);
 	}
 	free_cmds(cmds);
@@ -109,7 +108,7 @@ int	main(int argc, char **argv, char **env)
 
 	if (argc >= 1 && argv[0])
 	{
-		dup_env_variables(&utils, env);
+		dup_env_variables(&utils, env, env, &utils.env_var);
 		init_loop(&utils);
 	}
 	return (0);

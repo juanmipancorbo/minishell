@@ -140,7 +140,7 @@ char	*ft_strjoin_free(char *s1, char const *s2);
 /* ************************************************************************** */
 /*                                  EXECUTER                                  */
 /* ************************************************************************** */
-void	dup_env_variables(t_utils *utils, char **env);
+void	dup_env_variables(t_utils *utils, char **env, char **from, char ***to);
 void	init_execution(t_cmd **command, t_utils *utils);
 int		**create_pipes_fd(int np);
 
@@ -188,7 +188,7 @@ int		ft_exit(t_cmd *cmd, t_utils *utils);
 /*                                BUILT IN UTILS			                  */
 /* ************************************************************************** */
 t_bool	is_forked(t_cmd *cmd);
-int		replace_env_var(char *var_name, char *new_value, t_utils *utils);
-void	add_env_var(char *var_name, char *value, t_utils *utils);
+int		replace_env_var(char *var_name, char *new_value, char **env);
+void	add_env_var(char *var_name, char *value, char **env);
 
 #endif

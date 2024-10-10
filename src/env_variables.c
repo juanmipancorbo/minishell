@@ -50,32 +50,36 @@ static void	to_get_pid(t_utils *utils)
 	close(fd);
 }
 
-void	dup_env_variables(t_utils *utils, char **env)
+void	dup_env_variables(t_utils *utils, char **env, char **from, char ***to)
 {
 	int		i;
 	char	**new_env;
 
 	i = 0;
-	utils->env = env;
-	to_get_pid(utils);
-	while (env[i])
+	if (env)
+	{
+		utils->env = env;
+		utils->export_var = NULL;
+		to_get_pid(utils);
+	}
+	while (from[i])
 		i++;
 	new_env = malloc(sizeof(char *) * (i + 1));
 	if (!new_env)
 		manage_error(MALLOC_E);
 	i = 0;
-	while (env[i])
+	while (from[i])
 	{
-		new_env[i] = ft_strdup(env[i]);
+		new_env[i] = ft_strdup(from[i]);
 		if (!new_env[i])
 			manage_error(MALLOC_E);
 		i++;
 	}
 	new_env[i] = NULL;
-	utils->env_var = new_env;
+	*to = new_env;
 }
 
-int	replace_env_var(char *var_name, char *new_value, t_utils *utils)
+int	replace_env_var(char *var_name, char *new_value, char **env)
 {
 	int		i;
 	char	*new_var;
@@ -89,13 +93,12 @@ int	replace_env_var(char *var_name, char *new_value, t_utils *utils)
 	if (!new_var)
 		return (-1);
 	i = 0;
-	while (utils->env_var[i])
+	while (env[i])
 	{
-		if (!ft_strncmp(utils->env_var[i], var_name, var_len)
-			&& utils->env_var[i][var_len] == '=')
+		if (!ft_strncmp(env[i], var_name, var_len) && env[i][var_len] == '=')
 		{
-			free(utils->env_var[i]);
-			utils->env_var[i] = new_var;
+			free(env[i]);
+			env[i] = new_var;
 			return (0);
 		}
 		i++;
@@ -104,7 +107,7 @@ int	replace_env_var(char *var_name, char *new_value, t_utils *utils)
 	return (-1);
 }
 
-void	add_env_var(char *var_name, char *value, t_utils *utils)
+void	add_env_var(char *var_name, char *value, char **env)
 {
 	char	**new_env_var;
 	char	*new_var;
@@ -117,16 +120,16 @@ void	add_env_var(char *var_name, char *value, t_utils *utils)
 	if (!new_var)
 		return ;
 	i = 0;
-	while (utils->env_var[i])
+	while (env[i])
 		i++;
 	new_env_var = malloc(sizeof(char *) * (i + 2));
 	if (!new_env_var)
 		return ;
 	i = -1;
-	while (utils->env_var[++i])
-		new_env_var[i] = utils->env_var[i];
+	while (env[++i])
+		new_env_var[i] = env[i];
 	new_env_var[i] = new_var;
 	new_env_var[i + 1] = NULL;
-	free(utils->env_var);
-	utils->env_var = new_env_var;
+	free(env);
+	env = new_env_var;
 }

@@ -17,8 +17,8 @@ static int	print_env_var(t_utils *utils)
 	int		i;
 
 	i = -1;
-	while (utils->env_var[++i])
-		printf("declare -x %s\n", utils->env_var[i]);
+	while (utils->export_var[++i])
+		printf("declare -x %s\n", utils->export_var[i]);
 	return (0);
 }
 
@@ -38,39 +38,7 @@ static int	is_valid_identifier(char *str)
 	return (1);
 }
 
-// static void	to_export_var(char *arg, t_utils *utils)
-// {
-// 	char	*value;
-
-// 	value = ft_strdup(arg);
-// 	is (value[0] == )
-// }
-
-// static void	to_env_var(char *arg, t_utils *utils)
-// {
-// 	char	*var_name;
-// 	char	*value;
-
-// 	var_name = ft_strdup(arg);
-// 	value = ft_strchr(var_name, '=');
-// 	if (value)
-// 	{
-// 		*value = '\0';
-// 		value++;
-// 	}
-// 	else
-// 		return (free(var_name));
-// 	printf("Value: %s\n", arg);
-// 	if (!is_valid_identifier(var_name) || arg[0] == '=' || arg[0] == '$')
-// 	{
-// 		printf("bash: export: `%s': not a valid identifier\n", arg);
-// 		return (free(var_name));
-// 	}
-// 	if (replace_env_var(var_name, value, utils))
-// 		add_env_var(var_name, value, utils);
-// 	free(var_name);
-// }
-static void	to_env_var(char *arg, t_utils *utils)
+static void	to_env_var(char *arg, char **env)
 {
 	char	*var_name;
 	char	*value;
@@ -89,8 +57,8 @@ static void	to_env_var(char *arg, t_utils *utils)
 	}
 	else
 		return (free(var_name));
-	if (replace_env_var(var_name, value, utils))
-		add_env_var(var_name, value, utils);
+	if (replace_env_var(var_name, value, env))
+		add_env_var(var_name, value, env);
 	free(var_name);
 }
 
@@ -98,13 +66,15 @@ int	ft_export(t_cmd *cmd, t_utils *utils)
 {
 	int		i;
 
+	if (utils->env_var)
+		dup_env_variables(utils, NULL, utils->env_var, &utils->export_var);
 	if (!cmd->args[1])
 		return (print_env_var(utils));
 	i = 0;
 	while (cmd->args[++i])
 	{
-		// to_export_var(cmd->args[i], utils);
-		to_env_var(cmd->args[i], utils);
+		// to_env_var(cmd->args[i], utils->export_var);
+		to_env_var(cmd->args[i], utils->env_var);
 	}
 	return (0);
 }
