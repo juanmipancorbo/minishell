@@ -15,10 +15,10 @@
 void	manage_error(char *msg)
 {
 	perror(msg);
-	//exit(EXIT_FAILURE);
+	exit(EXIT_FAILURE);
 }
 
-void file_error(char *msg)
+void	file_error(char *msg)
 {
 	perror(msg);
 	free(msg);

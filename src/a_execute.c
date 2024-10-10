@@ -15,7 +15,7 @@ static void	set_fd_redirections(t_cmd *cmd)
 {
 	t_red	*in_node;
 	t_red	*out_node;
-	
+
 	in_node = red_last_node(cmd->in_rd);
 	out_node = red_last_node(cmd->out_rd);
 	if (out_node != NULL)

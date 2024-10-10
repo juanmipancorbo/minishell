@@ -58,7 +58,7 @@ static void	set_heredoc_fd(t_red *red)
 	read_loop(red->file);
 	fd = open(HEREDOC_F, O_RDONLY);
 	if (fd < 0)
-		file_error(ft_strjoin("-bash: ", HEREDOC_F));;
+		file_error(ft_strjoin("-bash: ", HEREDOC_F));
 	red->fd = fd;
 }
 
