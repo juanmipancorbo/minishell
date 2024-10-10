@@ -27,7 +27,7 @@ static void	parse_pid(t_utils *utils, char *buffer)
 	utils->pid = malloc(sizeof(char) * (i + 1));
 	if (!utils->pid)
 		printf("Malloc error: parse_pid.\n");
-	strcpy(utils->pid, temp);
+	ft_strlcpy(utils->pid, temp, ft_strlen(temp));
 }
 
 static void	to_get_pid(t_utils *utils)

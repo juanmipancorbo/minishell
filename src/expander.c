@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 20:48:49 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/10 17:42:20 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/10/10 21:32:27 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,14 @@ void	expand_tokens(t_token *tokens, t_utils *utils)
 			insert_new_tokens(curr, split_words);
 			ft_free_split(split_words);
 		}
-		else if (curr->type == WORD && curr->value[0] == '$'
-			&& curr->value[1] == '$')
+		else if (curr->type == WORD)
 		{
-			free(curr->value);
-			curr->value = utils->pid;
+			expanded = expand_dollars(curr->value, utils->pid);
+			if (expanded)
+			{
+				free(curr->value);
+				curr->value = expanded;
+			}
 		}
 		curr = curr->next;
 	}

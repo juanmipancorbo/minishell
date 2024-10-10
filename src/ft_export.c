@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-static int	print_env_var(t_utils *utils)
+static int	print_export_var(t_utils *utils)
 {
 	int		i;
 
@@ -66,10 +66,10 @@ int	ft_export(t_cmd *cmd, t_utils *utils)
 {
 	int		i;
 
-	if (utils->env_var)
+	if (utils->env_var && !utils->export_var)
 		dup_env_variables(utils, NULL, utils->env_var, &utils->export_var);
 	if (!cmd->args[1])
-		return (print_env_var(utils));
+		return (print_export_var(utils));
 	i = 0;
 	while (cmd->args[++i])
 	{

@@ -190,5 +190,6 @@ int		ft_exit(t_cmd *cmd, t_utils *utils);
 t_bool	is_forked(t_cmd *cmd);
 int		replace_env_var(char *var_name, char *new_value, char **env);
 void	add_env_var(char *var_name, char *value, char **env);
+char	*expand_dollars(const char *str, const char *pid);
 
 #endif
