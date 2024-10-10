@@ -59,7 +59,7 @@ typedef struct s_utils
 	char	**env;
 	char	**env_var;
 	char	**export_var;
-	int		pid;
+	char	*pid;
 }							t_utils;
 
 typedef struct s_red
@@ -91,7 +91,7 @@ typedef enum s_bool
 /*                                  TOKENIZER                                 */
 /* ************************************************************************** */
 void	add_token_node(t_token **head, t_token **curr, t_token **token);
-void	free_env_copy(char **env_var);
+void	free_env_copy(t_utils *utils);
 t_token	*new_token(t_tkn_type type, char *value);
 void	q_content(const char *start, const char *input, t_token **head,
 			t_token **curr);

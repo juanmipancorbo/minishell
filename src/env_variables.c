@@ -12,6 +12,44 @@
 
 #include "../include/minishell.h"
 
+static void	parse_pid(t_utils *utils, char *buffer)
+{
+	int		i;
+	char	temp[12];
+
+	i = 0;
+	while (buffer[i] >= '0' && buffer[i] <= '9' && i < 11)
+	{
+		temp[i] = buffer[i];
+		i++;
+	}
+	temp[i] = '\0';
+	utils->pid = malloc(sizeof(char) * (i + 1));
+	if (!utils->pid)
+		printf("Malloc error: parse_pid.\n");
+	strcpy(utils->pid, temp);
+}
+
+static void	to_get_pid(t_utils *utils)
+{
+	int		fd;
+	int		bytes_read;
+	char	buffer[256];
+
+	fd = open("/proc/self/stat", O_RDONLY);
+	if (fd == -1)
+		return ;
+	bytes_read = read(fd, buffer, 255);
+	if (bytes_read == -1)
+	{
+		close(fd);
+		return ;
+	}
+	buffer[bytes_read] = '\0';
+	parse_pid(utils, buffer);
+	close(fd);
+}
+
 void	dup_env_variables(t_utils *utils, char **env)
 {
 	int		i;
@@ -19,7 +57,7 @@ void	dup_env_variables(t_utils *utils, char **env)
 
 	i = 0;
 	utils->env = env;
-	// meter algo que coja el PID del proceso
+	to_get_pid(utils);
 	while (env[i])
 		i++;
 	new_env = malloc(sizeof(char *) * (i + 1));

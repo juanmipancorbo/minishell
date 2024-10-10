@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/08 17:28:56 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/10/10 17:06:50 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ static void	init_loop(t_utils *utils)
 			init_execution(&cmds, utils);
 		clean_loop(input, tokens, cmds);
 	}
-	free_env_copy(utils->env_var);
+	free_env_copy(utils);
 }
 
 int	main(int argc, char **argv, char **env)

@@ -51,7 +51,7 @@ int	ft_exit(t_cmd *cmd, t_utils *utils)
 	}
 	else
 		exit_code = 0;
-	free_env_copy(utils->env_var);
+	free_env_copy(utils);
 	exit(exit_code);
 	return (0);
 }
