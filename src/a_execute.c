@@ -15,7 +15,7 @@ static void	set_fd_redirections(t_cmd *cmd)
 {
 	t_red	*in_node;
 	t_red	*out_node;
-
+	
 	in_node = red_last_node(cmd->in_rd);
 	out_node = red_last_node(cmd->out_rd);
 	if (out_node != NULL)
@@ -57,6 +57,7 @@ static void	exec_cmd(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
 {
 	pid_t	child;
 
+	fill_fd(cmd);
 	child = fork();
 	init_signals(0);
 	if (child == -1)

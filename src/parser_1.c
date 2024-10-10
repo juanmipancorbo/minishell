@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
+/*   By: apaterno <apaterno@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 19:13:32 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/02 18:58:52 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/10/10 11:37:24 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,22 +39,22 @@ static char	*find_exe(char **env, char *cmd)
 	return (NULL);
 }
 
-static void	fill_fd(t_cmd *cmd)
+void	fill_fd(t_cmd *cmd)
 {
 	t_red	*in_rd;
 	t_red	*out_rd;
 
 	in_rd = cmd->in_rd;
 	out_rd = cmd->out_rd;
-	while (in_rd)
-	{
-		set_file_descriptor(in_rd);
-		in_rd = in_rd->next;
-	}
 	while (out_rd)
 	{
 		set_file_descriptor(out_rd);
 		out_rd = out_rd->next;
+	}
+	while (in_rd)
+	{
+		set_file_descriptor(in_rd);
+		in_rd = in_rd->next;
 	}
 }
 
@@ -76,7 +76,7 @@ static void	to_path_and_fd(t_cmd *cmds, t_utils *utils)
 				full_path_to_arg(curr);
 			}
 		}
-		fill_fd(curr);
+		//fill_fd(curr); // cambiada la funcion set_fd_redirections
 		curr = curr->next;
 	}
 }

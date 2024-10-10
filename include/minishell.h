@@ -21,7 +21,8 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 # include <unistd.h>
-# include <signal.h>
+
+//extern int	g_exit_code;
 
 /* ************************************************************************** */
 /*                                    DEFINES                                 */
@@ -149,12 +150,14 @@ void	add_fdnode_back(t_red **lst, t_red *new);
 void	set_file_descriptor(t_red *red);
 void	read_loop(char *str);
 t_bool	check_files(char *path);
+void	fill_fd(t_cmd *cmd);
 
 /* ************************************************************************** */
 /*                                EXIT & ERRORS     	                      */
 /* ************************************************************************** */
 void	clean_exit(t_cmd **cmd);
 void	manage_error(char *msg);
+void	file_error(char *msg);
 
 /* ************************************************************************** */
 /*                                 LIST UTILS		                          */
