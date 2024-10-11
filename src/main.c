@@ -6,7 +6,7 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/11 18:05:47 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/10/11 18:21:13 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static void	init_loop(t_utils *utils)
 		// print_tokens(tokens);
 		cmds = to_parse(tokens, utils);
 		// print_cmds(cmds);
-		if (*input)
+		if (*input && cmds != NULL)
 			init_execution(&cmds, utils);
 		clean_loop(input, tokens, cmds);
 	}

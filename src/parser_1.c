@@ -6,7 +6,7 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 19:13:32 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/11 17:50:01 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/10/11 18:29:38 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,11 @@ static void	to_path_and_fd(t_cmd *cmds, t_utils *utils)
 				full_path_to_arg(curr);
 			}
 		}
-		//fill_fd(curr); // cambiada la funcion set_fd_redirections
 		curr = curr->next;
 	}
 }
 
-static void	parse_tkn(t_token *token, t_cmd *cmd)
+static t_bool	parse_tkn(t_token *token, t_cmd *cmd)
 {
 	if (token->type == WORD || token->type == VAR)
 		add_arg(cmd, token->value);
@@ -93,13 +92,13 @@ static void	parse_tkn(t_token *token, t_cmd *cmd)
 	{
 		if (!token->next || token->next->type != WORD)
 		{
-			printf("Error: A file was expected.\n");
-			return ;
+			printf("bash: syntax error near unexpected token `newline'\n");
+			return (FALSE);
 		}
 		token = token->next;
 		add_red(cmd, token->value, token->prev->type);
-		return ;
 	}
+	return (TRUE);
 }
 
 t_cmd	*to_parse(t_token *tokens, t_utils *utils)
@@ -119,7 +118,8 @@ t_cmd	*to_parse(t_token *tokens, t_utils *utils)
 			curr = add_pipe(curr);
 		else
 		{
-			parse_tkn(tokens, curr);
+			if (!parse_tkn(tokens, curr))
+				return (NULL);
 			if (tokens->type == RD_IN || tokens->type == RD_OUT
 				|| tokens->type == APPEND || tokens->type == HEREDOC)
 				tokens = tokens->next;
