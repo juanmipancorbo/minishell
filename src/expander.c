@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 20:48:49 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/10 21:32:27 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/10/11 18:39:47 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,22 +56,22 @@ void	expand_tokens(t_token *tokens, t_utils *utils)
 {
 	t_token	*curr;
 	char	*expanded;
-	char	**split_words;
+	// char	**split_words;
 
 	curr = tokens;
 	while (curr)
 	{
-		if (curr->type == VAR)
+		// if (curr->type == VAR && ft_isspace(*curr->value))
+		// {
+		// 	expanded = expand_var(curr->value, utils->env_var);
+		// 	split_words = ft_split(expanded, ' ');
+		// 	free(expanded);
+		// 	insert_new_tokens(curr, split_words);
+		// 	ft_free_split(split_words);
+		// }
+		if (curr->type == WORD)
 		{
-			expanded = expand_var(curr->value, utils->env_var);
-			split_words = ft_split(expanded, ' ');
-			free(expanded);
-			insert_new_tokens(curr, split_words);
-			ft_free_split(split_words);
-		}
-		else if (curr->type == WORD)
-		{
-			expanded = expand_dollars(curr->value, utils->pid);
+			expanded = expand_dollars((const char *)curr->value, utils);
 			if (expanded)
 			{
 				free(curr->value);
