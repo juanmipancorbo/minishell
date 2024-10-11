@@ -65,12 +65,14 @@ void	close_fd_redlst(t_cmd *cmd)
 	out = cmd->out_rd;
 	while (in != NULL)
 	{
-		close(in->fd);
+		if (in->fd> 0)
+			close(in->fd);
 		in = in->next;
 	}
 	while (out != NULL)
 	{
-		close(out->fd);
+		if (out->fd > 0)
+			close(out->fd);
 		out = out->next;
 	}
 }

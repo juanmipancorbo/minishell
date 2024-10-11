@@ -35,7 +35,7 @@ ifeq ($(MODE),debug)
 endif
 
 ifeq ($(MODE),noflag)
-	CFLAGS = -g -fsanitize=leak
+	CFLAGS = -g
 endif
 
 

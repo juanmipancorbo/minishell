@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
+/*   By: apaterno <apaterno@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 20:06:25 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/02 18:22:40 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/10/11 13:28:46 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ t_red	*create_red_node(char *file, int type)
 	red->file = file;
 	red->type = type;
 	red->next = NULL;
+	red->fd = 0;
 	return (red);
 }
 
