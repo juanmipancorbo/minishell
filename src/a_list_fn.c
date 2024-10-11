@@ -65,7 +65,7 @@ void	close_fd_redlst(t_cmd *cmd)
 	out = cmd->out_rd;
 	while (in != NULL)
 	{
-		if (in->fd> 0)
+		if (in->fd > 0)
 			close(in->fd);
 		in = in->next;
 	}

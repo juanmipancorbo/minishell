@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apaterno <apaterno@student.42barcelona.    +#+  +:+       +#+        */
+/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 19:13:32 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/10 18:51:49 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/10/11 17:50:01 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ t_bool	fill_fd(t_cmd *cmd)
 	out_rd = cmd->out_rd;
 	while (out_rd)
 	{
-		if(!set_file_descriptor(out_rd))
+		if (!set_file_descriptor(out_rd))
 			return (FALSE);
 		out_rd = out_rd->next;
 	}
 	while (in_rd)
 	{
-		if(!set_file_descriptor(in_rd))
+		if (!set_file_descriptor(in_rd))
 			return (FALSE);
 		in_rd = in_rd->next;
 	}

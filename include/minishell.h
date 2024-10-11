@@ -22,7 +22,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 
-//extern int	g_exit_code;
+extern int	g_exit_codel;
 
 /* ************************************************************************** */
 /*                                    DEFINES                                 */
@@ -155,9 +155,9 @@ t_bool	fill_fd(t_cmd *cmd);
 /* ************************************************************************** */
 /*                                EXIT & ERRORS     	                      */
 /* ************************************************************************** */
-void	clean_exit(t_cmd **cmd);
 void	manage_error(char *msg);
 void	file_error(char *msg);
+void	delete_herdocf(void);
 
 /* ************************************************************************** */
 /*                                 LIST UTILS		                          */

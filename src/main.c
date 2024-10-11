@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apaterno <apaterno@student.42barcelona.    +#+  +:+       +#+        */
+/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/11 14:14:12 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/10/11 17:43:19 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-//extern int	g_exit_code;
 
 static void	clean_loop(char *input, t_token *tokens, t_cmd *cmds)
 {
@@ -28,6 +26,7 @@ static void	clean_loop(char *input, t_token *tokens, t_cmd *cmds)
 		free(temp);
 	}
 	free_cmds(cmds);
+	delete_herdocf();
 }
 
 static int	build_prompt_parts(char **env_var, char **user, char **machine,
@@ -84,13 +83,12 @@ static void	init_loop(t_utils *utils)
 
 	while (1)
 	{
-		// prompt = to_prompt(utils->env_var);
-		// input = readline(prompt);
-		// free(prompt);
-		input = readline("mini>");
+		prompt = to_prompt(utils->env_var);
+		input = readline(prompt);
+		free(prompt);
 		if (!input)
 		{
-			printf("1_exit\n");
+			printf("exit\n");
 			break ;
 		}
 		if (*input)
@@ -112,36 +110,10 @@ int	main(int argc, char **argv, char **env)
 
 	if (argc >= 1 && argv[0])
 	{
-		//init_signals(1);
+		init_signals(1);
 		dup_env_variables(&utils, env);
 		init_loop(&utils);
 	}
 	return (0);
 }
-
-// static void	init_loop(t_utils *utils, char *str)
-// {
-// 	t_token	*tokens;
-// 	t_cmd	*cmds;
-
-// 	tokens = to_tokenize(str);
-// 		// print_tokens(tokens);
-// 	cmds = to_parse(tokens, utils);
-// 		// print_cmds(cmds);
-// 	init_execution(&cmds, utils);
-// }
-
-// int	main(int argc, char **argv, char **env)
-// {
-// 	t_utils		utils;
-
-// 	if (argc >= 0 && argv[0])
-// 	{
-// 		init_signals(1);
-// 		dup_env_variables(&utils, env);
-// 		init_loop(&utils, "ls -l >");
-// 	}
-// 	return (0);
-// }
-
 

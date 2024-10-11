@@ -24,7 +24,7 @@ static void	set_fd_redirections(t_cmd *cmd)
 		close(out_node->fd);
 	}
 	if (in_node != NULL)
-	{	
+	{
 		dup2(in_node->fd, STDIN_FILENO);
 		close(in_node->fd);
 	}
@@ -66,7 +66,7 @@ static void	exec_cmd(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
 	if (!fill_fd(cmd))
 		return ;
 	child = fork();
-	//init_signals(0);
+	init_signals(0);
 	if (child == -1)
 		manage_error(ERROR);
 	if (child == 0)
@@ -79,7 +79,7 @@ static void	exec_cmd(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
 	else
 	{
 		set_pipes_fd(cmd, cmd_id, pipes_fd, child);
-		//close_fd_redlst(cmd);
+		close_fd_redlst(cmd);
 		waitpid(child, NULL, 0);
 	}
 }
@@ -102,6 +102,6 @@ void	init_execution(t_cmd **command, t_utils *utils)
 		close_fd_redlst(cmd);
 		cmd_id++;
 		cmd = cmd->next;
-		//init_signals(1);
+		init_signals(1);
 	}
 }
