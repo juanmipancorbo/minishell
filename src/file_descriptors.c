@@ -71,7 +71,7 @@ static t_bool	set_heredoc_fd(t_red *red)
 
 t_bool	set_file_descriptor(t_red *red)
 {
-	t_bool (*set_fd[4])(t_red *red);
+	t_bool (*set_fd[4])(t_red * red);
 	set_fd[0] = set_rdin_fd;
 	set_fd[1] = set_rdout_fd;
 	set_fd[2] = set_append_fd;
