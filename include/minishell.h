@@ -22,7 +22,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 
-extern int	g_exit_codel;
+extern int	g_exit_code;
 
 /* ************************************************************************** */
 /*                                    DEFINES                                 */
