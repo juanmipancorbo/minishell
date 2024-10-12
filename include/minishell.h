@@ -59,6 +59,7 @@ typedef struct s_token
 typedef struct s_utils
 {
 	char	**env_var;
+	pid_t	*process_id;
 }							t_utils;
 
 typedef struct s_red
@@ -197,4 +198,5 @@ void	add_env_var(char *var_name, char *value, t_utils *utils);
 /* ************************************************************************** */
 
 void init_signals(int i);
+void wait_process(t_utils *utils, int nb_process);
 #endif
