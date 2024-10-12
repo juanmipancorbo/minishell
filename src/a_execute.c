@@ -79,7 +79,6 @@ static void	exec_cmd(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
 	else
 	{
 		set_pipes_fd(cmd, cmd_id, pipes_fd, child);
-		close_fd_redlst(cmd);
 		waitpid(child, NULL, 0);
 	}
 }
