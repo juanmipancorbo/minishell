@@ -65,21 +65,21 @@ static void	exec_cmd(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
 
 	if (!fill_fd(cmd))
 		return ;
-	child = fork();
+	utils->process_id[cmd_id] = fork();
 	init_signals(0);
-	if (child == -1)
+	if (utils->process_id[cmd_id] == -1)
 		manage_error(ERROR);
-	if (child == 0)
+	if (utils->process_id[cmd_id] == 0)
 	{
-		set_pipes_fd(cmd, cmd_id, pipes_fd, child);
+		set_pipes_fd(cmd, cmd_id, pipes_fd, utils->process_id[cmd_id]);
 		set_fd_redirections(cmd);
 		if (execve(cmd->full_path, cmd->args, utils->env_var) != 0)
 			manage_error(ERROR);
 	}
 	else
 	{
-		set_pipes_fd(cmd, cmd_id, pipes_fd, child);
-		waitpid(child, NULL, 0);
+		set_pipes_fd(cmd, cmd_id, pipes_fd, utils->process_id[cmd_id]);
+		//waitpid(utils->process_id[cmd_id], NULL, 0);
 	}
 }
 
@@ -87,11 +87,13 @@ void	init_execution(t_cmd **command, t_utils *utils)
 {
 	int		cmd_id;
 	int		**pipes_fd;
+	pid_t	pid[cmd_lst_size(command)];
 	t_cmd	*cmd;
 
 	cmd = *command;
 	cmd_id = 0;
 	pipes_fd = create_pipes_fd(cmd_lst_size(command));
+	utils->process_id = pid;
 	while (cmd != NULL)
 	{
 		if (cmd->built_in != NULL)
@@ -103,4 +105,5 @@ void	init_execution(t_cmd **command, t_utils *utils)
 		cmd = cmd->next;
 		init_signals(1);
 	}
+	wait_process(utils, cmd_lst_size(command));
 }
