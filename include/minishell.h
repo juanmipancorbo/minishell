@@ -44,6 +44,7 @@ typedef enum e_tkn_type
 	HEREDOC = 5,
 	DOUBLE_Q = 6,
 	VAR = 7,
+	SINGLE_Q = 8,
 }							t_tkn_type;
 
 typedef struct s_token

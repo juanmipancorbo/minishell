@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 19:13:32 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/08 17:54:19 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/10/14 17:12:47 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static void	to_path_and_fd(t_cmd *cmds, t_utils *utils)
 
 static void	parse_tkn(t_token *token, t_cmd *cmd)
 {
-	if (token->type == WORD || token->type == VAR)
+	if (token->type == WORD || token->type == VAR || token->type == SINGLE_Q)
 		add_arg(cmd, token->value);
 	else if (token->type == RD_IN || token->type == RD_OUT
 		|| token->type == APPEND || token->type == HEREDOC)

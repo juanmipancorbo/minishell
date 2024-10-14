@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:57:08 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/11 18:40:55 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/10/14 19:47:31 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	to_quotes(const char **input, t_token **head, t_token **curr)
 		else if (**input != q_type)
 		{
 			content = single_q(input, q_type);
-			token = new_token(WORD, content);
+			token = new_token(SINGLE_Q, content);
 			free(content);
 			add_token_node(head, curr, &token);
 		}
@@ -111,8 +111,6 @@ t_token	*to_tokenize(const char *input)
 			to_redirect(&input, &head, &curr);
 		else if (*input == '|')
 			to_pipe(&input, &head, &curr);
-		// else if (*input == '$' && input[1] != '$' && input[1])
-		// 	to_variable(&input, &head, &curr);
 		else
 			to_word(&input, &head, &curr);
 	}
