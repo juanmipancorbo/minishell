@@ -61,8 +61,6 @@ static void	exec_builtin(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
 
 static void	exec_cmd(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
 {
-	pid_t	child;
-
 	if (!fill_fd(cmd))
 		return ;
 	utils->process_id[cmd_id] = fork();
@@ -77,23 +75,19 @@ static void	exec_cmd(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
 			manage_error(ERROR);
 	}
 	else
-	{
 		set_pipes_fd(cmd, cmd_id, pipes_fd, utils->process_id[cmd_id]);
-		//waitpid(utils->process_id[cmd_id], NULL, 0);
-	}
 }
 
 void	init_execution(t_cmd **command, t_utils *utils)
 {
 	int		cmd_id;
 	int		**pipes_fd;
-	pid_t	pid[cmd_lst_size(command)];
 	t_cmd	*cmd;
 
 	cmd = *command;
 	cmd_id = 0;
 	pipes_fd = create_pipes_fd(cmd_lst_size(command));
-	utils->process_id = pid;
+	utils->process_id = get_pid_array(cmd_lst_size(command));
 	while (cmd != NULL)
 	{
 		if (cmd->built_in != NULL)

@@ -6,17 +6,18 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/11 18:21:13 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/10/16 17:10:15 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static void	clean_loop(char *input, t_token *tokens, t_cmd *cmds)
+static void	clean_loop(char *input, t_token *tokens, t_cmd *cmds, t_utils *utils)
 {
 	t_token	*temp;
 
 	free(input);
+	free(utils->process_id);
 	while (tokens)
 	{
 		temp = tokens;
@@ -99,7 +100,7 @@ static void	init_loop(t_utils *utils)
 		// print_cmds(cmds);
 		if (*input && cmds != NULL)
 			init_execution(&cmds, utils);
-		clean_loop(input, tokens, cmds);
+		clean_loop(input, tokens, cmds,utils);
 	}
 	free_env_copy(utils->env_var);
 }

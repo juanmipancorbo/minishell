@@ -27,3 +27,13 @@ int	cmd_lst_size(t_cmd **cmd)
 	}
 	return (i);
 }
+
+pid_t	*get_pid_array(int nbs_process)
+{
+	pid_t	*pid_arr;
+
+	pid_arr = malloc(sizeof(pid_t) * nbs_process);
+	if (!pid_arr)
+		manage_error(ERROR);
+	return (pid_arr);
+}

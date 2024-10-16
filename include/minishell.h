@@ -143,6 +143,7 @@ char	*ft_strjoin_free(char *s1, char const *s2);
 void	dup_env_variables(t_utils *utils, char **env);
 void	init_execution(t_cmd **command, t_utils *utils);
 int		**create_pipes_fd(int np);
+pid_t	*get_pid_array(int nbs_process);
 
 /* ************************************************************************** */
 /*                               FILE DESCRIPTORS                             */
