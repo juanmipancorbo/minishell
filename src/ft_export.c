@@ -22,30 +22,38 @@ static int	print_export_var(t_utils *utils)
 	return (0);
 }
 
-static int	is_valid_identifier(char *str)
+static int	check_new_var(char *var_name)
 {
-	int	i;
-
-	if (!str || ft_isdigit(str[0]))
-		return (0);
-	i = 0;
-	while (str[i] && str[i] != '=')
-	{
-		if (!ft_isalnum(str[i]) && str[i] != '_')
+	if (ft_isdigit(var_name[0]) || var_name[0] == '=' || var_name[0] == '$')
+		return (-1);
+	while (*var_name++)
+		if (!ft_isalnum(*var_name) && *var_name != '_' && *var_name != '=')
 			return (0);
-		i++;
-	}
-	return (1);
+	return (-1);
 }
 
-static void	to_env_var(char *arg, char **env)
+static int	check_var_name(char *var_name)
+{
+	while (*var_name)
+	{
+		if (!ft_isalnum(*var_name++) && *var_name != '_')
+		{
+			printf("minishell: syntax error near unexpected token `%c'\n",
+				*var_name - 1);
+			return (-1);
+		}
+	}
+	return (0);
+}
+
+static void	to_env_var(char *arg, char ***env)
 {
 	char	*var_name;
 	char	*value;
 
-	if (!is_valid_identifier(arg) || arg[0] == '=' || arg[0] == '$')
+	if (check_new_var(arg))
 	{
-		printf("bash: export: `%s': not a valid identifier\n", arg);
+		printf("minishell: export: `%s': not a valid identifier\n", arg);
 		return ;
 	}
 	var_name = ft_strdup(arg);
@@ -57,7 +65,9 @@ static void	to_env_var(char *arg, char **env)
 	}
 	else
 		return (free(var_name));
-	if (replace_env_var(var_name, value, env))
+	if (check_var_name(var_name))
+		return ;
+	if (replace_env_var(var_name, value, *env))
 		add_env_var(var_name, value, env);
 	free(var_name);
 }
@@ -74,7 +84,7 @@ int	ft_export(t_cmd *cmd, t_utils *utils)
 	while (cmd->args[++i])
 	{
 		// to_env_var(cmd->args[i], utils->export_var);
-		to_env_var(cmd->args[i], utils->env_var);
+		to_env_var(cmd->args[i], &utils->env_var);
 	}
 	return (0);
 }

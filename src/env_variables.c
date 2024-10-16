@@ -107,9 +107,9 @@ int	replace_env_var(char *var_name, char *new_value, char **env)
 	return (-1);
 }
 
-void	add_env_var(char *var_name, char *value, char **env)
+void	add_env_var(char *var_name, char *value, char ***env)
 {
-	char	**new_env_var;
+	char	**new_env;
 	char	*new_var;
 	int		i;
 
@@ -120,16 +120,16 @@ void	add_env_var(char *var_name, char *value, char **env)
 	if (!new_var)
 		return ;
 	i = 0;
-	while (env[i])
+	while ((*env)[i])
 		i++;
-	new_env_var = malloc(sizeof(char *) * (i + 2));
-	if (!new_env_var)
+	new_env = malloc(sizeof(char *) * (i + 2));
+	if (!new_env)
 		return ;
 	i = -1;
-	while (env[++i])
-		new_env_var[i] = env[i];
-	new_env_var[i] = new_var;
-	new_env_var[i + 1] = NULL;
-	// free(env);
-	env = new_env_var;
+	while ((*env)[++i])
+		new_env[i] = (*env)[i];
+	new_env[i] = new_var;
+	new_env[i + 1] = NULL;
+	free(*env);
+	*env = new_env;
 }
