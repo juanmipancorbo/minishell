@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   a_signal.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apaterno <apaterno@student.42barcelona.    +#+  +:+       +#+        */
+/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 16:27:07 by apaterno          #+#    #+#             */
-/*   Updated: 2024/10/12 16:21:26 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/10/16 17:15:07 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void wait_process(t_utils *utils, int nb_process)
+void	wait_process(t_utils *utils, int nb_process)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < nb_process)
