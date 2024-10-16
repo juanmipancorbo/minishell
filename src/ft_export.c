@@ -34,12 +34,12 @@ static int	check_new_var(char *var_name)
 
 static int	check_var_name(char *var_name)
 {
-	while (*var_name)
+	while (*var_name++)
 	{
-		if (!ft_isalnum(*var_name++) && *var_name != '_')
+		if (!ft_isalnum(*var_name) && *var_name != '_')
 		{
 			printf("minishell: syntax error near unexpected token `%c'\n",
-				*var_name - 1);
+				*var_name);
 			return (-1);
 		}
 	}
