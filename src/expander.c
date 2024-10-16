@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 20:48:49 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/14 22:26:20 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/10/16 16:58:01 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void	between_q(t_token **tokens)
 			concat = concat_q(curr);
 			while (curr && curr->type != DOUBLE_Q)
 				free_q(&curr, &end);
-			// free_q(&curr, &end);
+			free_q(&curr, &end);
 			free(start->value);
 			start->value = concat;
 			start->type = WORD;

@@ -29,7 +29,7 @@ static int	is_valid_identifier(char *str)
 	if (!str || ft_isdigit(str[0]))
 		return (0);
 	i = 0;
-	while (str[i])
+	while (str[i] && str[i] != '=')
 	{
 		if (!ft_isalnum(str[i]) && str[i] != '_')
 			return (0);

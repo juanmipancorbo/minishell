@@ -130,6 +130,6 @@ void	add_env_var(char *var_name, char *value, char **env)
 		new_env_var[i] = env[i];
 	new_env_var[i] = new_var;
 	new_env_var[i + 1] = NULL;
-	free(env);
+	// free(env);
 	env = new_env_var;
 }
