@@ -81,6 +81,7 @@ static void	exec_cmd(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
 void	init_execution(t_cmd **command, t_utils *utils)
 {
 	int		cmd_id;
+	int 	status;
 	int		**pipes_fd;
 	t_cmd	*cmd;
 
@@ -99,5 +100,6 @@ void	init_execution(t_cmd **command, t_utils *utils)
 		cmd = cmd->next;
 		init_signals(1);
 	}
-	wait_process(utils, cmd_lst_size(command));
+	wait_process(utils, cmd_lst_size(command), &status);
+	exit_status(status);
 }

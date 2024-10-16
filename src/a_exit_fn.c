@@ -22,3 +22,20 @@ void	delete_herdocf(void)
 	if (check_files(HEREDOC_F) == 0)
 		unlink(HEREDOC_F);
 }
+
+void exit_status(int status)
+{
+	if (WIFEXITED(status))
+		printf("%d", WEXITSTATUS(status));
+	else if (WIFSIGNALED(status))
+	{
+		if (WTERMSIG(status) == SIGINT)
+			printf("130");
+		else if (WTERMSIG(status) == SIGQUIT)
+			printf("131");
+	}
+	else if (WIFSTOPPED(status))
+		printf("%d",WSTOPSIG(status));
+	else
+		printf("%d",WTERMSIG(status));
+}

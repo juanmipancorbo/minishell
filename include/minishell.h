@@ -48,6 +48,13 @@ typedef enum e_tkn_type
 	VAR = 7,
 }							t_tkn_type;
 
+typedef enum s_signal
+{
+	MAIN = 0,
+	CHILD = 1,
+	HERDOC = 2
+}							t_singal;
+
 typedef struct s_token
 {
 	t_tkn_type		type;
@@ -198,6 +205,7 @@ void	add_env_var(char *var_name, char *value, t_utils *utils);
 /*                                  SIGNALS			                          */
 /* ************************************************************************** */
 
-void init_signals(int i);
-void wait_process(t_utils *utils, int nb_process);
+void	init_signals(int i);
+void	wait_process(t_utils *utils, int nb_process, int *status);
+void	exit_status(int status);
 #endif
