@@ -63,14 +63,14 @@ static void	to_env_var(char *arg, char ***env)
 	{
 		*value = '\0';
 		value++;
+		if (check_var_name(var_name))
+			return ;
+		if (replace_env_var(var_name, value, *env))
+			add_env_var(var_name, value, env);
 	}
 	else
-		return (free(var_name));
-	printf("%s\n", var_name);
-	if (check_var_name(var_name))
-		return ;
-	if (replace_env_var(var_name, value, *env))
-		add_env_var(var_name, value, env);
+		if (check_var_name(var_name))
+			add_env_var(var_name, value, env);
 	free(var_name);
 }
 
@@ -85,7 +85,7 @@ int	ft_export(t_cmd *cmd, t_utils *utils)
 	i = 0;
 	while (cmd->args[++i])
 	{
-		// to_env_var(cmd->args[i], utils->export_var);
+		// to_env_var(cmd->args[i], &utils->export_var);
 		to_env_var(cmd->args[i], &utils->env_var);
 	}
 	return (0);
