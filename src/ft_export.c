@@ -34,7 +34,7 @@ static int	check_new_var(char *var_name)
 
 static int	check_var_name(char *var_name)
 {
-	while (*var_name++)
+	while (*var_name)
 	{
 		if (!ft_isalnum(*var_name) && *var_name != '_')
 		{
@@ -42,6 +42,7 @@ static int	check_var_name(char *var_name)
 				*var_name);
 			return (-1);
 		}
+		var_name++;
 	}
 	return (0);
 }
@@ -65,6 +66,7 @@ static void	to_env_var(char *arg, char ***env)
 	}
 	else
 		return (free(var_name));
+	printf("%s\n", var_name);
 	if (check_var_name(var_name))
 		return ;
 	if (replace_env_var(var_name, value, *env))
