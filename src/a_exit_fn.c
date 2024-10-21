@@ -26,16 +26,16 @@ void	delete_herdocf(void)
 void exit_status(int status)
 {
 	if (WIFEXITED(status))
-		printf("%d", WEXITSTATUS(status));
+		printf("-%d\n", WEXITSTATUS(status));
 	else if (WIFSIGNALED(status))
 	{
 		if (WTERMSIG(status) == SIGINT)
-			printf("130");
+			printf("130\n");
 		else if (WTERMSIG(status) == SIGQUIT)
-			printf("131");
+			printf("131\n");
 	}
 	else if (WIFSTOPPED(status))
-		printf("%d",WSTOPSIG(status));
+		printf("%d\n",WSTOPSIG(status));
 	else
-		printf("%d",WTERMSIG(status));
+		printf("+%d\n",WTERMSIG(status));
 }
