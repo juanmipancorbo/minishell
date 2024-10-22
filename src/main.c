@@ -6,11 +6,13 @@
 /*   By: agustin <agustin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/21 19:26:33 by agustin          ###   ########.fr       */
+/*   Updated: 2024/10/22 18:58:44 by agustin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int	g_exit_code;
 
 static void	clean_loop(char *input, t_token *tokens, t_cmd *cmds, int *pid)
 {
@@ -101,6 +103,7 @@ static void	init_loop(t_utils *utils)
 		if (*input && cmds != NULL)
 			init_execution(&cmds, utils);
 		clean_loop(input, tokens, cmds, utils->process_id);
+		printf("%d\n",g_exit_code);
 	}
 	free_env_copy(utils->env_var);
 }
@@ -108,7 +111,6 @@ static void	init_loop(t_utils *utils)
 int	main(int argc, char **argv, char **env)
 {
 	t_utils		utils;
-	int			g_exit_code;
 	
 	if (argc != 1)
 		exit_error("Wrong arguments\n", 127);
