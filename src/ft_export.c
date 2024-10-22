@@ -16,9 +16,12 @@ static int	print_export_var(t_utils *utils)
 {
 	int		i;
 
-	i = -1;
-	while (utils->export_var[++i])
+	i = 0;
+	while (utils->export_var[i])
+	{
 		printf("declare -x %s\n", utils->export_var[i]);
+		i++;
+	}
 	return (0);
 }
 
@@ -36,10 +39,7 @@ static int	check_new_var(char *var_name)
 		if (var_name[i] == '_' || var_name[i] == '=')
 			continue ;
 		else
-		{
-			printf("ojete BORAZZZZZ\n");
 			return (-1);
-		}
 	}
 	return (0);
 }
@@ -68,24 +68,22 @@ static void	to_env_var(char *arg, t_utils *utils)
 	value = ft_strchr(var_name, '=');
 	if (value)
 	{
-		*value = '\0';
-		value++;
-		if (!*value)
-			value = "";
+		*value++ = '\0';
+		if (*value == '\0')
+			value = "\"\"";
 		if (check_var_name(var_name))
 			return ;
 		if (replace_env_var(var_name, value, utils->env_var))
 		{
-			add_env_var(var_name, value, utils->export_var);
-			add_env_var(var_name, value, utils->env_var);
-			printf("MANIANAAAAAAAAAA\n");
+			add_env_var(var_name, value, &utils->export_var);
+			add_env_var(var_name, value, &utils->env_var);
 		}
 		else
 			replace_env_var(var_name, value, utils->export_var);
 	}
 	else
-		if (check_var_name(var_name))
-			add_env_var(var_name, NULL, utils->export_var);
+		if (!check_var_name(var_name))
+			add_env_var(var_name, NULL, &utils->export_var);
 	free(var_name);
 }
 
@@ -97,12 +95,12 @@ int	ft_export(t_cmd *cmd, t_utils *utils)
 		dup_env_variables(utils, NULL, utils->env_var, &utils->export_var);
 	if (!cmd->args[1])
 		return (print_export_var(utils));
-	i = 0;
-	while (cmd->args[++i])
+	i = 1;
+	while (cmd->args[i])
 	{
-		// to_env_var(cmd->args[i], &utils->export_var);
 		if (!check_new_var(cmd->args[i]))
 			to_env_var(cmd->args[i], utils);
+		i++;
 	}
 	return (0);
 }
