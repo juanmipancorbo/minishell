@@ -15,11 +15,21 @@
 static int	print_export_var(t_utils *utils)
 {
 	int		i;
+	char	*equal_sign;
 
 	i = 0;
 	while (utils->export_var[i])
 	{
-		printf("declare -x %s\n", utils->export_var[i]);
+		equal_sign = ft_strchr(utils->export_var[i], '=');
+		if (equal_sign)
+		{
+			printf("declare -x ");
+			printf("%.*s", (int)(equal_sign - utils->export_var[i]),
+				utils->export_var[i]);
+			printf("=\"%s\"\n", equal_sign + 1);
+		}
+		else
+			printf("declare -x %s\n", utils->export_var[i]);
 		i++;
 	}
 	return (0);
@@ -70,19 +80,16 @@ static void	to_env_var(char *arg, t_utils *utils)
 	{
 		*value++ = '\0';
 		if (*value == '\0')
-			value = "\"\"";
+			value = "";
 		if (check_var_name(var_name))
 			return ;
 		if (replace_env_var(var_name, value, utils->env_var))
-		{
-			add_env_var(var_name, value, &utils->export_var);
 			add_env_var(var_name, value, &utils->env_var);
-		}
-		else
-			replace_env_var(var_name, value, utils->export_var);
+		if (replace_env_var(var_name, value, utils->export_var))
+			add_env_var(var_name, value, &utils->export_var);
 	}
 	else
-		if (!check_var_name(var_name))
+		if (!check_var_name(var_name) && check_export_name(var_name, utils))
 			add_env_var(var_name, NULL, &utils->export_var);
 	free(var_name);
 }
