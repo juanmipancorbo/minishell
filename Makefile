@@ -27,7 +27,7 @@ MODE		= none
 
 LIBFT		= libft/libft.a
 
-CFLAGS		= -Wall -Werror -Wextra
+CFLAGS		= -Wall -Werror -Wextra -g
 LDFLAGS		= -lreadline -Llibft -lft
 
 ifeq ($(MODE),debug)

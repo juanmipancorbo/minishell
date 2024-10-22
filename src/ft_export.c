@@ -46,7 +46,8 @@ static int	check_new_var(char *var_name)
 	{
 		if (ft_isalnum(var_name[i]))
 			continue ;
-		if (var_name[i] == '_' || var_name[i] == '=')
+		if (var_name[i] == '_' || var_name[i] == '=' || var_name[i] == '\''
+			|| var_name[i] == '"')
 			continue ;
 		else
 			return (-1);
@@ -69,6 +70,28 @@ static int	check_var_name(char *var_name)
 	return (0);
 }
 
+char	*to_env_quotes(char **str)
+{
+	char	quote_type;
+	char	*start;
+	char	*content;
+	size_t	len;
+
+	quote_type = **str;
+	(*str)++; // Avanza para saltar la primera comilla
+	start = *str;
+	while (**str && **str != quote_type)
+		(*str)++; // Busca el final de las comillas
+	if (**str == quote_type)
+	{
+		len = *str - start;
+		content = ft_strndup(start, len);
+		(*str)++; // Avanza para saltar la última comilla
+		return (content);
+	}
+	return (*str); // Retorna la cadena sin cambios si no se cierran las comillas
+}
+
 static void	to_env_var(char *arg, t_utils *utils)
 {
 	char	*var_name;
@@ -81,6 +104,8 @@ static void	to_env_var(char *arg, t_utils *utils)
 		*value++ = '\0';
 		if (*value == '\0')
 			value = "";
+		if (*value == '\'' || *value == '"')
+			value = to_env_quotes(&value);
 		if (check_var_name(var_name))
 			return ;
 		if (replace_env_var(var_name, value, utils->env_var))
