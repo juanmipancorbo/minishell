@@ -22,6 +22,5 @@ void	file_error(char *msg)
 {
 	perror(msg);
 	free(msg);
-	//exit(EXIT_FAILURE);
-	//g_exit_code = 1;
 }
+

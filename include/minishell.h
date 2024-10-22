@@ -160,6 +160,7 @@ t_bool	fill_fd(t_cmd *cmd);
 void	manage_error(char *msg);
 void	file_error(char *msg);
 void	delete_herdocf(void);
+void	exit_error(char *msg, int exit_code);
 
 /* ************************************************************************** */
 /*                                 LIST UTILS		                          */

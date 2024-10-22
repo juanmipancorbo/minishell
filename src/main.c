@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agustin <agustin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/16 17:16:46 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/10/21 19:26:33 by agustin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,12 +108,13 @@ static void	init_loop(t_utils *utils)
 int	main(int argc, char **argv, char **env)
 {
 	t_utils		utils;
-
-	if (argc >= 1 && argv[0])
-	{
-		init_signals(1);
-		dup_env_variables(&utils, env);
-		init_loop(&utils);
-	}
+	int			g_exit_code;
+	
+	if (argc != 1)
+		exit_error("Wrong arguments\n", 127);
+	init_signals(1);
+	dup_env_variables(&utils, env);
+	init_loop(&utils);
+	(void)argv;
 	return (0);
 }

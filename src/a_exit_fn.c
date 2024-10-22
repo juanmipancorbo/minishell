@@ -22,3 +22,9 @@ void	delete_herdocf(void)
 	if (check_files(HEREDOC_F) == 0)
 		unlink(HEREDOC_F);
 }
+
+void exit_error(char *msg, int exit_code)
+{
+	ft_putstr_fd(msg,STDERR_FILENO);
+	exit(exit_code);
+}
