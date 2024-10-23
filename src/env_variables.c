@@ -50,18 +50,12 @@ static void	to_get_pid(t_utils *utils)
 	close(fd);
 }
 
-void	dup_env_variables(t_utils *utils, char **env, char **from, char ***to)
+void	dup_env_variables(t_utils *utils, int pid, char **from, char ***to)
 {
 	int		i;
 	char	**new_env;
 
 	i = 0;
-	if (env)
-	{
-		utils->env = env;
-		utils->export_var = NULL;
-		to_get_pid(utils);
-	}
 	while (from[i])
 		i++;
 	new_env = malloc(sizeof(char *) * (i + 1));
@@ -77,6 +71,11 @@ void	dup_env_variables(t_utils *utils, char **env, char **from, char ***to)
 	}
 	new_env[i] = NULL;
 	*to = new_env;
+	if (pid)
+	{
+		to_get_pid(utils);
+		utils->export_var = NULL;
+	}
 }
 
 int	replace_env_var(char *var_name, char *new_value, char **env)
@@ -95,7 +94,7 @@ int	replace_env_var(char *var_name, char *new_value, char **env)
 	i = 0;
 	while (env[i])
 	{
-		if (!ft_strncmp(env[i], var_name, var_len) && env[i][var_len] == '=')
+		if (!ft_strncmp(env[i], var_name, var_len))
 		{
 			free(env[i]);
 			env[i] = new_var;

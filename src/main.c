@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/22 21:31:15 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/10/23 18:35:48 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static void	init_loop(t_utils *utils)
 
 	while (1)
 	{
-		prompt = to_prompt(utils->env);
+		prompt = to_prompt(utils->env_var);
 		input = readline(prompt);
 		free(prompt);
 		if (!input)
@@ -108,7 +108,7 @@ int	main(int argc, char **argv, char **env)
 
 	if (argc >= 1 && argv[0])
 	{
-		dup_env_variables(&utils, env, env, &utils.env_var);
+		dup_env_variables(&utils, 1, env, &utils.env_var);
 		init_loop(&utils);
 	}
 	return (0);

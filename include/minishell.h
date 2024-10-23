@@ -57,7 +57,6 @@ typedef struct s_token
 
 typedef struct s_utils
 {
-	char	**env;
 	char	**env_var;
 	char	**export_var;
 	char	*pid;
@@ -141,7 +140,7 @@ char	*ft_strjoin_free(char *s1, char const *s2);
 /* ************************************************************************** */
 /*                                  EXECUTER                                  */
 /* ************************************************************************** */
-void	dup_env_variables(t_utils *utils, char **env, char **from, char ***to);
+void	dup_env_variables(t_utils *utils, int pid, char **from, char ***to);
 void	init_execution(t_cmd **command, t_utils *utils);
 int		**create_pipes_fd(int np);
 

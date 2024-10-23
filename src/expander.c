@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 20:48:49 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/22 21:27:18 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/10/23 18:36:23 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ void	expand_tokens(t_token *tokens, t_utils *utils)
 	curr = tokens;
 	while (curr)
 	{
-		if (curr->type == VAR && ft_isspace(*curr->value))
+		if ((curr->type == VAR && ft_isspace(*curr->value))
+			|| curr->type == WORD)
 		{
 			expanded = expand_var(curr->value, utils->env_var);
 			split_words = ft_split(expanded, ' ');
