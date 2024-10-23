@@ -70,28 +70,6 @@ static int	check_var_name(char *var_name)
 	return (0);
 }
 
-// char	*to_env_quotes(char **str)
-// {
-// 	char	quote_type;
-// 	char	*start;
-// 	char	*content;
-// 	size_t	len;
-
-// 	quote_type = **str;
-// 	(*str)++;
-// 	start = *str;
-// 	while (**str && **str != quote_type)
-// 		(*str)++;
-// 	if (**str == quote_type)
-// 	{
-// 		len = *str - start;
-// 		content = ft_strndup(start, len);
-// 		(*str)++;
-// 		return (content);
-// 	}
-// 	return (*str);
-// }
-
 static void	to_env_var(char *arg, t_utils *utils)
 {
 	char	*var_name;
@@ -104,8 +82,6 @@ static void	to_env_var(char *arg, t_utils *utils)
 		*value++ = '\0';
 		if (*value == '\0')
 			value = "";
-		// if (*value == '\'' || *value == '"')
-		// 	value = to_env_quotes(&value);
 		if (check_var_name(var_name))
 			return ;
 		if (replace_env_var(var_name, value, utils->env_var))
