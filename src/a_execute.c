@@ -71,6 +71,7 @@ static void	exec_cmd(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
 	{
 		set_pipes_fd(cmd, cmd_id, pipes_fd, utils->process_id[cmd_id]);
 		set_fd_redirections(cmd);
+
 		if (execve(cmd->full_path, cmd->args, utils->env_var) != 0)
 			manage_error(ERROR);
 	}
@@ -84,7 +85,7 @@ void	init_execution(t_cmd **command, t_utils *utils)
 	int		**pipes_fd;
 	t_cmd	*cmd;
 
-	g_exit_code = 1;
+	g_exit_code = 0;
 	cmd = *command;
 	cmd_id = 0;
 	pipes_fd = create_pipes_fd(cmd_lst_size(command));
