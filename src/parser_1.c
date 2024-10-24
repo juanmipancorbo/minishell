@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 19:13:32 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/23 21:02:53 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/10/24 22:07:40 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,64 @@ static void	to_path_and_fd(t_cmd *cmds, t_utils *utils)
 	}
 }
 
+// static void	parse_tkn(t_token *token, t_cmd *cmd)
+// {
+// 	if (token->type == WORD || token->type == VAR || token->type == SINGLE_Q)
+// 		add_arg(cmd, token->value);
+// 	else if (token->type == RD_IN || token->type == RD_OUT
+// 		|| token->type == APPEND || token->type == HEREDOC)
+// 	{
+// 		if (!token->next || token->next->type != WORD)
+// 		{
+// 			printf("Error: A file was expected.\n");
+// 			return ;
+// 		}
+// 		token = token->next;
+// 		add_red(cmd, token->value, token->prev->type);
+// 		return ;
+// 	}
+// }
+
+// t_cmd	*to_parse(t_token *tokens, t_utils *utils)
+// {
+// 	t_cmd	*head;
+// 	t_cmd	*curr;
+
+// 	expand_tokens(tokens, utils);
+// 	between_q(&tokens);
+// 	head = create_cmd_node();
+// 	if (!head)
+// 		return (NULL);
+// 	curr = head;
+// 	while (tokens)
+// 	{
+// 		if (tokens->type == WORD && ft_strchr(tokens->value, '='))
+// 			tokens->value = process_token_value(tokens->value, utils);
+// 		if (tokens->type == PIPE)
+// 			curr = add_pipe(curr);
+// 		else
+// 		{
+// 			parse_tkn(tokens, curr);
+// 			if (tokens->type == RD_IN || tokens->type == RD_OUT
+// 				|| tokens->type == APPEND || tokens->type == HEREDOC)
+// 				tokens = tokens->next;
+// 		}
+// 		tokens = tokens->next;
+// 	}
+// 	to_path_and_fd(head, utils);
+// 	return (head);
+// }
+
 static void	parse_tkn(t_token *token, t_cmd *cmd)
 {
-	if (token->type == WORD || token->type == VAR || token->type == SINGLE_Q)
+	if (token->type == VAR)
+	{
+		if (cmd->args && ft_strncmp(cmd->args[0], "echo", 5) == 0)
+			add_arg(cmd, token->value);
+		else
+			expand_and_add_arg(cmd, token->value);
+	}
+	else if (token->type == WORD || token->type == SINGLE_Q)
 		add_arg(cmd, token->value);
 	else if (token->type == RD_IN || token->type == RD_OUT
 		|| token->type == APPEND || token->type == HEREDOC)
@@ -112,6 +167,8 @@ t_cmd	*to_parse(t_token *tokens, t_utils *utils)
 	curr = head;
 	while (tokens)
 	{
+		if (tokens->type == WORD && ft_strchr(tokens->value, '='))
+			tokens->value = process_token_value(tokens->value, utils);
 		if (tokens->type == PIPE)
 			curr = add_pipe(curr);
 		else

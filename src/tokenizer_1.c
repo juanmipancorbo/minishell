@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:57:08 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/23 21:58:15 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/10/24 18:56:06 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,23 @@ static void	to_word(const char **input, t_token **head, t_token **curr)
 
 	start = *input;
 	while (**input && !ft_isspace(**input) && **input != '|' && **input != '<'
-		&& **input != '>' /*&& **input != '\'' && **input != '"'*/)
+		&& **input != '>' && **input != '\'' && **input != '"')
 	{
-		if (**input == '\'' || **input == '"')
+		if (**input == '=')
 		{
-			if (ft_strchr(*input + 1, **input))
-				while (**input + 1 != '"' && **input + 1 != '\'')
+			(*input)++;
+			if (**input == '\'' || **input == '"')
+			{
+				(*input)++;
+				if (ft_strchr(*input, '\'') || ft_strchr(*input, '"'))
+				{
+					while (**input && **input != '\'' && **input != '"')
+						(*input)++;
 					(*input)++;
+				}
+
+			}
+
 		}
 		else
 			(*input)++;

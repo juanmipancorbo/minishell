@@ -99,6 +99,8 @@ char	*single_q(const char **input, char q_type);
 void	double_q(const char **input, t_token **head, t_token **curr);
 void	to_variable(const char **input, t_token **head, t_token **curr);
 t_token	*to_tokenize(const char *input);
+char	*process_token_value(char *value, t_utils *utils);
+
 
 /* ************************************************************************** */
 /*                                   PARSER                                   */
@@ -113,6 +115,7 @@ void	add_out_red(t_cmd *cmd, t_red *red);
 t_cmd	*create_cmd_node(void);
 char	*expand_var(char *var, char **env);
 void	expand_tokens(t_token *tokens, t_utils *utils);
+void	expand_and_add_arg(t_cmd *cmd, char *expansion);
 void	between_q(t_token **tokens);
 char	*join_path_cmd(char *path, char *cmd);
 char	*get_env_value(char **env, const char *var_name);

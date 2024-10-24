@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 20:48:49 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/23 21:50:49 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/10/24 21:13:51 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ void	expand_tokens(t_token *tokens, t_utils *utils)
 	curr = tokens;
 	while (curr)
 	{
-		// if ((curr->type == VAR && ft_isspace(*curr->value)))
+		// if (curr->type == VAR)
 		// {
-		// 	expanded = expand_var(curr->value, utils->env_var);
+		// 	expanded = expand_var(curr->value, utils->export_var);
 		// 	split_words = ft_split(expanded, ' ');
 		// 	free(expanded);
 		// 	insert_new_tokens(curr, split_words);
@@ -71,6 +71,8 @@ void	expand_tokens(t_token *tokens, t_utils *utils)
 		// }
 		if (curr->type == WORD)
 		{
+			if (ft_strchr(curr->value, '$'))
+				curr->type = VAR;
 			expanded = expand_dollars((const char *)curr->value, utils);
 			if (expanded)
 			{
