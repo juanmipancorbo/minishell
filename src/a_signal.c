@@ -6,7 +6,7 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 16:27:07 by apaterno          #+#    #+#             */
-/*   Updated: 2024/10/16 17:15:07 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/10/25 13:35:08 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,17 @@
 void	wait_process(t_utils *utils, int nb_process)
 {
 	int	i;
+	int status;
 
 	i = 0;
 	while (i < nb_process)
 	{
-		waitpid(utils->process_id[i], NULL, 0);
+		waitpid(utils->process_id[i], &status, 0);
+		printf("PID:%d\n",utils->process_id[i]);
 		i++;
 	}
+	if (WIFEXITED(status))
+		printf("-%d\n", WEXITSTATUS(status));
 }
 
 static void	sig_handler(int sig)

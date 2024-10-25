@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agustin <agustin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/22 18:58:44 by agustin          ###   ########.fr       */
+/*   Updated: 2024/10/24 16:53:30 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ static void	init_loop(t_utils *utils)
 		if (*input && cmds != NULL)
 			init_execution(&cmds, utils);
 		clean_loop(input, tokens, cmds, utils->process_id);
-		printf("%d\n",g_exit_code);
+		//printf("%d\n",g_exit_code);
 	}
 	free_env_copy(utils->env_var);
 }

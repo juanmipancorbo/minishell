@@ -65,6 +65,7 @@ static void	exec_cmd(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
 		return ;
 	utils->process_id[cmd_id] = fork();
 	init_signals(0);
+	printf("fork : %d\n",utils->process_id[cmd_id] );
 	if (utils->process_id[cmd_id] == -1)
 		manage_error(ERROR);
 	if (utils->process_id[cmd_id] == 0)
