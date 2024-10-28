@@ -6,7 +6,7 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 16:27:07 by apaterno          #+#    #+#             */
-/*   Updated: 2024/10/25 13:35:08 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/10/28 11:18:32 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,30 @@
 
 void	wait_process(t_utils *utils, int nb_process)
 {
-	int	i;
 	int status;
+	int i;
 
 	i = 0;
 	while (i < nb_process)
 	{
 		waitpid(utils->process_id[i], &status, 0);
-		printf("PID:%d\n",utils->process_id[i]);
 		i++;
 	}
 	if (WIFEXITED(status))
-		printf("-%d\n", WEXITSTATUS(status));
+		g_exit_code = WEXITSTATUS(status);
+		//printf("w: %d\n",WEXITSTATUS(status));
+	else if (WIFSIGNALED(status))
+	{
+		if (WTERMSIG(status) == SIGINT)
+			g_exit_code = 130;
+		else if (WTERMSIG(status) == SIGQUIT)
+			g_exit_code = 131;
+	}
+	// 	else if (WIFSTOPPED(status))
+	// 	printf("%d\n",WSTOPSIG(status));
+	// else
+	// 	printf("+%d\n",WTERMSIG(status));
+		
 }
 
 static void	sig_handler(int sig)
@@ -49,7 +61,7 @@ static void	child_handler(int sig)
 	}
 	if (sig == SIGQUIT)
 	{
-		write(1, "Quit\n", 5);
+		write(STDOUT_FILENO, "Quit\n", 5);
 		rl_on_new_line();
 	}
 }

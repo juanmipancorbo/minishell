@@ -61,18 +61,16 @@ static void	exec_builtin(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
 
 static void	exec_cmd(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
 {
-	if (!fill_fd(cmd))
-		return ;
 	utils->process_id[cmd_id] = fork();
-	init_signals(0);
-	printf("fork : %d\n",utils->process_id[cmd_id] );
 	if (utils->process_id[cmd_id] == -1)
 		manage_error(ERROR);
 	if (utils->process_id[cmd_id] == 0)
 	{
+		if (!fill_fd(cmd))
+			exit(1);
+		check_cmd_access(cmd);
 		set_pipes_fd(cmd, cmd_id, pipes_fd, utils->process_id[cmd_id]);
 		set_fd_redirections(cmd);
-
 		if (execve(cmd->full_path, cmd->args, utils->env_var) != 0)
 			manage_error(ERROR);
 	}
@@ -91,6 +89,7 @@ void	init_execution(t_cmd **command, t_utils *utils)
 	cmd_id = 0;
 	pipes_fd = create_pipes_fd(cmd_lst_size(command));
 	utils->process_id = get_pid_array(cmd_lst_size(command));
+	init_signals(0);
 	while (cmd != NULL)
 	{
 		if (cmd->built_in != NULL)
@@ -100,7 +99,7 @@ void	init_execution(t_cmd **command, t_utils *utils)
 		close_fd_redlst(cmd);
 		cmd_id++;
 		cmd = cmd->next;
-		init_signals(1);
 	}
+	init_signals(1);
 	wait_process(utils, cmd_lst_size(command));
 }

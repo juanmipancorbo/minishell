@@ -144,6 +144,7 @@ void	dup_env_variables(t_utils *utils, char **env);
 void	init_execution(t_cmd **command, t_utils *utils);
 int		**create_pipes_fd(int np);
 pid_t	*get_pid_array(int nbs_process);
+void	check_cmd_access(t_cmd *cmd);
 
 /* ************************************************************************** */
 /*                               FILE DESCRIPTORS                             */
@@ -161,6 +162,7 @@ void	manage_error(char *msg);
 void	file_error(char *msg);
 void	delete_herdocf(void);
 void	exit_error(char *msg, int exit_code);
+void	cmd_error(char *str, int exit_code);
 
 /* ************************************************************************** */
 /*                                 LIST UTILS		                          */
