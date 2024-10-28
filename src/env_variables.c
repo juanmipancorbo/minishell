@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-static void	parse_pid(t_utils *utils, char *buffer)
+void	parse_pid(t_utils *utils, char *buffer)
 {
 	int		i;
 	char	temp[12];
@@ -28,26 +28,6 @@ static void	parse_pid(t_utils *utils, char *buffer)
 	if (!utils->pid)
 		printf("Malloc error: parse_pid.\n");
 	ft_strlcpy(utils->pid, temp, ft_strlen(temp));
-}
-
-static void	to_get_pid(t_utils *utils)
-{
-	int		fd;
-	int		bytes_read;
-	char	buffer[256];
-
-	fd = open("/proc/self/stat", O_RDONLY);
-	if (fd == -1)
-		return ;
-	bytes_read = read(fd, buffer, 255);
-	if (bytes_read == -1)
-	{
-		close(fd);
-		return ;
-	}
-	buffer[bytes_read] = '\0';
-	parse_pid(utils, buffer);
-	close(fd);
 }
 
 void	dup_env_variables(t_utils *utils, int pid, char **from, char ***to)
@@ -106,33 +86,47 @@ int	replace_env_var(char *var_name, char *new_value, char **env)
 	return (-1);
 }
 
+char	*new_var_entry(char *var_name, char *value)
+{
+	char	*new_var;
+
+	if (value)
+	{
+		new_var = ft_strjoin(var_name, "=");
+		if (!new_var)
+			return (NULL);
+		new_var = ft_strjoin_free(new_var, value);
+		if (!new_var)
+			return (NULL);
+	}
+	else
+	{
+		new_var = ft_strdup(var_name);
+		if (!new_var)
+			return (NULL);
+	}
+	return (new_var);
+}
+
+
 void	add_env_var(char *var_name, char *value, char ***env)
 {
 	char	**new_env;
 	char	*new_var;
 	int		i;
 
-	if (value)
-	{
-		new_var = ft_strjoin(var_name, "=");
-		if (!new_var)
-			return ;
-		new_var = ft_strjoin_free(new_var, value);
-		if (!new_var)
-			return ;
-	}
-	else
-	{
-		new_var = ft_strdup(var_name);
-		if (!new_var)
-			return ;
-	}
+	new_var = new_var_entry(var_name, value);
+	if (!new_var)
+		return ;
 	i = 0;
 	while ((*env)[i])
 		i++;
 	new_env = malloc(sizeof(char *) * (i + 2));
 	if (!new_env)
+	{
+		free(new_var);
 		return ;
+	}
 	i = -1;
 	while ((*env)[++i])
 		new_env[i] = (*env)[i];

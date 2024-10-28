@@ -100,7 +100,8 @@ void	double_q(const char **input, t_token **head, t_token **curr);
 void	to_variable(const char **input, t_token **head, t_token **curr);
 t_token	*to_tokenize(const char *input);
 char	*process_token_value(char *value, t_utils *utils);
-
+void	to_get_pid(t_utils *utils);
+void	parse_pid(t_utils *utils, char *buffer);
 
 /* ************************************************************************** */
 /*                                   PARSER                                   */

@@ -37,20 +37,29 @@ static int	print_export_var(t_utils *utils)
 
 static int	check_new_var(char *var_name)
 {
-	// int	i;
+	int	i;
 
-	// i = -1;
+	i = -1;
 	if (ft_isdigit(var_name[0]) || var_name[0] == '=' || var_name[0] == '$')
+	{
+		printf("minishell: export: `%s': not a valid identifier\n",
+			&var_name[0]);
 		return (-1);
-	// while (var_name[++i])
-	// {
-	// 	if (ft_isalnum(var_name[i]))
-	// 		continue ;
-	// 	if (var_name[i] == '_' || var_name[i] == '=' || ft_isspace(var_name[i]))
-	// 		continue ;
-	// 	else
-	// 		return (-1);
-	// }
+	}
+	while (var_name[++i])
+	{
+		if (ft_isalnum(var_name[i]))
+			continue ;
+		if (var_name[i] == '_' || var_name[i] == '=' || ft_isspace(var_name[i])
+			|| var_name[i] == '-')
+			continue ;
+		else
+		{
+			printf("minishell: syntax error near unexpected token `%c'\n",
+				var_name[i]);
+			return (-1);
+		}
+	}
 	return (0);
 }
 
