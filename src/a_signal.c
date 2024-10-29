@@ -6,7 +6,7 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 16:27:07 by apaterno          #+#    #+#             */
-/*   Updated: 2024/10/28 11:18:32 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/10/29 15:42:56 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	wait_process(t_utils *utils, int nb_process)
 	}
 	if (WIFEXITED(status))
 		g_exit_code = WEXITSTATUS(status);
-		//printf("w: %d\n",WEXITSTATUS(status));
 	else if (WIFSIGNALED(status))
 	{
 		if (WTERMSIG(status) == SIGINT)
@@ -33,6 +32,7 @@ void	wait_process(t_utils *utils, int nb_process)
 		else if (WTERMSIG(status) == SIGQUIT)
 			g_exit_code = 131;
 	}
+	init_signals(1);
 	// 	else if (WIFSTOPPED(status))
 	// 	printf("%d\n",WSTOPSIG(status));
 	// else
@@ -55,14 +55,12 @@ static void	child_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
-		write(1, "\n", 1);
-		rl_replace_line("", 0);
-		rl_on_new_line();
+		g_exit_code = 130;
 	}
 	if (sig == SIGQUIT)
 	{
+		g_exit_code = 130
 		write(STDOUT_FILENO, "Quit\n", 5);
-		rl_on_new_line();
 	}
 }
 

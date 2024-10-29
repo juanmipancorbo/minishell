@@ -100,6 +100,5 @@ void	init_execution(t_cmd **command, t_utils *utils)
 		cmd_id++;
 		cmd = cmd->next;
 	}
-	init_signals(1);
 	wait_process(utils, cmd_lst_size(command));
 }
