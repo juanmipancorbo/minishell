@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:57:08 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/28 21:52:20 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/10/29 17:45:14 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,27 +70,6 @@ static void	to_pipe(const char **input, t_token **head, t_token **curr)
 	(*input)++;
 	token = new_token(PIPE, "|");
 	add_token_node(head, curr, &token);
-}
-
-static void	analyze_symbol(const char **input)
-{
-	if (**input == '=')
-	{
-		(*input)++;
-		if (**input == '\'' || **input == '"')
-		{
-			(*input)++;
-			if (ft_strchr(*input, '\'') || ft_strchr(*input, '"'))
-			{
-				while (**input && **input != '\'' && **input != '"')
-					(*input)++;
-				if (**input)
-					(*input)++;
-			}
-		}
-	}
-	else
-		(*input)++;
 }
 
 static void	to_word(const char **input, t_token **head, t_token **curr)

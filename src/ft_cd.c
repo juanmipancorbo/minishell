@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-#include <limits.h>
 
 int	ft_cd(t_cmd *cmd, t_utils *utils)
 {

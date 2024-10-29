@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 18:55:43 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/28 20:31:03 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/10/29 20:04:22 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,71 +50,100 @@ int	check_export_name(char *var_name, t_utils *utils)
 	return (-1);
 }
 
+static size_t	handle_quotes_and_expand(char *value, char *result,
+	t_expand_data *data, t_utils *utils)
+{
+	char	*temp;
+
+	if (value[data->i] == '\'' && !data->in_double_quote)
+		data->in_single_quote = !data->in_single_quote;
+	else if (value[data->i] == '"' && !data->in_single_quote)
+		data->in_double_quote = !data->in_double_quote;
+	else if (value[data->i] == '$' && data->in_double_quote
+		&& ft_isalnum(value[data->i + 1]))
+	{
+		temp = expand_var(value + data->i + 1, utils->env_var);
+		if (temp)
+		{
+			ft_strcpy(&result[data->j], temp);
+			data->j += ft_strlen(temp);
+			data->i += ft_strlen(temp);
+			free(temp);
+		}
+	}
+	else
+		result[(data->j)++] = value[data->i];
+	return (data->i);
+}
+
 char	*process_token_value(char *value, t_utils *utils)
 {
-	char	*result;
-	char	*temp;
-	size_t	i;
-	size_t	j;
-	int		in_single_quote;
-	int		in_double_quote;
+	char			*result;
+	t_expand_data	data;
 
-	result = malloc(ft_strlen(value) + 1); // Asegúrate de tener espacio suficiente
+	result = malloc(ft_strlen(value) + 1);
 	if (!result)
 		manage_error("Malloc error (process_token_value).");
 
-	i = 0;
-	j = 0;
-	in_single_quote = 0;
-	in_double_quote = 0;
-	while (value[i])
+	data.i = 0;
+	data.j = 0;
+	data.in_single_quote = 0;
+	data.in_double_quote = 0;
+	while (value[data.i])
 	{
-		if (value[i] == '\'' && !in_double_quote) // Comienza o termina una comilla simple
-			in_single_quote = !in_single_quote;
-		else if (value[i] == '"' && !in_single_quote) // Comienza o termina una comilla doble
-			in_double_quote = !in_double_quote;
-		else if (value[i] == '$' && in_double_quote && ft_isalnum(value[i + 1])) // Expansión de variables dentro de comillas dobles
-		{
-			temp = expand_var(value + i + 1, utils->env_var); // Expande la variable
-			if (temp)
-			{
-				ft_strcpy(&result[j], temp); // Copia la variable expandida
-				j += ft_strlen(temp);
-				i += ft_strlen(temp); // Avanza el índice según el largo de la variable expandida
-				free(temp);
-			}
-		}
-		else // Copia el carácter normal si no es una comilla o no estamos expandiendo
-			result[j++] = value[i];
-		i++;
+		data.i = handle_quotes_and_expand(value, result, &data, utils);
+		data.i++;
 	}
-	result[j] = '\0'; // Termina la cadena resultante
-	free(value); // Liberamos la cadena original
+	result[data.j] = '\0';
+	free(value);
 	return (result);
 }
 
 void	expand_and_add_arg(t_cmd *cmd, char *expanded_value)
 {
 	char	**split_args;
+	char	*arg_copy;
 	int		i;
 
-	// Usa ft_split para separar el valor expandido por espacios
 	split_args = ft_split(expanded_value, ' ');
 	if (!split_args)
 		return ;
-
-	// Añade cada palabra como un argumento separado
 	i = 0;
 	while (split_args[i])
 	{
-		add_arg(cmd, split_args[i]);
+		arg_copy = ft_strdup(split_args[i]);
+		if (!arg_copy)
+		{
+			while (split_args[i])
+				free(split_args[i++]);
+			free(split_args);
+			return ;
+		}
+		add_arg(cmd, arg_copy);
 		i++;
 	}
-
-	// Libera la memoria
-	// i = 0;
-	// while (split_args[i])
-	// 	free(split_args[i++]);
-	// free(split_args);
+	i = 0;
+	while (split_args[i])
+		free(split_args[i++]);
+	free(split_args);
 }
 
+// void	expand_and_add_arg(t_cmd *cmd, char *expanded_value)
+// {
+// 	char	**split_args;
+// 	int		i;
+
+// 	i = 0;
+// 	split_args = ft_split(expanded_value, ' ');
+// 	if (!split_args)
+// 		return ;
+// 	while (split_args[i])
+// 	{
+// 		add_arg(cmd, split_args[i]);
+// 		i++;
+// 	}
+// 	i = 0;
+// 	while (split_args[i])
+// 		free(split_args[i++]);
+// 	free(split_args);
+// }

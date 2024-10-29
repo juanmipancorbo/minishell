@@ -55,6 +55,14 @@ typedef struct s_token
 	struct s_token	*next;
 }							t_token;
 
+typedef struct s_expand_data
+{
+	size_t	i;
+	size_t	j;
+	int		in_single_quote;
+	int		in_double_quote;
+}							t_expand_data;
+
 typedef struct s_utils
 {
 	char	**env_var;
@@ -102,6 +110,7 @@ t_token	*to_tokenize(const char *input);
 char	*process_token_value(char *value, t_utils *utils);
 void	to_get_pid(t_utils *utils);
 void	parse_pid(t_utils *utils, char *buffer);
+void	analyze_symbol(const char **input);
 
 /* ************************************************************************** */
 /*                                   PARSER                                   */

@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:00:50 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/28 20:57:30 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/10/29 19:55:39 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static int	to_expand_var(char *result, const char *value, int *i,
 	if (var_value)
 		while (*var_value)
 			result[j++] = *var_value++;
+	result[j] = '\0';
 	return (j);
 }
 
@@ -50,7 +51,7 @@ char	*expand_dollars(const char *value, t_utils *utils)
 	int		i;
 	int		j;
 
-	result = malloc(sizeof(char) * (strlen(value) + 1));
+	result = malloc(sizeof(char) * (strlen(value) + 2));
 	if (!result)
 		return (NULL);
 	i = 0;
@@ -70,4 +71,25 @@ char	*expand_dollars(const char *value, t_utils *utils)
 	}
 	result[j] = '\0';
 	return (result);
+}
+
+void	analyze_symbol(const char **input)
+{
+	if (**input == '=')
+	{
+		(*input)++;
+		if (**input == '\'' || **input == '"')
+		{
+			(*input)++;
+			if (ft_strchr(*input, '\'') || ft_strchr(*input, '"'))
+			{
+				while (**input && **input != '\'' && **input != '"')
+					(*input)++;
+				if (**input)
+					(*input)++;
+			}
+		}
+	}
+	else
+		(*input)++;
 }
