@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 21:26:02 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/18 19:35:06 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/10/10 18:53:05 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,23 @@ void	add_token_node(t_token **head, t_token **curr, t_token **token)
 	*curr = *token;
 }
 
-void	free_env_copy(char **env_var)
+void	free_env_copy(t_utils *utils)
 {
 	int	i;
 
 	i = 0;
-	if (!env_var)
-		return ;
-	while (env_var[i])
+	if (utils->env_var)
 	{
-		free(env_var[i]);
-		i++;
+		while (utils->env_var[i])
+			free(utils->env_var[i++]);
+		free(utils->env_var);
 	}
-	free(env_var);
+	i = 0;
+	if (utils->export_var)
+	{
+		while (utils->export_var[i])
+			free(utils->export_var[i++]);
+		free(utils->export_var);
+	}
+	free(utils->pid);
 }

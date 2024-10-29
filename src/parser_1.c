@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 19:13:32 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/11 18:29:38 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/10/29 20:12:06 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,14 @@ static void	to_path_and_fd(t_cmd *cmds, t_utils *utils)
 
 static t_bool	parse_tkn(t_token *token, t_cmd *cmd)
 {
-	if (token->type == WORD || token->type == VAR)
+	if (token->type == VAR)
+	{
+		if (cmd->args && ft_strncmp(cmd->args[0], "echo", 5) == 0)
+			add_arg(cmd, token->value);
+		else
+			expand_and_add_arg(cmd, token->value);
+	}
+	else if (token->type == WORD || token->type == SINGLE_Q)
 		add_arg(cmd, token->value);
 	else if (token->type == RD_IN || token->type == RD_OUT
 		|| token->type == APPEND || token->type == HEREDOC)
@@ -106,14 +113,15 @@ t_cmd	*to_parse(t_token *tokens, t_utils *utils)
 	t_cmd	*head;
 	t_cmd	*curr;
 
-	expand_tokens(tokens, utils->env_var);
-	between_q(&tokens);
+	expand_tokens(tokens, utils);
 	head = create_cmd_node();
 	if (!head)
 		return (NULL);
 	curr = head;
 	while (tokens)
 	{
+		if (tokens->type == WORD && ft_strchr(tokens->value, '='))
+			tokens->value = process_token_value(tokens->value, utils);
 		if (tokens->type == PIPE)
 			curr = add_pipe(curr);
 		else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/16 17:16:46 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/10/29 20:14:19 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static void	clean_loop(char *input, t_token *tokens, t_cmd *cmds, int *pid)
 		temp = tokens;
 		tokens = tokens->next;
 		free(temp->value);
-	//	printf("Free token value.\n");
 		free(temp);
 	}
 	free_cmds(cmds);
@@ -95,14 +94,14 @@ static void	init_loop(t_utils *utils)
 		if (*input)
 			add_history(input);
 		tokens = to_tokenize(input);
-		// print_tokens(tokens);
 		cmds = to_parse(tokens, utils);
+		// print_tokens(tokens);
 		// print_cmds(cmds);
 		if (*input && cmds != NULL)
 			init_execution(&cmds, utils);
 		clean_loop(input, tokens, cmds, utils->process_id);
 	}
-	free_env_copy(utils->env_var);
+	free_env_copy(utils);
 }
 
 int	main(int argc, char **argv, char **env)
@@ -112,7 +111,7 @@ int	main(int argc, char **argv, char **env)
 	if (argc >= 1 && argv[0])
 	{
 		init_signals(1);
-		dup_env_variables(&utils, env);
+		dup_env_variables(&utils, 1, env, &utils.env_var);
 		init_loop(&utils);
 	}
 	return (0);

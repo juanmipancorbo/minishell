@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-#include <limits.h>
 
 int	ft_cd(t_cmd *cmd, t_utils *utils)
 {
@@ -31,6 +30,6 @@ int	ft_cd(t_cmd *cmd, t_utils *utils)
 		chdir(path);
 	}
 	if (getcwd(cwd, sizeof(cwd)))
-		replace_env_var("PWD", cwd, utils);
+		replace_env_var("PWD", cwd, utils->env_var);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 19:40:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/09/27 17:57:56 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/10/28 21:49:05 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,7 @@ void	double_q(const char **input, t_token **head, t_token **curr)
 	token = new_token(DOUBLE_Q, "\"");
 	add_token_node(head, curr, &token);
 	while (**input && **input != '"')
-	{
-		if (**input == '$')
-		{
-			if (*input > start)
-				q_content(start, *input, head, curr);
-			to_variable(input, head, curr);
-			start = *input;
-		}
-		else
-			(*input)++;
-	}
+		(*input)++;
 	if (*input > start)
 	{
 		q_content(start, *input, head, curr);
@@ -90,16 +80,14 @@ void	to_variable(const char **input, t_token **head, t_token **curr)
 	size_t		len;
 
 	(*input)++;
-	if (**input && (!ft_isalnum(**input) && **input != '_'))
-		return ;
 	start = *input;
 	while (**input && (ft_isalnum(**input) || **input == '_'))
 		(*input)++;
-	len = *input - start;
-	value = ft_strndup(start, len);
+	len = *input - start + 1;
+	value = ft_strndup(--start, len);
 	if (!value)
 		manage_error("Malloc error(to_variable).");
-	token = new_token(VAR, value);
+	token = new_token(WORD, value);
 	free(value);
 	add_token_node(head, curr, &token);
 }
