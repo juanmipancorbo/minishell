@@ -6,7 +6,7 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 19:13:32 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/11 18:29:38 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/10/29 18:32:44 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ static t_bool	parse_tkn(t_token *token, t_cmd *cmd)
 	{
 		if (!token->next || token->next->type != WORD)
 		{
-			printf("bash: syntax error near unexpected token `newline'\n");
+			printf("Minishell: syntax error near unexpected token `newline'\n");
 			return (FALSE);
 		}
 		token = token->next;

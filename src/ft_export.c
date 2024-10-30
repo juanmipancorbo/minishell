@@ -54,7 +54,7 @@ static void	to_env_var(char *arg, t_utils *utils)
 		return (free(var_name));
 	if (!is_valid_identifier(var_name) || arg[0] == '=')
 	{
-		printf("bash: export: `%s': not a valid identifier\n", arg);
+		printf("Minishell: export: `%s': not a valid identifier\n", arg);
 		return (free(var_name));
 	}
 	if (replace_env_var(var_name, value, utils))

@@ -20,19 +20,21 @@ void	read_loop(char *str)
 	fd = open(HEREDOC_F, O_WRONLY | O_CREAT | O_APPEND | O_TRUNC, 0777);
 	if (fd < 0)
 		manage_error(ERROR);
+	init_signals(2);
 	while (1)
 	{
 		line = readline(">");
+		//init_signals(0);
+		if (!line)
+			break;
 		if (!ft_strncmp(line, str, ft_strlen(str) + 1))
-		{
-			free(line);
-			return ;
-		}
+			break;
 		if (write(fd, line, ft_strlen(line)) == -1)
 			manage_error(ERROR);
 		if (write(fd, "\n", 1) == -1)
 			manage_error(ERROR);
 		free(line);
 	}
+	free(line);
 	close(fd);
 }
