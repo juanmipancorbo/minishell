@@ -22,7 +22,7 @@ static void	free_env_list(char **env_list)
 	free(env_list);
 }
 
-static int	ft_env_list_size(char **env_list)
+int	to_env_list_size(char **env_list)
 {
 	int	size;
 
@@ -38,7 +38,7 @@ static char	**create_new_list(char **old_list, int index)
 	int		j;
 	char	**new_list;
 
-	new_list = (char **)malloc(sizeof(char *) * ft_env_list_size(old_list));
+	new_list = (char **)malloc(sizeof(char *) * to_env_list_size(old_list));
 	if (!new_list)
 		return (NULL);
 	i = 0;

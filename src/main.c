@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/29 20:14:19 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/10/30 19:54:52 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ static char	*to_prompt(char **env_var)
 	char	*path;
 	size_t	len;
 
+	if (to_env_list_size(env_var) < 10)
+		return ("minishell> \0");
 	if (!build_prompt_parts(env_var, &user, &machine, &path))
 		return (NULL);
 	len = strlen(user) + strlen(machine) + strlen(path) + 9;
@@ -85,7 +87,8 @@ static void	init_loop(t_utils *utils)
 	{
 		prompt = to_prompt(utils->env_var);
 		input = readline(prompt);
-		free(prompt);
+		if (to_env_list_size(utils->env_var) > 10)
+			free(prompt);
 		if (!input)
 		{
 			printf("exit\n");
@@ -110,8 +113,16 @@ int	main(int argc, char **argv, char **env)
 
 	if (argc >= 1 && argv[0])
 	{
-		init_signals(1);
-		dup_env_variables(&utils, 1, env, &utils.env_var);
+		if (env && !(*env))
+		{
+			init_signals(1);
+			to_no_env(&utils);
+		}
+		else
+		{
+			init_signals(1);
+			dup_env_variables(&utils, 1, env, &utils.env_var);
+		}
 		init_loop(&utils);
 	}
 	return (0);
