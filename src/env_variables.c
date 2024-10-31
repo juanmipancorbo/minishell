@@ -12,30 +12,53 @@
 
 #include "../include/minishell.h"
 
-void	dup_env_variables(t_utils *utils, char **env)
+void	parse_pid(t_utils *utils, char *buffer)
+{
+	int		i;
+	char	temp[12];
+
+	i = 0;
+	while (buffer[i] >= '0' && buffer[i] <= '9' && i < 11)
+	{
+		temp[i] = buffer[i];
+		i++;
+	}
+	temp[i] = '\0';
+	utils->pid = malloc(sizeof(char) * (i + 1));
+	if (!utils->pid)
+		printf("Malloc error: parse_pid.\n");
+	ft_strlcpy(utils->pid, temp, ft_strlen(temp));
+}
+
+void	dup_env_variables(t_utils *utils, int pid, char **from, char ***to)
 {
 	int		i;
 	char	**new_env;
 
 	i = 0;
-	while (env[i])
+	while (from[i])
 		i++;
 	new_env = malloc(sizeof(char *) * (i + 1));
 	if (!new_env)
 		manage_error(MALLOC_E);
 	i = 0;
-	while (env[i])
+	while (from[i])
 	{
-		new_env[i] = ft_strdup(env[i]);
+		new_env[i] = ft_strdup(from[i]);
 		if (!new_env[i])
 			manage_error(MALLOC_E);
 		i++;
 	}
 	new_env[i] = NULL;
-	utils->env_var = new_env;
+	*to = new_env;
+	if (pid)
+	{
+		to_get_pid(utils);
+		utils->export_var = NULL;
+	}
 }
 
-int	replace_env_var(char *var_name, char *new_value, t_utils *utils)
+int	replace_env_var(char *var_name, char *new_value, char **env)
 {
 	int		i;
 	char	*new_var;
@@ -49,13 +72,12 @@ int	replace_env_var(char *var_name, char *new_value, t_utils *utils)
 	if (!new_var)
 		return (-1);
 	i = 0;
-	while (utils->env_var[i])
+	while (env[i])
 	{
-		if (!ft_strncmp(utils->env_var[i], var_name, var_len)
-			&& utils->env_var[i][var_len] == '=')
+		if (!ft_strncmp(env[i], var_name, var_len))
 		{
-			free(utils->env_var[i]);
-			utils->env_var[i] = new_var;
+			free(env[i]);
+			env[i] = new_var;
 			return (0);
 		}
 		i++;
@@ -64,29 +86,52 @@ int	replace_env_var(char *var_name, char *new_value, t_utils *utils)
 	return (-1);
 }
 
-void	add_env_var(char *var_name, char *value, t_utils *utils)
+char	*new_var_entry(char *var_name, char *value)
 {
-	char	**new_env_var;
+	char	*new_var;
+
+	if (value)
+	{
+		new_var = ft_strjoin(var_name, "=");
+		if (!new_var)
+			return (NULL);
+		new_var = ft_strjoin_free(new_var, value);
+		if (!new_var)
+			return (NULL);
+	}
+	else
+	{
+		new_var = ft_strdup(var_name);
+		if (!new_var)
+			return (NULL);
+	}
+	return (new_var);
+}
+
+
+void	add_env_var(char *var_name, char *value, char ***env)
+{
+	char	**new_env;
 	char	*new_var;
 	int		i;
 
-	new_var = ft_strjoin(var_name, "=");
-	if (!new_var)
-		return ;
-	new_var = ft_strjoin_free(new_var, value);
+	new_var = new_var_entry(var_name, value);
 	if (!new_var)
 		return ;
 	i = 0;
-	while (utils->env_var[i])
+	while ((*env)[i])
 		i++;
-	new_env_var = malloc(sizeof(char *) * (i + 2));
-	if (!new_env_var)
+	new_env = malloc(sizeof(char *) * (i + 2));
+	if (!new_env)
+	{
+		free(new_var);
 		return ;
+	}
 	i = -1;
-	while (utils->env_var[++i])
-		new_env_var[i] = utils->env_var[i];
-	new_env_var[i] = new_var;
-	new_env_var[i + 1] = NULL;
-	free(utils->env_var);
-	utils->env_var = new_env_var;
+	while ((*env)[++i])
+		new_env[i] = (*env)[i];
+	new_env[i] = new_var;
+	new_env[i + 1] = NULL;
+	free(*env);
+	*env = new_env;
 }

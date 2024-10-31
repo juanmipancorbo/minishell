@@ -6,7 +6,7 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/28 11:26:53 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/10/31 18:54:08 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static void	clean_loop(char *input, t_token *tokens, t_cmd *cmds, int *pid)
 		temp = tokens;
 		tokens = tokens->next;
 		free(temp->value);
-	//	printf("Free token value.\n");
 		free(temp);
 	}
 	free_cmds(cmds);
@@ -97,26 +96,26 @@ static void	init_loop(t_utils *utils)
 		if (*input)
 			add_history(input);
 		tokens = to_tokenize(input);
-		// print_tokens(tokens);
 		cmds = to_parse(tokens, utils);
+		// print_tokens(tokens);
 		// print_cmds(cmds);
 		if (*input && cmds != NULL)
 			init_execution(&cmds, utils);
 		clean_loop(input, tokens, cmds, utils->process_id);
 		printf("exit: %d\n",g_exit_code);
 	}
-	free_env_copy(utils->env_var);
+	free_env_copy(utils);
 }
 
 int	main(int argc, char **argv, char **env)
 {
 	t_utils		utils;
-	
-	if (argc != 1)
-		exit_error("Wrong arguments\n", 127);
-	init_signals(1);
-	dup_env_variables(&utils, env);
-	init_loop(&utils);
-	(void)argv;
+
+	if (argc >= 1 && argv[0])
+	{
+		init_signals(1);
+		dup_env_variables(&utils, 1, env, &utils.env_var);
+		init_loop(&utils);
+	}
 	return (0);
 }

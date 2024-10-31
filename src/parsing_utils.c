@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apaterno <apaterno@student.42barcelona.    +#+  +:+       +#+        */
+/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 18:59:29 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/11 13:32:07 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/10/29 20:14:34 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void	free_cmds(t_cmd *cmds)
 			if (!temp->built_in)
 			{
 				free(temp->args[i]);
-				// printf("Free args[%d].\n", i);
 				i++;
 			}
 			free(temp->args);

@@ -46,6 +46,7 @@ typedef enum e_tkn_type
 	HEREDOC = 5,
 	DOUBLE_Q = 6,
 	VAR = 7,
+	SINGLE_Q = 8,
 }							t_tkn_type;
 
 typedef struct s_token
@@ -56,10 +57,20 @@ typedef struct s_token
 	struct s_token	*next;
 }							t_token;
 
+typedef struct s_expand_data
+{
+	size_t	i;
+	size_t	j;
+	int		in_single_quote;
+	int		in_double_quote;
+}							t_expand_data;
+
 typedef struct s_utils
 {
 	char	**env_var;
 	pid_t	*process_id;
+	char	**export_var;
+	char	*pid;
 }							t_utils;
 
 typedef struct s_red
@@ -91,7 +102,7 @@ typedef enum s_bool
 /*                                  TOKENIZER                                 */
 /* ************************************************************************** */
 void	add_token_node(t_token **head, t_token **curr, t_token **token);
-void	free_env_copy(char **env_var);
+void	free_env_copy(t_utils *utils);
 t_token	*new_token(t_tkn_type type, char *value);
 void	q_content(const char *start, const char *input, t_token **head,
 			t_token **curr);
@@ -99,6 +110,10 @@ char	*single_q(const char **input, char q_type);
 void	double_q(const char **input, t_token **head, t_token **curr);
 void	to_variable(const char **input, t_token **head, t_token **curr);
 t_token	*to_tokenize(const char *input);
+char	*process_token_value(char *value, t_utils *utils);
+void	to_get_pid(t_utils *utils);
+void	parse_pid(t_utils *utils, char *buffer);
+void	analyze_symbol(const char **input);
 
 /* ************************************************************************** */
 /*                                   PARSER                                   */
@@ -112,7 +127,8 @@ void	add_in_red(t_cmd *cmd, t_red *red);
 void	add_out_red(t_cmd *cmd, t_red *red);
 t_cmd	*create_cmd_node(void);
 char	*expand_var(char *var, char **env);
-void	expand_tokens(t_token *tokens, char **env);
+void	expand_tokens(t_token *tokens, t_utils *utils);
+void	expand_and_add_arg(t_cmd *cmd, char *expansion);
 void	between_q(t_token **tokens);
 char	*join_path_cmd(char *path, char *cmd);
 char	*get_env_value(char **env, const char *var_name);
@@ -140,7 +156,7 @@ char	*ft_strjoin_free(char *s1, char const *s2);
 /* ************************************************************************** */
 /*                                  EXECUTER                                  */
 /* ************************************************************************** */
-void	dup_env_variables(t_utils *utils, char **env);
+void	dup_env_variables(t_utils *utils, int pid, char **from, char ***to);
 void	init_execution(t_cmd **command, t_utils *utils);
 int		**create_pipes_fd(int np);
 pid_t	*get_pid_array(int nbs_process);
@@ -194,8 +210,11 @@ int		ft_exit(t_cmd *cmd, t_utils *utils);
 /*                                BUILT IN UTILS			                  */
 /* ************************************************************************** */
 t_bool	is_forked(t_cmd *cmd);
-int		replace_env_var(char *var_name, char *new_value, t_utils *utils);
-void	add_env_var(char *var_name, char *value, t_utils *utils);
+int		replace_env_var(char *var_name, char *new_value, char **env);
+void	add_env_var(char *var_name, char *value, char ***env);
+char	*expand_dollars(const char *value, t_utils *utils);
+int		check_export_name(char *var_name, t_utils *utils);
+
 
 /* ************************************************************************** */
 /*                                  SIGNALS			                          */
