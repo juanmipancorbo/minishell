@@ -89,7 +89,7 @@ void	init_execution(t_cmd **command, t_utils *utils)
 	cmd_id = 0;
 	pipes_fd = create_pipes_fd(cmd_lst_size(command));
 	utils->process_id = get_pid_array(cmd_lst_size(command));
-	//init_signals(0);
+	init_signals(0);
 	while (cmd != NULL)
 	{
 		if (cmd->built_in != NULL)

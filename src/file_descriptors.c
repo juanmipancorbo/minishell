@@ -58,7 +58,9 @@ static t_bool	set_heredoc_fd(t_red *red)
 {
 	int	fd;
 
-	read_loop(red->file);
+	if (!read_loop(red->file))
+		return (FALSE);
+	init_signals(1);
 	fd = open(HEREDOC_F, O_RDONLY);
 	if (fd < 0)
 	{

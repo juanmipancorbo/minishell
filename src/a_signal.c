@@ -6,42 +6,27 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 16:27:07 by apaterno          #+#    #+#             */
-/*   Updated: 2024/10/29 18:38:17 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/10/31 17:36:54 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	wait_process(t_utils *utils, int nb_process)
+static void	heredoc_handler(int sig)
 {
-	int status;
-	int i;
+	if (sig == SIGINT)
+	{
+		g_exit_code = 130;
+		write(1, "\n", 1);
+		exit(130);
+	}
+}
 
-	i = 0;
-	status = -1;
-	while (i < nb_process)
-	{
-		waitpid(utils->process_id[i], &status, 0);
-		i++;
-	}
-	if (WIFEXITED(status))
-	{
-		g_exit_code = WEXITSTATUS(status);
-		printf("EXIT\n");
-	}
-	else if (WIFSIGNALED(status))
-	{
-		if (WTERMSIG(status) == SIGINT)
-			g_exit_code = 130;
-		else if (WTERMSIG(status) == SIGQUIT)
-			g_exit_code = 131;
-	}
-	init_signals(1);
-	// 	else if (WIFSTOPPED(status))
-	// 	printf("%d\n",WSTOPSIG(status));
-	// else
-	// 	printf("+%d\n",WTERMSIG(status));
-		
+
+static void	heredoc_wait(int sig)
+{
+	if (sig == SIGINT)
+		g_exit_code = 130;
 }
 
 static void	sig_handler(int sig)
@@ -84,6 +69,11 @@ void	init_signals(int i)
 	else if (i == 2)
 	{
 		signal(SIGINT, heredoc_handler);
+		signal(SIGQUIT, SIG_IGN);
+	}
+	else if (i == 3)
+	{
+		signal(SIGINT, heredoc_wait);
 		signal(SIGQUIT, SIG_IGN);
 	}
 }

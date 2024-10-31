@@ -151,7 +151,7 @@ void	check_cmd_access(t_cmd *cmd);
 /* ************************************************************************** */
 void	add_fdnode_back(t_red **lst, t_red *new);
 t_bool	set_file_descriptor(t_red *red);
-void	read_loop(char *str);
+t_bool	read_loop(char *str);
 t_bool	check_files(char *path);
 t_bool	fill_fd(t_cmd *cmd);
 
