@@ -24,9 +24,28 @@ static t_bool wait_herecoc(pid_t pid)
 		return (TRUE);
 }
 
-t_bool	read_loop(char *str)
+void star_loop(char *delimiter, int fd)
 {
 	char	*line;
+	init_signals(2);
+	while (1)
+	{
+		line = readline(">");
+		if (!line)
+			break;
+		if (!ft_strncmp(line, delimiter, ft_strlen(delimiter) + 1))
+			break;
+		ft_putendl_fd(line,fd);
+		free(line);
+	}
+	free(line);
+	//close(fd);
+	exit(0);
+}
+
+t_bool	read_loop(char *str)
+{
+	
 	int		fd;
 	pid_t	pid;
 
@@ -35,26 +54,8 @@ t_bool	read_loop(char *str)
 		manage_error(ERROR);
 	pid = fork();
 	if (pid == 0)
-	{
-		init_signals(2);
-		while (1)
-		{
-			line = readline(">");
-			if (!line)
-				break;
-			if (!ft_strncmp(line, str, ft_strlen(str) + 1))
-				break;
-			if (write(fd, line, ft_strlen(line)) == -1)
-				manage_error(ERROR);
-			if (write(fd, "\n", 1) == -1)
-				manage_error(ERROR);
-			free(line);
-		}
-	free(line);
-	close(fd);
-	exit(0);
-	}
+		star_loop(str, fd);
 	if (wait_herecoc(pid))
-		return (TRUE);
-	return (FALSE);
+		return (close(fd), TRUE);
+	return (close(fd), FALSE);
 }
