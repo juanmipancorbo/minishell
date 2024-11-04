@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 20:06:25 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/29 20:16:55 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/04 21:43:00 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	add_arg(t_cmd *cmd, char *arg)
 	while (cmd->args && cmd->args[i])
 	{
 		new_args[i] = cmd->args[i];
+		cmd->args[i] = NULL;
 		i++;
 	}
 	new_args[i] = arg;

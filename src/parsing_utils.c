@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 18:59:29 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/29 20:14:34 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/04 22:08:00 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,18 +63,38 @@ void	free_cmds(t_cmd *cmds)
 
 	while (cmds)
 	{
+		i = 0;
 		temp = cmds;
 		cmds = cmds->next;
-		if (temp->args)
+		while (temp->args && temp->args[i])
 		{
-			i = 0;
-			if (!temp->built_in)
-			{
-				free(temp->args[i]);
-				i++;
-			}
-			free(temp->args);
+			free(temp->args[i]);
+			i++;
 		}
+		free(temp->args);
 		free_cmds_more(temp);
 	}
 }
+
+// void	free_cmds(t_cmd *cmds)
+// {
+// 	t_cmd	*temp;
+// 	int		i;
+
+// 	while (cmds)
+// 	{
+// 		temp = cmds;
+// 		cmds = cmds->next;
+// 		if (temp->args)
+// 		{
+// 			i = 0;
+// 			if (!temp->built_in)
+// 			{
+// 				free(temp->args[i]);
+// 				i++;
+// 			}
+// 			free(temp->args);
+// 		}
+// 		free_cmds_more(temp);
+// 	}
+// }
