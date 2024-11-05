@@ -6,7 +6,7 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 16:27:07 by apaterno          #+#    #+#             */
-/*   Updated: 2024/10/31 17:36:54 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/05 12:59:39 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ static void	heredoc_handler(int sig)
 	}
 }
 
-
 static void	heredoc_wait(int sig)
 {
 	if (sig == SIGINT)
@@ -33,7 +32,7 @@ static void	sig_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
-		// agregar el exit code 130;
+		g_exit_code = 130;
 		write(1, "\n", 1);
 		rl_replace_line("", 0);
 		rl_on_new_line();

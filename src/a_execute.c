@@ -62,7 +62,7 @@ static void	exec_builtin(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
 static void	exec_cmd(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
 {
 	if (!fill_fd(cmd))
-			return;
+		return ;
 	utils->process_id[cmd_id] = fork();
 	if (utils->process_id[cmd_id] == -1)
 		manage_error(ERROR);

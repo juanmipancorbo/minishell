@@ -12,30 +12,31 @@
 
 #include "../include/minishell.h"
 
-static t_bool wait_herecoc(pid_t pid)
+static t_bool	wait_herecoc(pid_t pid)
 {
-	int status;
+	int	status;
 
 	init_signals(3);
-	waitpid(pid,&status,0);
- 	if (WEXITSTATUS(status) == 130)
+	waitpid(pid, &status, 0);
+	if (WEXITSTATUS(status) == 130)
 		return (FALSE);
 	else
 		return (TRUE);
 }
 
-void star_loop(char *delimiter, int fd)
+void	star_loop(char *delimiter, int fd)
 {
 	char	*line;
+
 	init_signals(2);
 	while (1)
 	{
 		line = readline(">");
 		if (!line)
-			break;
+			break ;
 		if (!ft_strncmp(line, delimiter, ft_strlen(delimiter) + 1))
-			break;
-		ft_putendl_fd(line,fd);
+			break ;
+		ft_putendl_fd(line, fd);
 		free(line);
 	}
 	free(line);
@@ -44,7 +45,6 @@ void star_loop(char *delimiter, int fd)
 
 t_bool	read_loop(char *str)
 {
-	
 	int		fd;
 	pid_t	pid;
 

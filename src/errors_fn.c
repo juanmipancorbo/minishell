@@ -25,9 +25,9 @@ void	file_error(char *msg)
 	free(msg);
 }
 
-void cmd_error(char *str, int exit_code)
+void	cmd_error(char *str, int exit_code)
 {
-	ft_putstr_fd(str,STDERR_FILENO);
+	ft_putstr_fd(str, STDERR_FILENO);
 	free(str);
 	exit(exit_code);
 }
