@@ -39,7 +39,6 @@ void star_loop(char *delimiter, int fd)
 		free(line);
 	}
 	free(line);
-	//close(fd);
 	exit(0);
 }
 
