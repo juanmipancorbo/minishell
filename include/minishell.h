@@ -168,7 +168,7 @@ void	check_cmd_access(t_cmd *cmd);
 /* ************************************************************************** */
 void	add_fdnode_back(t_red **lst, t_red *new);
 t_bool	set_file_descriptor(t_red *red);
-t_bool	read_loop(char *str);
+t_bool	read_loop(t_red *red);
 t_bool	check_files(char *path);
 t_bool	fill_fd(t_cmd *cmd);
 t_bool	heredoc_complete(t_cmd *cmd);
@@ -177,10 +177,11 @@ t_bool	heredoc_complete(t_cmd *cmd);
 /*                                EXIT & ERRORS     	                      */
 /* ************************************************************************** */
 void	manage_error(char *msg);
-void	file_error(char *msg);
+void	file_error(char *msg, int exit_code);
 void	delete_herdocf(void);
 void	exit_error(char *msg, int exit_code);
 void	cmd_error(char *str, int exit_code);
+void	heredoc_error(char *delimiter);
 
 /* ************************************************************************** */
 /*                                 LIST UTILS		                          */

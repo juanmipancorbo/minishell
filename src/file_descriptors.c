@@ -19,7 +19,7 @@ static t_bool	set_rdin_fd(t_red *red)
 	fd = open(red->file, O_RDONLY);
 	if (fd < 0)
 	{
-		file_error(ft_strjoin("-Minishell: ", red->file));
+		file_error(ft_strjoin("-Minishell: ", red->file), 1);
 		return (FALSE);
 	}
 	red->fd = fd;
@@ -33,7 +33,7 @@ static t_bool	set_rdout_fd(t_red *red)
 	fd = open(red->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd < 0)
 	{
-		file_error(ft_strjoin("-Minishell: ", red->file));
+		file_error(ft_strjoin("-Minishell: ", red->file), 1);
 		return (FALSE);
 	}
 	red->fd = fd;
@@ -47,7 +47,7 @@ static t_bool	set_append_fd(t_red *red)
 	fd = open(red->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd < 0)
 	{
-		file_error(ft_strjoin("-Minishell: ", red->file));
+		file_error(ft_strjoin("-Minishell: ", red->file), 1);
 		return (FALSE);
 	}
 	red->fd = fd;
@@ -58,13 +58,13 @@ static t_bool	set_heredoc_fd(t_red *red)
 {
 	int	fd;
 
-	if (!read_loop(red->file))
-		return (FALSE);
+	// if (!read_loop(red->file))
+	// 	return (FALSE);
 	init_signals(1);
 	fd = open(HEREDOC_F, O_RDONLY);
 	if (fd < 0)
 	{
-		file_error(ft_strjoin("-Minishell: ", HEREDOC_F));
+		file_error(ft_strjoin("-Minishell: ", HEREDOC_F), 1);
 		return (FALSE);
 	}
 	red->fd = fd;
