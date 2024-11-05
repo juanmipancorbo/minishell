@@ -58,3 +58,13 @@ t_bool	read_loop(char *str)
 		return (close(fd), TRUE);
 	return (close(fd), FALSE);
 }
+
+t_bool heredoc_complete(t_cmd *cmd)
+{
+	t_red *in;
+
+	in = cmd->in_rd;
+	if(in->type == HEREDOC)
+		printf("HEREDOC\n");
+	return (TRUE);
+}

@@ -79,6 +79,7 @@ typedef struct s_red
 	char			*file;
 	int				type;
 	int				fd;
+	char 			*herecoc_f;
 	struct s_red	*next;
 }							t_red;
 
@@ -173,6 +174,7 @@ t_bool	set_file_descriptor(t_red *red);
 t_bool	read_loop(char *str);
 t_bool	check_files(char *path);
 t_bool	fill_fd(t_cmd *cmd);
+t_bool	heredoc_complete(t_cmd *cmd);
 
 /* ************************************************************************** */
 /*                                EXIT & ERRORS     	                      */
