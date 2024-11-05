@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/05 22:30:45 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/05 22:36:05 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ static void	init_loop(t_utils *utils)
 			free(prompt);
 		if (!input)
 		{
-			printf("exit\n");
+			printf("exit: %d\n", g_exit_code);
 			break ;
 		}
 		if (*input)
@@ -105,7 +105,6 @@ static void	init_loop(t_utils *utils)
 		if (*input && cmds != NULL)
 			init_execution(&cmds, utils);
 		clean_loop(input, tokens, cmds, utils->process_id);
-		printf("exit: %d\n", g_exit_code);
 	}
 	free_env_copy(utils);
 }
