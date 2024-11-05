@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/04 21:43:09 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/05 21:51:43 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ static int	build_prompt_parts(char **env_var, char **user, char **machine,
 {
 	char	*temp;
 
-	*user = expand_var("USER", env_var);
 	temp = expand_var("SESSION_MANAGER", env_var);
 	*machine = malloc(8);
 	if (!*machine)
@@ -44,6 +43,7 @@ static int	build_prompt_parts(char **env_var, char **user, char **machine,
 	temp = replace_str(temp, expand_var("HOME", env_var));
 	*path = replace_str(*path, copy_after_str(*path, temp));
 	free(temp);
+	*user = expand_var("USER", env_var);
 	if (!*user || !*machine || !*path)
 		return (0);
 	return (1);
