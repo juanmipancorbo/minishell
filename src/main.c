@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/31 18:54:08 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/05 22:30:45 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	g_exit_code;
+int g_exit_code;
 
 static void	clean_loop(char *input, t_token *tokens, t_cmd *cmds, int *pid)
 {
@@ -36,7 +36,6 @@ static int	build_prompt_parts(char **env_var, char **user, char **machine,
 {
 	char	*temp;
 
-	*user = expand_var("USER", env_var);
 	temp = expand_var("SESSION_MANAGER", env_var);
 	*machine = malloc(8);
 	if (!*machine)
@@ -46,6 +45,7 @@ static int	build_prompt_parts(char **env_var, char **user, char **machine,
 	temp = replace_str(temp, expand_var("HOME", env_var));
 	*path = replace_str(*path, copy_after_str(*path, temp));
 	free(temp);
+	*user = expand_var("USER", env_var);
 	if (!*user || !*machine || !*path)
 		return (0);
 	return (1);
@@ -59,6 +59,8 @@ static char	*to_prompt(char **env_var)
 	char	*path;
 	size_t	len;
 
+	if (to_env_list_size(env_var) < 10)
+		return ("minishell> \0");
 	if (!build_prompt_parts(env_var, &user, &machine, &path))
 		return (NULL);
 	len = strlen(user) + strlen(machine) + strlen(path) + 9;
@@ -87,7 +89,8 @@ static void	init_loop(t_utils *utils)
 	{
 		prompt = to_prompt(utils->env_var);
 		input = readline(prompt);
-		free(prompt);
+		if (to_env_list_size(utils->env_var) > 10)
+			free(prompt);
 		if (!input)
 		{
 			printf("exit\n");
@@ -102,7 +105,7 @@ static void	init_loop(t_utils *utils)
 		if (*input && cmds != NULL)
 			init_execution(&cmds, utils);
 		clean_loop(input, tokens, cmds, utils->process_id);
-		printf("exit: %d\n",g_exit_code);
+		printf("exit: %d\n", g_exit_code);
 	}
 	free_env_copy(utils);
 }
@@ -113,8 +116,16 @@ int	main(int argc, char **argv, char **env)
 
 	if (argc >= 1 && argv[0])
 	{
-		init_signals(1);
-		dup_env_variables(&utils, 1, env, &utils.env_var);
+		if (env && !(*env))
+		{
+			init_signals(1);
+			to_no_env(&utils);
+		}
+		else
+		{
+			init_signals(1);
+			dup_env_variables(&utils, 1, env, &utils.env_var);
+		}
 		init_loop(&utils);
 	}
 	return (0);

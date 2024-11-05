@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 18:59:29 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/29 20:14:34 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/05 21:52:00 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ void	add_red(t_cmd *cmd, char *file, int type)
 void	full_path_to_arg(t_cmd	*cmd)
 {
 	if (cmd->full_path)
+	{
+		free(cmd->args[0]);
 		cmd->args[0] = ft_strdup(cmd->full_path);
+	}
 }
 
 void	free_redirections(t_red *red)
@@ -63,18 +66,16 @@ void	free_cmds(t_cmd *cmds)
 
 	while (cmds)
 	{
+		i = 0;
 		temp = cmds;
 		cmds = cmds->next;
-		if (temp->args)
+		while (temp->args[i])
 		{
-			i = 0;
-			if (!temp->built_in)
-			{
-				free(temp->args[i]);
-				i++;
-			}
-			free(temp->args);
+			free(temp->args[i]);
+			i++;
 		}
+		free(temp->args);
+		temp->args = NULL;
 		free_cmds_more(temp);
 	}
 }

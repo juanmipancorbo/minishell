@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 17:16:38 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/14 17:36:36 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/05 17:55:31 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ char	*copy_after_str(const char *src, const char *target)
 char	*replace_str(char *old_str, char *new_str)
 {
 	if (old_str)
+	{
 		free(old_str);
+		old_str = NULL;
+	}
 	old_str = new_str;
 	return (old_str);
 }

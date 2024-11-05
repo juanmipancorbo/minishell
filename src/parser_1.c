@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 19:13:32 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/31 19:02:47 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/05 22:31:33 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,12 +88,12 @@ static t_bool	parse_tkn(t_token *token, t_cmd *cmd)
 	if (token->type == VAR)
 	{
 		if (cmd->args && ft_strncmp(cmd->args[0], "echo", 5) == 0)
-			add_arg(cmd, token->value);
+			add_arg(cmd, ft_strdup(token->value));
 		else
 			expand_and_add_arg(cmd, token->value);
 	}
 	else if (token->type == WORD || token->type == SINGLE_Q)
-		add_arg(cmd, token->value);
+		add_arg(cmd, ft_strdup(token->value));
 	else if (token->type == RD_IN || token->type == RD_OUT
 		|| token->type == APPEND || token->type == HEREDOC)
 	{
@@ -128,8 +128,7 @@ t_cmd	*to_parse(t_token *tokens, t_utils *utils)
 		{
 			if (!parse_tkn(tokens, curr))
 				return (NULL);
-			if (tokens->type == RD_IN || tokens->type == RD_OUT
-				|| tokens->type == APPEND || tokens->type == HEREDOC)
+			if (tokens->type >= 2 && tokens->type <= 5)
 				tokens = tokens->next;
 		}
 		tokens = tokens->next;
