@@ -33,7 +33,10 @@ void	star_loop(char *delimiter, int fd)
 	{
 		line = readline(">");
 		if (!line)
+		{
+			heredoc_error(delimiter);
 			break ;
+		}
 		if (!ft_strncmp(line, delimiter, ft_strlen(delimiter) + 1))
 			break ;
 		ft_putendl_fd(line, fd);
@@ -43,7 +46,7 @@ void	star_loop(char *delimiter, int fd)
 	exit(0);
 }
 
-t_bool	read_loop(char *str)
+t_bool	read_loop(t_red *red)
 {
 	int		fd;
 	pid_t	pid;
@@ -53,18 +56,27 @@ t_bool	read_loop(char *str)
 		manage_error(ERROR);
 	pid = fork();
 	if (pid == 0)
-		star_loop(str, fd);
+		star_loop(red->file, fd);
 	if (wait_herecoc(pid))
 		return (close(fd), TRUE);
 	return (close(fd), FALSE);
 }
 
-t_bool heredoc_complete(t_cmd *cmd)
+t_bool	heredoc_complete(t_cmd *cmd)
 {
-	t_red *in;
+	t_red	*in;
 
 	in = cmd->in_rd;
-	if(in->type == HEREDOC)
-		printf("HEREDOC\n");
+	// if (!in)
+	// 	return (TRUE);
+	// if(in->type == HEREDOC)
+	// 	printf("HEREDOC\n");
+	while (in != NULL)
+	{
+		if (in->type == HEREDOC)
+			if (!read_loop(in))
+				return (FALSE);
+		in = in->next;
+	}
 	return (TRUE);
 }
