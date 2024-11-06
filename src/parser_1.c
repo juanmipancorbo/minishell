@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 19:13:32 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/05 22:31:33 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/06 19:38:36 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ static void	to_path_and_fd(t_cmd *cmds, t_utils *utils)
 				full_path_to_arg(curr);
 			}
 		}
+		replace_env_var("_", to_last_argument(curr), utils->env_var);
 		curr = curr->next;
 	}
 }

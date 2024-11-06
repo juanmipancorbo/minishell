@@ -6,11 +6,29 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 18:56:21 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/06 18:42:27 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/06 19:57:26 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+char	*to_last_argument(t_cmd *cmd)
+{
+	int		i;
+	char	*last_arg;
+
+	if (!cmd || !cmd->args)
+		return (NULL);
+
+	i = 0;
+	last_arg = NULL;
+	while (cmd->args[i] != NULL)
+	{
+		last_arg = cmd->args[i];
+		i++;
+	}
+	return (last_arg);
+}
 
 void	update_shlvl(t_utils *utils)
 {
@@ -21,7 +39,7 @@ void	update_shlvl(t_utils *utils)
 	if (ascii_value)
 		int_value = ft_atoi(ascii_value) + 1;
 	else
-		int_value = 1;
+		int_value = 2;
 	ascii_value = ft_itoa(int_value);
 	if (!ascii_value)
 		return ;
@@ -38,7 +56,7 @@ void	to_no_env(t_utils *utils)
 	size_t	pwd_len;
 
 	i = -1;
-	env_min = (char **)malloc(sizeof(char *) * 2);
+	env_min = (char **)malloc(sizeof(char *) * 3);
 	if (!env_min)
 		return ;
 	pwd = getcwd(NULL, 0);
@@ -48,8 +66,9 @@ void	to_no_env(t_utils *utils)
 	env_min[0] = malloc(pwd_len);
 	ft_strcpy(env_min[0], "PWD=");
 	ft_strlcat(env_min[0], pwd, pwd_len);
-	env_min[1] = NULL;
-	while (++i < 1)
+	env_min[1] = ft_strdup("_=]");
+	env_min[2] = NULL;
+	while (++i < 2)
 		if (!env_min[i])
 			break ;
 	utils->env_var = env_min;

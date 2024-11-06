@@ -219,6 +219,7 @@ char	*expand_dollars(const char *value, t_utils *utils);
 int		check_export_name(char *var_name, t_utils *utils);
 void	to_no_env(t_utils *utils);
 void	update_shlvl(t_utils *utils);
+char	*to_last_argument(t_cmd *cmd);
 
 /* ************************************************************************** */
 /*                                  SIGNALS			                          */
