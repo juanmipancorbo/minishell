@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
+/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 18:59:29 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/05 21:52:00 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/06 17:06:21 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,13 @@ void	add_red(t_cmd *cmd, char *file, int type)
 	red = create_red_node(file, type);
 	if (!red)
 		return ;
-	if (type == RD_IN || type == HEREDOC)
+	if (type == RD_IN)
 		add_in_red(cmd, red);
+	else if (type == HEREDOC)
+	{
+		red->herecoc_f = new_heredoc_filename();
+		add_in_red(cmd, red);
+	}
 	else if (type == RD_OUT || type == APPEND)
 		add_out_red(cmd, red);
 }
@@ -42,8 +47,8 @@ void	free_redirections(t_red *red)
 	{
 		temp = red;
 		red = red->next;
-		// if (temp->fd > 0)
-		// 	close(temp->fd);
+		if (temp->herecoc_f != NULL)
+			delete_herdocf(temp->herecoc_f);
 		free(temp);
 	}
 }

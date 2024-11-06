@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-char *new_heredoc_filename(void)
+char	*new_heredoc_filename(void)
 {
 	static int	count;
 	char		*newname;
@@ -65,7 +65,7 @@ t_bool	read_loop(t_red *red)
 	int		fd;
 	pid_t	pid;
 
-	fd = open(HEREDOC_F, O_WRONLY | O_CREAT | O_APPEND | O_TRUNC, 0777);
+	fd = open(red->herecoc_f, O_WRONLY | O_CREAT | O_APPEND | O_TRUNC, 0777);
 	if (fd < 0)
 		manage_error(ERROR);
 	pid = fork();
