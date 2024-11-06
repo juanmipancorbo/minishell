@@ -34,6 +34,8 @@ static void	exec_builtin(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
 {
 	pid_t	child;
 
+	if (!fill_fd(cmd))
+		return ;
 	if (is_forked(cmd))
 	{
 		child = fork();
@@ -49,8 +51,8 @@ static void	exec_builtin(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
 		else
 		{
 			set_pipes_fd(cmd, cmd_id, pipes_fd, child);
-			close_fd_redlst(cmd);
-			waitpid(child, NULL, 0);
+			//close_fd_redlst(cmd);
+			//waitpid(child, NULL, 0);
 		}
 	}
 	else
