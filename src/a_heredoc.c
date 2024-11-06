@@ -79,18 +79,20 @@ t_bool	read_loop(t_red *red)
 t_bool	heredoc_complete(t_cmd *cmd)
 {
 	t_red	*in;
-
-	in = cmd->in_rd;
-	// if (!in)
-	// 	return (TRUE);
-	// if(in->type == HEREDOC)
-	// 	printf("HEREDOC\n");
-	while (in != NULL)
+	t_cmd	*tmp;
+	
+	tmp = cmd;
+	while(tmp != NULL)
 	{
-		if (in->type == HEREDOC)
-			if (!read_loop(in))
-				return (FALSE);
-		in = in->next;
+		in = tmp->in_rd;
+		while (in != NULL)
+		{
+			if (in->type == HEREDOC)
+				if (!read_loop(in))
+					return (FALSE);
+			in = in->next;
+		}
+		tmp = tmp->next;
 	}
 	return (TRUE);
 }
