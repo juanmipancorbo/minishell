@@ -108,7 +108,6 @@ char	*new_var_entry(char *var_name, char *value)
 	return (new_var);
 }
 
-
 void	add_env_var(char *var_name, char *value, char ***env)
 {
 	char	**new_env;

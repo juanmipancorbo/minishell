@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   no_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
+/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 18:56:21 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/05 20:58:20 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/06 17:09:18 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,3 @@ void	to_no_env(t_utils *utils)
 	utils->env_var = env_min;
 	free(pwd);
 }
-

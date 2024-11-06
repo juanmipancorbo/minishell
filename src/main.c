@@ -6,13 +6,13 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/06 17:06:11 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/06 17:16:03 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int g_exit_code;
+int	g_exit_code;
 
 static void	clean_loop(char *input, t_token *tokens, t_cmd *cmds, int *pid)
 {
@@ -28,7 +28,6 @@ static void	clean_loop(char *input, t_token *tokens, t_cmd *cmds, int *pid)
 		free(temp);
 	}
 	free_cmds(cmds);
-	//delete_herdocf();
 }
 
 static int	build_prompt_parts(char **env_var, char **user, char **machine,
@@ -100,8 +99,6 @@ static void	init_loop(t_utils *utils)
 			add_history(input);
 		tokens = to_tokenize(input);
 		cmds = to_parse(tokens, utils);
-		// print_tokens(tokens);
-		// print_cmds(cmds);
 		if (*input && cmds != NULL)
 			init_execution(&cmds, utils);
 		clean_loop(input, tokens, cmds, utils->process_id);

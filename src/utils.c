@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
+/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 21:26:02 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/05 21:02:21 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/06 17:09:42 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	free_env_copy(t_utils *utils)
 		while (utils->env_var[i])
 			free(utils->env_var[i++]);
 		free(utils->env_var);
-		utils->env_var = NULL; 
+		utils->env_var = NULL;
 	}
 	i = 0;
 	if (utils->export_var)
