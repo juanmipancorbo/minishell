@@ -153,6 +153,7 @@ char	*copy_after_str(const char *src, const char *target);
 char	*replace_str(char *old_str, char *new_str);
 void	to_free_four(char *a, char *b, char *c, char *d);
 char	*ft_strjoin_free(char *s1, char const *s2);
+char	*ft_itoa(int nb);
 
 /* ************************************************************************** */
 /*                                  EXECUTER                                  */
