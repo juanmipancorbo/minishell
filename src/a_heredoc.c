@@ -25,7 +25,6 @@ char	*new_heredoc_filename(void)
 	return (newname);
 }
 
-
 static t_bool	wait_herecoc(pid_t pid)
 {
 	int	status;
@@ -80,9 +79,9 @@ t_bool	heredoc_complete(t_cmd *cmd)
 {
 	t_red	*in;
 	t_cmd	*tmp;
-	
+
 	tmp = cmd;
-	while(tmp != NULL)
+	while (tmp != NULL)
 	{
 		in = tmp->in_rd;
 		while (in != NULL)
