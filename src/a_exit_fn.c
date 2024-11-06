@@ -17,10 +17,10 @@ t_bool	check_files(char *path)
 	return (access(path, F_OK));
 }
 
-void	delete_herdocf(void)
+void	delete_herdocf(char *heredocf)
 {
-	if (check_files(HEREDOC_F) == 0)
-		unlink(HEREDOC_F);
+	unlink(heredocf);
+	free(heredocf);
 }
 
 void	exit_error(char *msg, int exit_code)
@@ -28,20 +28,3 @@ void	exit_error(char *msg, int exit_code)
 	ft_putstr_fd(msg, STDERR_FILENO);
 	exit(exit_code);
 }
-
-// void exit_status(int status)
-// {
-// 	if (WIFEXITED(status))
-// 		printf("-%d\n", WEXITSTATUS(status));
-// 	else if (WIFSIGNALED(status))
-// 	{
-// 		if (WTERMSIG(status) == SIGINT)
-// 			printf("130\n");
-// 		else if (WTERMSIG(status) == SIGQUIT)
-// 			printf("131\n");
-// 	}
-// 	else if (WIFSTOPPED(status))
-// 		printf("%d\n",WSTOPSIG(status));
-// 	else
-// 		printf("+%d\n",WTERMSIG(status));
-// }

@@ -6,7 +6,7 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/05 17:49:11 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/06 13:15:02 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	clean_loop(char *input, t_token *tokens, t_cmd *cmds, int *pid)
 		free(temp);
 	}
 	free_cmds(cmds);
-	delete_herdocf();
+	//delete_herdocf();
 }
 
 static int	build_prompt_parts(char **env_var, char **user, char **machine,

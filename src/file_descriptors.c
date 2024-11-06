@@ -58,10 +58,9 @@ static t_bool	set_heredoc_fd(t_red *red)
 {
 	int	fd;
 
-	// if (!read_loop(red->file))
-	// 	return (FALSE);
-	init_signals(1);
-	fd = open(HEREDOC_F, O_RDONLY);
+
+	//init_signals(1);
+	fd = open(red->herecoc_f, O_RDONLY);
 	if (fd < 0)
 	{
 		file_error(ft_strjoin("-Minishell: ", HEREDOC_F), 1);

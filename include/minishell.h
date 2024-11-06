@@ -173,13 +173,14 @@ t_bool	read_loop(t_red *red);
 t_bool	check_files(char *path);
 t_bool	fill_fd(t_cmd *cmd);
 t_bool	heredoc_complete(t_cmd *cmd);
+char	*new_heredoc_filename(void);
 
 /* ************************************************************************** */
 /*                                EXIT & ERRORS     	                      */
 /* ************************************************************************** */
 void	manage_error(char *msg);
 void	file_error(char *msg, int exit_code);
-void	delete_herdocf(void);
+void	delete_herdocf(char *heredocf);
 void	exit_error(char *msg, int exit_code);
 void	cmd_error(char *str, int exit_code);
 void	heredoc_error(char *delimiter);
