@@ -21,6 +21,7 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 # include <unistd.h>
+# include <signal.h>
 
 extern int	g_exit_code;
 
@@ -159,6 +160,8 @@ char	*ft_itoa(int nb);
 /*                                  EXECUTER                                  */
 /* ************************************************************************** */
 void	dup_env_variables(t_utils *utils, int pid, char **from, char ***to);
+int		to_env_list_size(char **env_list);
+void	to_no_env(t_utils *utils);
 void	init_execution(t_cmd **command, t_utils *utils);
 int		**create_pipes_fd(int np);
 pid_t	*get_pid_array(int nbs_process);
@@ -225,6 +228,7 @@ int		check_export_name(char *var_name, t_utils *utils);
 /*                                  SIGNALS			                          */
 /* ************************************************************************** */
 
-void init_signals(int i);
-void wait_process(t_utils *utils, int nb_process);
+void	init_signals(int i);
+void	wait_process(t_utils *utils, int nb_process);
+
 #endif

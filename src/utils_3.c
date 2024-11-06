@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 18:55:43 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/29 20:04:22 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/05 21:02:14 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,23 +102,18 @@ char	*process_token_value(char *value, t_utils *utils)
 void	expand_and_add_arg(t_cmd *cmd, char *expanded_value)
 {
 	char	**split_args;
-	char	*arg_copy;
 	int		i;
+	char	*arg_copy;
 
+	i = 0;
 	split_args = ft_split(expanded_value, ' ');
 	if (!split_args)
 		return ;
-	i = 0;
 	while (split_args[i])
 	{
 		arg_copy = ft_strdup(split_args[i]);
 		if (!arg_copy)
-		{
-			while (split_args[i])
-				free(split_args[i++]);
-			free(split_args);
-			return ;
-		}
+			break ;
 		add_arg(cmd, arg_copy);
 		i++;
 	}
@@ -127,23 +122,3 @@ void	expand_and_add_arg(t_cmd *cmd, char *expanded_value)
 		free(split_args[i++]);
 	free(split_args);
 }
-
-// void	expand_and_add_arg(t_cmd *cmd, char *expanded_value)
-// {
-// 	char	**split_args;
-// 	int		i;
-
-// 	i = 0;
-// 	split_args = ft_split(expanded_value, ' ');
-// 	if (!split_args)
-// 		return ;
-// 	while (split_args[i])
-// 	{
-// 		add_arg(cmd, split_args[i]);
-// 		i++;
-// 	}
-// 	i = 0;
-// 	while (split_args[i])
-// 		free(split_args[i++]);
-// 	free(split_args);
-// }

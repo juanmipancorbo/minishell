@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 20:48:49 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/28 21:44:50 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/04 21:15:23 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,12 @@ void	expand_tokens(t_token *tokens, t_utils *utils)
 	curr = tokens;
 	while (curr)
 	{
-		if (curr->type == WORD)
+		if (curr->type == WORD && ft_strchr(curr->value, '$'))
 		{
-			if (ft_strchr(curr->value, '$'))
-				curr->type = VAR;
+			curr->type = VAR;
 			expanded = expand_dollars((const char *)curr->value, utils);
-			if (expanded)
-			{
-				free(curr->value);
-				curr->value = expanded;
-			}
+			free(curr->value);
+			curr->value = expanded;
 		}
 		curr = curr->next;
 	}

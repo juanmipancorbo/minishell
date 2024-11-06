@@ -19,6 +19,7 @@ SRC_FILES 	= main.c tokenizer_1.c tokenizer_2.c utils.c parser_1.c parser_2.c\
             a_heredoc.c  a_exit_fn.c a_utils.c a_pipes_fn.c ft_cd.c\
             a_built_in_utils.c ft_echo.c a_ft_env.c ft_exit.c a_signal.c\
             ft_export.c a_ft_pwd.c ft_unset.c expander_utils.c utils_3.c\
+            ft_export.c a_ft_pwd.c ft_unset.c expander_utils.c utils_3.c no_env.c\
 			a_exec_utils.c
 
 SRCS		= $(addprefix src/, $(SRC_FILES))
