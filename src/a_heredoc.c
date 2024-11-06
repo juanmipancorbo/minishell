@@ -12,6 +12,20 @@
 
 #include "../include/minishell.h"
 
+char *new_heredoc_filename(void)
+{
+	static int	count;
+	char		*newname;
+	char		*nb;
+
+	count++;
+	nb = ft_itoa(count);
+	newname = ft_strjoin(HEREDOC_F, nb);
+	free(nb);
+	return (newname);
+}
+
+
 static t_bool	wait_herecoc(pid_t pid)
 {
 	int	status;
