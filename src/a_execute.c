@@ -32,26 +32,22 @@ static void	set_fd_redirections(t_cmd *cmd)
 
 static void	exec_builtin(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
 {
-	pid_t	child;
-
+	if (!fill_fd(cmd))
+		return ;
 	if (is_forked(cmd))
 	{
-		child = fork();
-		if (child == -1)
+		utils->process_id[cmd_id] = fork();
+		if (utils->process_id[cmd_id] == -1)
 			manage_error(ERROR);
-		if (child == 0)
+		if (utils->process_id[cmd_id] == 0)
 		{
-			set_pipes_fd(cmd, cmd_id, pipes_fd, child);
+			set_pipes_fd(cmd, cmd_id, pipes_fd, utils->process_id[cmd_id]);
 			set_fd_redirections(cmd);
 			cmd->built_in(cmd, utils);
 			exit(EXIT_SUCCESS);
 		}
 		else
-		{
-			set_pipes_fd(cmd, cmd_id, pipes_fd, child);
-			close_fd_redlst(cmd);
-			waitpid(child, NULL, 0);
-		}
+			set_pipes_fd(cmd, cmd_id, pipes_fd, utils->process_id[cmd_id]);
 	}
 	else
 	{
