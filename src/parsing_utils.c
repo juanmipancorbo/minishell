@@ -6,7 +6,7 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 18:59:29 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/06 19:04:10 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/07 16:25:35 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	free_cmds(t_cmd *cmds)
 		{
 			free_cmds_more(temp);
 			return ;
-		} 
+		}
 		while (temp->args[i])
 		{
 			free(temp->args[i]);
