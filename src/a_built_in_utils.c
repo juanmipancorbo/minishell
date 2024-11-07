@@ -27,7 +27,7 @@ int	(*indentify_builtin(char *str))(t_cmd *cmd, t_utils *utils)
 	i = 0;
 	while (i < 7)
 	{
-		if (!ft_strncmp(built_in[i][0], str, ft_strlen(built_in[i][0])))
+		if (!ft_strncmp(built_in[i][0], str, ft_strlen(built_in[i][0]) + 1))
 			return (built_in[i][1]);
 		i++;
 	}
