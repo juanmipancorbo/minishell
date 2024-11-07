@@ -6,7 +6,7 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 13:36:36 by apaterno          #+#    #+#             */
-/*   Updated: 2024/11/05 13:00:49 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/07 16:17:45 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,5 @@ void	wait_process(t_utils *utils, int nb_process)
 			g_exit_code = 131;
 	}
 	init_signals(1);
+	free(utils->process_id);
 }
