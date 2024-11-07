@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 19:13:32 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/06 19:38:36 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/07 21:24:00 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,19 @@ static void	to_path_and_fd(t_cmd *cmds, t_utils *utils)
 				full_path_to_arg(curr);
 			}
 		}
-		replace_env_var("_", to_last_argument(curr), utils->env_var);
+		if (check_env_name("_", utils, 1))
+			replace_env_var("_", to_last_argument(curr), utils->env_var);
 		curr = curr->next;
 	}
 }
 
 static t_bool	parse_tkn(t_token *token, t_cmd *cmd)
 {
+	if (token->type == UNMATCHED)
+	{
+		cmd->args = NULL;
+		return (FALSE);
+	}
 	if (token->type == VAR)
 	{
 		if (cmd->args && ft_strncmp(cmd->args[0], "echo", 5) == 0)
@@ -95,8 +101,7 @@ static t_bool	parse_tkn(t_token *token, t_cmd *cmd)
 	}
 	else if (token->type == WORD || token->type == SINGLE_Q)
 		add_arg(cmd, ft_strdup(token->value));
-	else if (token->type == RD_IN || token->type == RD_OUT
-		|| token->type == APPEND || token->type == HEREDOC)
+	else if (token->type >= 2 && token->type <= 5)
 	{
 		if (!token->next || token->next->type != WORD)
 		{

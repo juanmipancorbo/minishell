@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/05 22:36:05 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/07 21:34:05 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,28 @@
 
 int g_exit_code;
 
-static void	clean_loop(char *input, t_token *tokens, t_cmd *cmds, int *pid)
+static void	clean_loop(char *input, t_token *tokens, t_cmd *cmds,
+	t_utils *utils)
 {
 	t_token	*temp;
 
 	free(input);
-	free(pid);
+	if (utils->pid)
+	{
+		free(utils->pid);
+		utils->pid = NULL;
+	}
+	if (utils->process_id)
+	{
+	//	free(utils->process_id);
+		utils->process_id = NULL;
+	}
 	while (tokens)
 	{
 		temp = tokens;
 		tokens = tokens->next;
-		free(temp->value);
+		if (temp->value)
+			free(temp->value);
 		free(temp);
 	}
 	free_cmds(cmds);
@@ -102,9 +113,9 @@ static void	init_loop(t_utils *utils)
 		cmds = to_parse(tokens, utils);
 		// print_tokens(tokens);
 		// print_cmds(cmds);
-		if (*input && cmds != NULL)
+		if (*input && cmds && cmds->args)
 			init_execution(&cmds, utils);
-		clean_loop(input, tokens, cmds, utils->process_id);
+		clean_loop(input, tokens, cmds, utils);
 	}
 	free_env_copy(utils);
 }

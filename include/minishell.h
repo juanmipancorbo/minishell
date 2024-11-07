@@ -48,6 +48,7 @@ typedef enum e_tkn_type
 	DOUBLE_Q = 6,
 	VAR = 7,
 	SINGLE_Q = 8,
+	UNMATCHED = 9,
 }							t_tkn_type;
 
 typedef struct s_token
@@ -109,6 +110,7 @@ void	q_content(const char *start, const char *input, t_token **head,
 			t_token **curr);
 char	*single_q(const char **input, char q_type);
 void	double_q(const char **input, t_token **head, t_token **curr);
+void	to_quotes_unmatched(t_token **head, t_token **curr);
 void	to_variable(const char **input, t_token **head, t_token **curr);
 t_token	*to_tokenize(const char *input);
 char	*process_token_value(char *value, t_utils *utils);

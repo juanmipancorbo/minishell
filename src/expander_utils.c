@@ -6,11 +6,31 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:00:50 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/05 20:58:33 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/07 20:48:39 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	to_get_pid(t_utils *utils)
+{
+	int		fd;
+	int		bytes_read;
+	char	buffer[256];
+
+	fd = open("/proc/self/stat", O_RDONLY);
+	if (fd == -1)
+		return ;
+	bytes_read = read(fd, buffer, 255);
+	if (bytes_read == -1)
+	{
+		close(fd);
+		return ;
+	}
+	buffer[bytes_read] = '\0';
+	parse_pid(utils, buffer);
+	close(fd);
+}
 
 static int	to_expand_pid(char *result, int j, t_utils *utils)
 {

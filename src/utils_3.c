@@ -6,30 +6,22 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 18:55:43 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/07 19:13:32 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/07 21:08:07 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	to_get_pid(t_utils *utils)
+void	to_quotes_unmatched(t_token **head, t_token **curr)
 {
-	int		fd;
-	int		bytes_read;
-	char	buffer[256];
+	t_token	*token;
+	char	*content;
 
-	fd = open("/proc/self/stat", O_RDONLY);
-	if (fd == -1)
-		return ;
-	bytes_read = read(fd, buffer, 255);
-	if (bytes_read == -1)
-	{
-		close(fd);
-		return ;
-	}
-	buffer[bytes_read] = '\0';
-	parse_pid(utils, buffer);
-	close(fd);
+	printf("Error: Unmatched quotes.\n");
+	content = ft_strdup("unmatched");
+	token = new_token(UNMATCHED, content);
+	free(content);
+	add_token_node(head, curr, &token);
 }
 
 int	check_env_name(char *var_name, t_utils *utils, int env)

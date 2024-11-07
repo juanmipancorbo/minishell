@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 18:59:29 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/05 21:52:00 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/07 20:20:40 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	free_cmds(t_cmd *cmds)
 		i = 0;
 		temp = cmds;
 		cmds = cmds->next;
-		while (temp->args[i])
+		while (temp->args && temp->args[i])
 		{
 			free(temp->args[i]);
 			i++;

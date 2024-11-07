@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 18:56:21 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/07 18:07:04 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/07 21:22:02 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ void	to_no_env(t_utils *utils)
 	if (!env_min)
 		return ;
 	pwd = getcwd(NULL, 0);
-	// if (!pwd)
-	// 	pwd = ft_strdup("/home");
 	pwd_len = ft_strlen("PWD=") + ft_strlen(pwd) + 1;
 	env_min[0] = malloc(pwd_len);
 	ft_strcpy(env_min[0], "PWD=");
