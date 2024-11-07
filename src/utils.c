@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 21:26:02 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/05 21:02:21 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/07 17:42:45 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	free_env_copy(t_utils *utils)
 		while (utils->env_var[i])
 			free(utils->env_var[i++]);
 		free(utils->env_var);
-		utils->env_var = NULL; 
+		utils->env_var = NULL;
 	}
 	i = 0;
 	if (utils->export_var)
@@ -77,5 +77,6 @@ void	free_env_copy(t_utils *utils)
 		free(utils->export_var);
 		utils->export_var = NULL;
 	}
-	free(utils->pid);
+	if (utils->pid)
+		free(utils->pid);
 }

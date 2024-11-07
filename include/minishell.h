@@ -216,7 +216,7 @@ t_bool	is_forked(t_cmd *cmd);
 int		replace_env_var(char *var_name, char *new_value, char **env);
 void	add_env_var(char *var_name, char *value, char ***env);
 char	*expand_dollars(const char *value, t_utils *utils);
-int		check_export_name(char *var_name, t_utils *utils);
+int		check_env_name(char *var_name, t_utils *utils, int env);
 void	to_no_env(t_utils *utils);
 void	update_shlvl(t_utils *utils);
 char	*to_last_argument(t_cmd *cmd);

@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 18:55:43 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/05 21:02:14 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/07 19:13:32 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,21 @@ void	to_get_pid(t_utils *utils)
 	close(fd);
 }
 
-int	check_export_name(char *var_name, t_utils *utils)
+int	check_env_name(char *var_name, t_utils *utils, int env)
 {
 	int		i;
-	char	**env;
+	char	**env_var;
 	size_t	var_len;
 
 	i = 0;
-	env = utils->export_var;
+	if (env == 1)
+		env_var = utils->env_var;
+	if (env == 2)
+		env_var = utils->export_var;
 	var_len = ft_strlen(var_name);
-	while (env[i])
+	while (env_var[i])
 	{
-		if (!ft_strncmp(env[i], var_name, var_len))
+		if (!ft_strncmp(env_var[i], var_name, var_len))
 			return (0);
 		i++;
 	}

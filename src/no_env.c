@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 18:56:21 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/06 19:57:26 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/07 18:07:04 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,13 @@ void	update_shlvl(t_utils *utils)
 	if (ascii_value)
 		int_value = ft_atoi(ascii_value) + 1;
 	else
-		int_value = 2;
+		int_value = 1;
 	ascii_value = ft_itoa(int_value);
 	if (!ascii_value)
 		return ;
 	if (replace_env_var("SHLVL", ascii_value, utils->env_var))
 		add_env_var("SHLVL", ascii_value, &utils->env_var);
+	free(ascii_value);
 }
 
 
@@ -60,8 +61,8 @@ void	to_no_env(t_utils *utils)
 	if (!env_min)
 		return ;
 	pwd = getcwd(NULL, 0);
-	if (!pwd)
-		pwd = ft_strdup("/home");
+	// if (!pwd)
+	// 	pwd = ft_strdup("/home");
 	pwd_len = ft_strlen("PWD=") + ft_strlen(pwd) + 1;
 	env_min[0] = malloc(pwd_len);
 	ft_strcpy(env_min[0], "PWD=");
@@ -72,6 +73,8 @@ void	to_no_env(t_utils *utils)
 		if (!env_min[i])
 			break ;
 	utils->env_var = env_min;
+	utils->export_var = NULL;
+	utils->pid = NULL;
 	update_shlvl(utils);
 	free(pwd);
 }

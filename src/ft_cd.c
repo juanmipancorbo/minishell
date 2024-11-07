@@ -26,10 +26,16 @@ int	ft_cd(t_cmd *cmd, t_utils *utils)
 	}
 	else
 	{
+		getcwd(cwd, sizeof(cwd));
 		path = cmd->args[1];
+		if (!check_env_name("OLDPWD", utils, 2))
+			replace_env_var("OLDPWD", cwd, utils->export_var);
+		if (check_env_name("OLDPWD", utils, 1))
+			add_env_var("OLDPWD", cwd, &utils->env_var);
 		chdir(path);
-	}
-	if (getcwd(cwd, sizeof(cwd)))
+		getcwd(cwd, sizeof(cwd));
 		replace_env_var("PWD", cwd, utils->env_var);
+		replace_env_var("PWD", cwd, utils->export_var);
+	}
 	return (0);
 }

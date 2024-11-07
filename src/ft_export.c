@@ -17,9 +17,13 @@ static int	print_export_var(t_utils *utils)
 	int		i;
 	char	*equal_sign;
 
-	i = 0;
-	while (utils->export_var[i])
+	i = -1;
+	while (utils->export_var[++i])
 	{
+		if (!ft_strncmp(utils->export_var[i], "_", 1))
+			continue ;
+		if (check_env_name("OLDPWD", utils, 2))
+			add_env_var("OLDPWD", NULL, &utils->export_var);
 		equal_sign = ft_strchr(utils->export_var[i], '=');
 		if (equal_sign)
 		{
@@ -30,7 +34,6 @@ static int	print_export_var(t_utils *utils)
 		}
 		else
 			printf("declare -x %s\n", utils->export_var[i]);
-		i++;
 	}
 	return (0);
 }
@@ -98,7 +101,7 @@ static void	to_env_var(char *arg, t_utils *utils)
 			add_env_var(var_name, value, &utils->export_var);
 	}
 	else
-		if (!check_var_name(var_name) && check_export_name(var_name, utils))
+		if (!check_var_name(var_name) && check_env_name(var_name, utils, 2))
 			add_env_var(var_name, NULL, &utils->export_var);
 	free(var_name);
 }
