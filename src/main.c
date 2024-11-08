@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/07 17:26:50 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/08 19:06:48 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,28 @@
 
 int	g_exit_code;
 
-static void	clean_loop(char *input, t_token *tokens, t_cmd *cmds)
+static void	clean_loop(char *input, t_token *tokens, t_cmd *cmds,
+	t_utils *utils)
 {
 	t_token	*temp;
 
 	free(input);
+	if (utils->pid)
+	{
+		free(utils->pid);
+		utils->pid = NULL;
+	}
+	if (utils->process_id)
+	{
+		free(utils->process_id);
+		utils->process_id = NULL;
+	}
 	while (tokens)
 	{
 		temp = tokens;
 		tokens = tokens->next;
-		free(temp->value);
+		if (temp->value)
+			free(temp->value);
 		free(temp);
 	}
 	free_cmds(cmds);
@@ -95,9 +107,11 @@ static void	init_loop(t_utils *utils)
 			add_history(input);
 		tokens = to_tokenize(input);
 		cmds = to_parse(tokens, utils);
-		if (*input && cmds != NULL)
+		// print_tokens(tokens);
+		// print_cmds(cmds);
+		if (*input && tokens->type != UNMATCHED)
 			init_execution(&cmds, utils);
-		clean_loop(input, tokens, cmds);
+		clean_loop(input, tokens, cmds, utils);
 	}
 	free_env_copy(utils);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 18:59:29 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/07 16:25:35 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/08 19:08:02 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,7 @@ void	free_cmds(t_cmd *cmds)
 		i = 0;
 		temp = cmds;
 		cmds = cmds->next;
-		if (!temp->args)
-		{
-			free_cmds_more(temp);
-			return ;
-		}
-		while (temp->args[i])
+		while (temp->args && temp->args[i])
 		{
 			free(temp->args[i]);
 			i++;

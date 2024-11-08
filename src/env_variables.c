@@ -56,6 +56,7 @@ void	dup_env_variables(t_utils *utils, int pid, char **from, char ***to)
 		to_get_pid(utils);
 		utils->export_var = NULL;
 	}
+	update_shlvl(utils);
 }
 
 int	replace_env_var(char *var_name, char *new_value, char **env)

@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:57:08 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/10/29 17:45:14 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/08 18:22:05 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ static void	to_quotes(const char **input, t_token **head, t_token **curr)
 		}
 	}
 	else
-		manage_error("Error: Unmatched quotes.\n");
+	{
+		to_quotes_unmatched(head, curr);
+		return ;
+	}
 	if (**input == q_type)
 		(*input)++;
 }
@@ -92,43 +95,6 @@ static void	to_word(const char **input, t_token **head, t_token **curr)
 	add_token_node(head, curr, &token);
 }
 
-// static void	to_word(const char **input, t_token **head, t_token **curr)
-// {
-// 	const char	*start;
-// 	char		*value;
-// 	t_token		*token;
-// 	size_t		len;
-
-// 	start = *input;
-// 	while (**input && !ft_isspace(**input) && **input != '|' && **input != '<'
-// 		&& **input != '>' && **input != '\'' && **input != '"')
-// 	{
-// 		if (**input == '=')
-// 		{
-// 			(*input)++;
-// 			if (**input == '\'' || **input == '"')
-// 			{
-// 				(*input)++;
-// 				if (ft_strchr(*input, '\'') || ft_strchr(*input, '"'))
-// 				{
-// 					while (**input && **input != '\'' && **input != '"')
-// 						(*input)++;
-// 					(*input)++;
-// 				}
-// 			}
-// 		}
-// 		else
-// 			(*input)++;
-// 	}
-// 	len = *input - start;
-// 	value = ft_strndup(start, len);
-// 	if (!value)
-// 		manage_error("Malloc error(to_word)).");
-// 	token = new_token(WORD, value);
-// 	free(value);
-// 	add_token_node(head, curr, &token);
-// }
-
 t_token	*to_tokenize(const char *input)
 {
 	t_token		*head;
@@ -144,6 +110,8 @@ t_token	*to_tokenize(const char *input)
 			break ;
 		if (*input == '\'' || *input == '"')
 			to_quotes(&input, &head, &curr);
+		if (head && head->type == UNMATCHED)
+			break ;
 		else if (*input == '<' || *input == '>')
 			to_redirect(&input, &head, &curr);
 		else if (*input == '|')

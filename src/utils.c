@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 21:26:02 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/06 17:09:42 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/08 19:09:57 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,14 @@ char	*ft_strcpy(char *dst, const char *src)
 
 void	add_token_node(t_token **head, t_token **curr, t_token **token)
 {
-	if (*head == NULL)
+	if ((*token)->type == UNMATCHED)
+	{
+		(*token)->next = *head;
+		(*curr)->next = NULL;
+		(*head)->prev = *token;
+		*head = *token;
+	}
+	else if (*head == NULL)
 		*head = *token;
 	else
 	{
@@ -77,5 +84,6 @@ void	free_env_copy(t_utils *utils)
 		free(utils->export_var);
 		utils->export_var = NULL;
 	}
-	free(utils->pid);
+	if (utils->pid)
+		free(utils->pid);
 }
