@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 21:26:02 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/07 17:42:45 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/08 18:54:13 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,14 @@ char	*ft_strcpy(char *dst, const char *src)
 
 void	add_token_node(t_token **head, t_token **curr, t_token **token)
 {
-	if (*head == NULL)
+	if ((*token)->type == UNMATCHED)
+	{
+		(*token)->next = *head;
+		(*curr)->next = NULL;
+		(*head)->prev = *token;
+		*head = *token;
+	}
+	else if (*head == NULL)
 		*head = *token;
 	else
 	{

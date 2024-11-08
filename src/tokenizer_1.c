@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:57:08 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/07 21:01:50 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/08 18:22:05 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ t_token	*to_tokenize(const char *input)
 			break ;
 		if (*input == '\'' || *input == '"')
 			to_quotes(&input, &head, &curr);
+		if (head && head->type == UNMATCHED)
+			break ;
 		else if (*input == '<' || *input == '>')
 			to_redirect(&input, &head, &curr);
 		else if (*input == '|')

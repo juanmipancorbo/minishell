@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 19:13:32 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/07 21:24:00 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/08 18:59:28 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,7 @@ static void	to_path_and_fd(t_cmd *cmds, t_utils *utils)
 static t_bool	parse_tkn(t_token *token, t_cmd *cmd)
 {
 	if (token->type == UNMATCHED)
-	{
 		cmd->args = NULL;
-		return (FALSE);
-	}
 	if (token->type == VAR)
 	{
 		if (cmd->args && ft_strncmp(cmd->args[0], "echo", 5) == 0)

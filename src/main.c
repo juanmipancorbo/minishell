@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/07 21:34:05 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/08 19:00:03 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	clean_loop(char *input, t_token *tokens, t_cmd *cmds,
 	}
 	if (utils->process_id)
 	{
-	//	free(utils->process_id);
+		free(utils->process_id);
 		utils->process_id = NULL;
 	}
 	while (tokens)
@@ -113,7 +113,7 @@ static void	init_loop(t_utils *utils)
 		cmds = to_parse(tokens, utils);
 		// print_tokens(tokens);
 		// print_cmds(cmds);
-		if (*input && cmds && cmds->args)
+		if (*input && tokens->type != UNMATCHED)
 			init_execution(&cmds, utils);
 		clean_loop(input, tokens, cmds, utils);
 	}
