@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   a_exec_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 13:36:36 by apaterno          #+#    #+#             */
-/*   Updated: 2024/11/07 16:17:45 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/08 19:15:24 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,5 @@ void	wait_process(t_utils *utils, int nb_process)
 	}
 	init_signals(1);
 	free(utils->process_id);
+	utils->process_id = NULL;
 }
