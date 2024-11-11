@@ -11,6 +11,14 @@
 /* ************************************************************************** */
 #include "../include/minishell.h"
 
+static t_bool	is_piped(t_cmd **cmd)
+{
+	if (cmd_lst_size(cmd) > 1)
+		return (TRUE);
+	else
+		return (FALSE);
+}
+
 static void	set_fd_redirections(t_cmd *cmd)
 {
 	t_red	*in_node;
@@ -34,7 +42,7 @@ static void	exec_builtin(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
 {
 	if (!fill_fd(cmd))
 		return ;
-	if (is_forked(cmd))
+	if (utils->is_pipe)
 	{
 		utils->process_id[cmd_id] = fork();
 		if (utils->process_id[cmd_id] == -1)
@@ -79,6 +87,7 @@ void	init_execution(t_cmd **command, t_utils *utils)
 	g_exit_code = 0;
 	cmd = *command;
 	cmd_id = 0;
+	utils->is_pipe = is_piped(command);
 	pipes_fd = create_pipes_fd(cmd_lst_size(command));
 	utils->process_id = get_pid_array(cmd_lst_size(command));
 	init_signals(0);

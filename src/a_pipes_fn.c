@@ -27,7 +27,7 @@ int	**create_pipes_fd(int cmd_nb)
 	i = 0;
 	while (i < pipes_nb)
 	{
-		pipe_fd[i] = malloc(sizeof(int) * 2);
+		pipe_fd[i] = malloc(sizeof(int));
 		if (!pipe_fd[i])
 			manage_error("ERROR");
 		i++;

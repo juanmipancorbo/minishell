@@ -51,6 +51,12 @@ typedef enum e_tkn_type
 	UNMATCHED = 9,
 }							t_tkn_type;
 
+typedef enum s_bool
+{
+	FALSE,
+	TRUE
+}	t_bool;
+
 typedef struct s_token
 {
 	t_tkn_type		type;
@@ -73,6 +79,7 @@ typedef struct s_utils
 	pid_t	*process_id;
 	char	**export_var;
 	char	*pid;
+	t_bool	is_pipe;
 }							t_utils;
 
 typedef struct s_red
@@ -94,12 +101,6 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 }							t_cmd;
-
-typedef enum s_bool
-{
-	FALSE,
-	TRUE
-}	t_bool;
 
 /* ************************************************************************** */
 /*                                  TOKENIZER                                 */
