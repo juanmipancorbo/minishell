@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:00:50 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/07 20:48:39 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/11 22:26:48 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,9 @@ static int	to_expand_pid(char *result, int j, t_utils *utils)
 	char	*temp;
 
 	temp = utils->pid;
-	while (*temp)
-		result[j++] = *temp++;
+	if (temp)
+		while (*temp)
+			result[j++] = *temp++;
 	return (j);
 }
 
@@ -65,22 +66,38 @@ static int	to_expand_var(char *result, const char *value, int *i,
 	return (j);
 }
 
+static int	to_expand_exit_code(char *result, int j)
+{
+	char	*temp;
+
+	temp = ft_itoa(g_exit_code);
+	if (temp)
+		while (*temp)
+			result[j++] = *temp++;
+	return (j);
+}
+
 char	*expand_dollars(const char *value, t_utils *utils)
 {
 	char	*result;
 	int		i;
 	int		j;
 
-	result = malloc(sizeof(char) * (strlen(value) + 2));
-	if (!result)
-		return (NULL);
 	i = 0;
 	j = 0;
+	result = malloc(sizeof(char) * VALUE_BUFFER);
+	if (!result)
+		return (NULL);
 	while (value[i])
 	{
 		if (value[i] == '$' && value[i + 1] == '$')
 		{
 			j = to_expand_pid(result, j, utils);
+			i += 2;
+		}
+		else if (value[i] == '$' && value[i + 1] == '?')
+		{
+			j = to_expand_exit_code(result, j);
 			i += 2;
 		}
 		else if (value[i] == '$' && (ft_isalnum(value[i + 1])

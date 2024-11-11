@@ -74,7 +74,7 @@ int	replace_env_var(char *var_name, char *new_value, char **env)
 	if (!new_var)
 		return (-1);
 	i = 0;
-	while (env[i])
+	while (env && env[i])
 	{
 		if (!ft_strncmp(env[i], var_name, var_len))
 		{

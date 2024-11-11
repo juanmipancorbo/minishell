@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 18:55:43 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/08 19:08:52 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/11 22:44:23 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ int	check_env_name(char *var_name, t_utils *utils, int env)
 	if (env == 2)
 		env_var = utils->export_var;
 	var_len = ft_strlen(var_name);
-	while (env_var[i])
+
+	while (env_var && env_var[i])
 	{
 		if (!ft_strncmp(env_var[i], var_name, var_len))
 			return (0);

@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/11 18:48:56 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/11 22:14:23 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,21 @@
 
 int	g_exit_code;
 
-static void	clean_loop(char *input, t_token *tokens, t_cmd *cmds,
-	t_utils *utils)
+static void	clean_loop(char *input, t_token *tokens, t_cmd *cmds)
 {
 	t_token	*temp;
 
 	free(input);
-	if (utils->pid)
-	{
-		free(utils->pid);
-		utils->pid = NULL;
-	}
-	if (utils->process_id)
-	{
-		free(utils->process_id);
-		utils->process_id = NULL;
-	}
+	// if (utils->pid)
+	// {
+	// 	free(utils->pid);
+	// 	utils->pid = NULL;
+	// }
+	// if (utils->process_id)
+	// {
+	// 	free(utils->process_id);
+	// 	utils->process_id = NULL;
+	// }
 	while (tokens)
 	{
 		temp = tokens;
@@ -111,7 +110,7 @@ static void	init_loop(t_utils *utils)
 		// print_cmds(cmds);
 		if (*input && tokens && tokens->type != UNMATCHED)
 			init_execution(&cmds, utils);
-		clean_loop(input, tokens, cmds, utils);
+		clean_loop(input, tokens, cmds);
 	}
 	free_env_copy(utils);
 }
