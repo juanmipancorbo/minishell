@@ -86,7 +86,7 @@ void	init_execution(t_cmd **command, t_utils *utils)
 	pipes_fd = create_pipes_fd(cmd_lst_size(command));
 	utils->process_id = get_pid_array(cmd_lst_size(command));
 	init_signals(0);
-	if (!heredoc_complete(cmd))
+	if (!heredoc_complete(cmd, utils))
 		return ;
 	while (cmd != NULL)
 	{

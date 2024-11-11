@@ -174,11 +174,11 @@ void	check_cmd_access(t_cmd *cmd);
 /* ************************************************************************** */
 void	add_fdnode_back(t_red **lst, t_red *new);
 t_bool	set_file_descriptor(t_red *red);
-t_bool	read_loop(t_red *red);
 t_bool	check_files(char *path);
 t_bool	fill_fd(t_cmd *cmd);
-t_bool	heredoc_complete(t_cmd *cmd);
+t_bool	heredoc_complete(t_cmd *cmd, t_utils *utils);
 char	*new_heredoc_filename(void);
+void	expand_hd_word(char *line, t_utils *utils, int fd);
 
 /* ************************************************************************** */
 /*                                EXIT & ERRORS     	                      */
