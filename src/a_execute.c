@@ -46,8 +46,6 @@ static void	exec_builtin(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
 			cmd->built_in(cmd, utils);
 			exit(EXIT_SUCCESS);
 		}
-		else
-			set_pipes_fd(cmd, cmd_id, pipes_fd, utils->process_id[cmd_id]);
 	}
 	else
 	{
@@ -70,8 +68,6 @@ static void	exec_cmd(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
 		if (execve(cmd->full_path, cmd->args, utils->env_var) != 0)
 			manage_error(ERROR);
 	}
-	else
-		set_pipes_fd(cmd, cmd_id, pipes_fd, utils->process_id[cmd_id]);
 }
 
 void	init_execution(t_cmd **command, t_utils *utils)
@@ -94,6 +90,7 @@ void	init_execution(t_cmd **command, t_utils *utils)
 			exec_builtin(cmd, utils, pipes_fd, cmd_id);
 		else
 			exec_cmd(cmd, utils, pipes_fd, cmd_id);
+		set_pipes_fd(cmd, cmd_id, pipes_fd, utils->process_id[cmd_id]);
 		close_fd_redlst(cmd);
 		cmd_id++;
 		cmd = cmd->next;
