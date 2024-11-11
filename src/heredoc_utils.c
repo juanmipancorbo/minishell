@@ -6,42 +6,58 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 12:07:06 by apaterno          #+#    #+#             */
-/*   Updated: 2024/11/11 13:13:16 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/11 17:37:58 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	expand_hd_word(char *line, t_utils *utils, int fd)
+static void	clean_split(char **split)
+{
+	int	i;
+
+	i = 0;
+	while (split[i])
+		free(split[i++]);
+	free(split);
+}
+
+void	expand_split(char **split, t_utils *utils)
 {
 	int		i;
 	char	*expanded;
 
 	i = 0;
-	while (line[i])
+	while (split[i])
 	{
-		if (line[i] == '$')
+		if (ft_strchr(split[i], '$'))
 		{
-			expanded = expand_dollars((const char *)line[i], utils);
-			ft_putstr_fd(expanded, fd);
-			free(expanded);
-			while(line[i] != 32)
-				i++;
+			expanded = expand_dollars((const char *)split[i], utils);
+			free(split[i]);
+			split[i] = expanded;
 		}
-		write(fd, &line[i], 1);
 		i++;
 	}
-	//between_q(&tokens);
 }
 
-void write_hd_exp(char **expansion, int fd)
+void	expand_hd_word(char *line, t_utils *utils, int fd)
 {
-	int i;
+	int		i;
+	int		j;
+	char	**split_hd;
 
 	i = 0;
-	while(expansion[i])
+	j = 0;
+	split_hd = ft_split(line, 32);
+	expand_split(split_hd, utils);
+	while (line[j])
 	{
-		ft_putstr_fd(expansion[i], fd);
-		if (expansion[i + 1 != '\0'])
+		while (line[j] != 32 && line[j])
+			j++;
+		ft_putstr_fd(split_hd[i++], fd);
+		while (line[j] && line[j] == 32)
+			write(fd, &line[j++], 1);
 	}
+	write(fd, "\n", 1);
+	clean_split(split_hd);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
+/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/08 19:06:48 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/11 17:37:29 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ static void	init_loop(t_utils *utils)
 		if (*input && tokens->type != UNMATCHED)
 			init_execution(&cmds, utils);
 		clean_loop(input, tokens, cmds, utils);
+		printf("Exit:%d\n",g_exit_code);
 	}
 	free_env_copy(utils);
 }

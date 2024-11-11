@@ -25,17 +25,17 @@ char	*new_heredoc_filename(void)
 	return (newname);
 }
 
-// static t_bool	wait_herecoc(pid_t pid)
-// {
-// 	int	status;
+static t_bool	wait_herecoc(pid_t pid)
+{
+	int	status;
 
-// 	init_signals(3);
-// 	waitpid(pid, &status, 0);
-// 	if (WEXITSTATUS(status) == 130)
-// 		return (FALSE);
-// 	else
-// 		return (TRUE);
-// }
+	init_signals(3);
+	waitpid(pid, &status, 0);
+	if (WEXITSTATUS(status) == 130)
+		return (FALSE);
+	else
+		return (TRUE);
+}
 
 void	star_loop(char *delimiter, int fd, t_utils *utils)
 {
@@ -52,11 +52,12 @@ void	star_loop(char *delimiter, int fd, t_utils *utils)
 		}
 		if (!ft_strncmp(line, delimiter, ft_strlen(delimiter) + 1))
 			break ;
-		if(ft_strchr(line, '$'))
-		{	
+		if (ft_strchr(line, '$'))
+		{
 			expand_hd_word(line, utils, fd);
 		}
-		ft_putendl_fd(line, fd);
+		else
+			ft_putendl_fd(line, fd);
 		free(line);
 	}
 	free(line);
@@ -66,17 +67,17 @@ void	star_loop(char *delimiter, int fd, t_utils *utils)
 static t_bool	read_loop(t_red *red, t_utils *utils)
 {
 	int		fd;
-	//pid_t	pid;
+	pid_t	pid;
 
 	fd = open(red->herecoc_f, O_WRONLY | O_CREAT | O_APPEND | O_TRUNC, 0777);
 	if (fd < 0)
 		manage_error(ERROR);
-//	pid = fork();
-//	if (pid == 0)
-	star_loop(red->file, fd, utils);
-//	if (wait_herecoc(pid))
-	return (close(fd), TRUE);
-//	return (close(fd), FALSE);
+	pid = fork();
+	if (pid == 0)
+		star_loop(red->file, fd, utils);
+	if (wait_herecoc(pid))
+		return (close(fd), TRUE);
+	return (close(fd), FALSE);
 }
 
 t_bool	heredoc_complete(t_cmd *cmd, t_utils *utils)
