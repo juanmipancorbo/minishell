@@ -12,6 +12,21 @@
 
 #include "../include/minishell.h"
 
+// static int	to_back_chdir(char *path)
+// {
+// 	char	*temp;
+
+// 	temp = path;
+// 	while (temp)
+// 	{
+// 		if (!ft_strncmp(temp, "../", 3))
+// 		{
+// 			chdir("../");
+// 			temp + 3;
+// 		}
+// 	}
+// }
+
 int	ft_cd(t_cmd *cmd, t_utils *utils)
 {
 	char	*path;
@@ -32,7 +47,9 @@ int	ft_cd(t_cmd *cmd, t_utils *utils)
 			replace_env_var("OLDPWD", cwd, utils->export_var);
 		if (check_env_name("OLDPWD", utils, 1))
 			add_env_var("OLDPWD", cwd, &utils->env_var);
-		chdir(path);
+		// if (chdir(path) || to_back_chdir(path))
+		if (chdir(path))
+			printf("minishell: cd: %s: No such file or directory\n", path);
 		getcwd(cwd, sizeof(cwd));
 		replace_env_var("PWD", cwd, utils->env_var);
 		replace_env_var("PWD", cwd, utils->export_var);
