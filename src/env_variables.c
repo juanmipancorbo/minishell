@@ -27,6 +27,7 @@ void	parse_pid(t_utils *utils, char *buffer)
 	utils->pid = malloc(sizeof(char) * (i + 1));
 	if (!utils->pid)
 		printf("Malloc error: parse_pid.\n");
+	utils->process_id = NULL;
 	ft_strlcpy(utils->pid, temp, ft_strlen(temp));
 }
 
@@ -73,7 +74,7 @@ int	replace_env_var(char *var_name, char *new_value, char **env)
 	if (!new_var)
 		return (-1);
 	i = 0;
-	while (env[i])
+	while (env && env[i])
 	{
 		if (!ft_strncmp(env[i], var_name, var_len))
 		{

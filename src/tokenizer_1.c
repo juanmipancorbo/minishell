@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:57:08 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/11 19:19:46 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/12 17:52:08 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,14 @@ static void	to_word(const char **input, t_token **head, t_token **curr)
 	size_t		len;
 
 	start = *input;
-	while (**input && !ft_isspace(**input) && **input != '|' && **input != '<'
-		&& **input != '>' && **input != '\'' && **input != '"')
-		analyze_symbol(input);
+	if ((*head) && !ft_strncmp((*head)->value, "echo", 4))
+		while (**input && **input != '|' && **input != '<'
+			&& **input != '>' && **input != '\'' && **input != '"')
+			(*input)++;
+	else
+		while (**input && **input != '"' && **input != '|' && **input != '<'
+			&& **input != '>' && **input != '\'' && !ft_isspace(**input))
+			analyze_symbol(input);
 	len = *input - start;
 	value = ft_strndup(start, len);
 	if (!value)
@@ -116,7 +121,7 @@ t_token	*to_tokenize(const char *input)
 			to_redirect(&input, &head, &curr);
 		else if (*input == '|')
 			to_pipe(&input, &head, &curr);
-		else
+		else if (*input)
 			to_word(&input, &head, &curr);
 	}
 	return (head);

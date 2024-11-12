@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 21:26:02 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/08 19:09:57 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/11 22:13:36 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,6 @@ void	free_env_copy(t_utils *utils)
 	}
 	if (utils->pid)
 		free(utils->pid);
+	if (utils->process_id)
+		free(utils->process_id);
 }

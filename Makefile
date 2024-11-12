@@ -33,7 +33,7 @@ CFLAGS		= -Wall -Werror -Wextra -g
 LDFLAGS		= -lreadline -Llibft -lft
 
 ifeq ($(MODE),debug)
-	CFLAGS += -g -fsanitize=address
+	CFLAGS += -g -fsanitize=leak
 endif
 
 ifeq ($(MODE),noflag)
