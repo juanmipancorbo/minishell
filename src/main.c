@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/12 17:51:32 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/12 21:48:02 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,12 @@ static int	build_prompt_parts(char **env_var, char **user, char **machine,
 	*path = expand_var("PWD", env_var);
 	temp = replace_str(temp, expand_var("HOME", env_var));
 	*path = replace_str(*path, copy_after_str(*path, temp));
-	free(temp);
 	*user = expand_var("USER", env_var);
+	if (!*path)
+		*path = expand_var("PWD", env_var);
 	if (!*user || !*machine || !*path)
 		return (0);
+	free(temp);
 	return (1);
 }
 
@@ -72,7 +74,7 @@ static char	*to_prompt(char **env_var)
 		return ("minishell> \0");
 	if (!build_prompt_parts(env_var, &user, &machine, &path))
 		return (NULL);
-	len = strlen(user) + strlen(machine) + strlen(path) + 9;
+	len = strlen(user) + strlen(machine) + strlen(path) + 8;
 	prompt = malloc(len);
 	if (!prompt)
 		return (NULL);
@@ -80,7 +82,7 @@ static char	*to_prompt(char **env_var)
 	ft_strlcat(prompt, user, len);
 	ft_strlcat(prompt, "@", len);
 	ft_strlcat(prompt, machine, len);
-	ft_strlcat(prompt, ":~", len);
+	ft_strlcat(prompt, ":", len);
 	ft_strlcat(prompt, path, len);
 	ft_strlcat(prompt, "$ ", len);
 	to_free_four(user, machine, path, NULL);
