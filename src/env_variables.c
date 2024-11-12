@@ -40,13 +40,13 @@ void	dup_env_variables(t_utils *utils, int pid, char **from, char ***to)
 		i++;
 	new_env = malloc(sizeof(char *) * (i + 1));
 	if (!new_env)
-		manage_error(MALLOC_E);
+		exit_error(MALLOC_E, 10);
 	i = 0;
 	while (from[i])
 	{
 		new_env[i] = ft_strdup(from[i]);
 		if (!new_env[i])
-			manage_error(MALLOC_E);
+			exit_error(MALLOC_E, 10);
 		i++;
 	}
 	new_env[i] = NULL;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
+/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:57:08 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/08 18:22:05 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/11 19:19:46 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static void	to_word(const char **input, t_token **head, t_token **curr)
 	len = *input - start;
 	value = ft_strndup(start, len);
 	if (!value)
-		manage_error("Malloc error (to_word).");
+		exit_error(MALLOC_E, 10);
 	token = new_token(WORD, value);
 	free(value);
 	add_token_node(head, curr, &token);

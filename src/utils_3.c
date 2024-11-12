@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
+/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 18:55:43 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/08 19:08:52 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/11 19:21:10 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char	*process_token_value(char *value, t_utils *utils)
 
 	result = malloc(ft_strlen(value) + 1);
 	if (!result)
-		manage_error("Malloc error (process_token_value).");
+		exit_error(MALLOC_E, 10);
 	data.i = 0;
 	data.j = 0;
 	data.in_single_quote = 0;

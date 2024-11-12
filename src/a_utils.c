@@ -34,6 +34,6 @@ pid_t	*get_pid_array(int nbs_process)
 
 	pid_arr = malloc(sizeof(pid_t) * nbs_process);
 	if (!pid_arr)
-		manage_error(ERROR);
+		exit_error(MALLOC_E, 10);
 	return (pid_arr);
 }

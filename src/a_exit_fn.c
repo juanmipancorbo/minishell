@@ -23,8 +23,3 @@ void	delete_herdocf(char *heredocf)
 	free(heredocf);
 }
 
-void	exit_error(char *msg, int exit_code)
-{
-	ft_putstr_fd(msg, STDERR_FILENO);
-	exit(exit_code);
-}

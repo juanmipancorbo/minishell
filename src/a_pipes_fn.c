@@ -23,13 +23,13 @@ int	**create_pipes_fd(int cmd_nb)
 	pipes_nb = cmd_nb - 1;
 	pipe_fd = malloc(sizeof(int *) * pipes_nb);
 	if (!pipe_fd)
-		manage_error("ERROR");
+		exit_error(PIPE_E, 40);
 	i = 0;
 	while (i < pipes_nb)
 	{
 		pipe_fd[i] = malloc(sizeof(int));
 		if (!pipe_fd[i])
-			manage_error("ERROR");
+			exit_error(PIPE_E, 40);
 		i++;
 	}
 	i = 0;

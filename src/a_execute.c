@@ -46,7 +46,7 @@ static void	exec_builtin(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
 	{
 		utils->process_id[cmd_id] = fork();
 		if (utils->process_id[cmd_id] == -1)
-			manage_error(ERROR);
+			exit_error(FORK_E, 30);
 		if (utils->process_id[cmd_id] == 0)
 		{
 			set_pipes_fd(cmd, cmd_id, pipes_fd, utils->process_id[cmd_id]);
@@ -67,14 +67,14 @@ static void	exec_cmd(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
 		return ;
 	utils->process_id[cmd_id] = fork();
 	if (utils->process_id[cmd_id] == -1)
-		manage_error(ERROR);
+		exit_error(FORK_E, 30);
 	if (utils->process_id[cmd_id] == 0)
 	{
 		check_cmd_access(cmd);
 		set_pipes_fd(cmd, cmd_id, pipes_fd, utils->process_id[cmd_id]);
 		set_fd_redirections(cmd);
 		if (execve(cmd->full_path, cmd->args, utils->env_var) != 0)
-			manage_error(ERROR);
+			exit_error(EXEC_E, 50);
 	}
 }
 

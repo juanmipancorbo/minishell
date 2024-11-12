@@ -28,8 +28,11 @@ extern int	g_exit_code;
 /* ************************************************************************** */
 /*                                    DEFINES                                 */
 /* ************************************************************************** */
-# define MALLOC_E "Malloc error"
-# define ERROR "Error"
+# define MALLOC_E "Malloc error\n"
+# define DUP_E "Dup error\n"
+# define FORK_E "Fork error\n"
+# define PIPE_E "Pipe error\n"
+# define EXEC_E "Exec error\n"
 # define WRITE_END 1
 # define READ_END 0
 # define HEREDOC_F "./heredoc_tmp"
@@ -87,7 +90,7 @@ typedef struct s_red
 	char			*file;
 	int				type;
 	int				fd;
-	char 			*herecoc_f;
+	char			*herecoc_f;
 	struct s_red	*next;
 }							t_red;
 
@@ -190,6 +193,7 @@ void	delete_herdocf(char *heredocf);
 void	exit_error(char *msg, int exit_code);
 void	cmd_error(char *str, int exit_code);
 void	heredoc_error(char *delimiter);
+
 
 /* ************************************************************************** */
 /*                                 LIST UTILS		                          */

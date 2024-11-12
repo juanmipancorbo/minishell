@@ -12,6 +12,12 @@
 
 #include "../include/minishell.h"
 
+void	exit_error(char *msg, int exit_code)
+{
+	printf("%s", msg);
+	exit (exit_code);
+}
+
 void	manage_error(char *msg)
 {
 	perror(msg);

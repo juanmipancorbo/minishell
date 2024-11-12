@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
+/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 19:40:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/07 21:06:22 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/11 19:21:20 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_token	*new_token(t_tkn_type type, char *value)
 
 	token = malloc(sizeof(t_token));
 	if (!token)
-		manage_error("Malloc error(new_token).");
+		exit_error(MALLOC_E, 10);
 	token->type = type;
 	token->value = ft_strdup(value);
 	token->next = NULL;
@@ -50,7 +50,7 @@ char	*single_q(const char **input, char q_type)
 	len = *input - start;
 	content = ft_strndup(start, len);
 	if (!content)
-		manage_error("Malloc error(single_q).");
+		exit_error(MALLOC_E, 10);
 	return (content);
 }
 
@@ -86,7 +86,7 @@ void	to_variable(const char **input, t_token **head, t_token **curr)
 	len = *input - start + 1;
 	value = ft_strndup(--start, len);
 	if (!value)
-		manage_error("Malloc error(to_variable).");
+		exit_error(MALLOC_E, 10);
 	token = new_token(WORD, value);
 	free(value);
 	add_token_node(head, curr, &token);

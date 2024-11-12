@@ -6,7 +6,7 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/11 17:42:39 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/11 18:57:02 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ static void	init_loop(t_utils *utils)
 		if (to_env_list_size(utils->env_var) > 10)
 			free(prompt);
 		if (!input)
-			break ;
+			exit_error("Exit\n", g_exit_code);
 		if (*input)
 			add_history(input);
 		tokens = to_tokenize(input);
