@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   no_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
+/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 18:56:21 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/08 19:07:10 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/12 08:14:57 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ char	*to_last_argument(t_cmd *cmd)
 
 	if (!cmd || !cmd->args)
 		return (NULL);
-
 	i = 0;
 	last_arg = NULL;
 	while (cmd->args[i] != NULL)
@@ -47,7 +46,6 @@ void	update_shlvl(t_utils *utils)
 		add_env_var("SHLVL", ascii_value, &utils->env_var);
 	free(ascii_value);
 }
-
 
 void	to_no_env(t_utils *utils)
 {

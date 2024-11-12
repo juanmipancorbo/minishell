@@ -22,4 +22,3 @@ void	delete_herdocf(char *heredocf)
 	unlink(heredocf);
 	free(heredocf);
 }
-

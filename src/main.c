@@ -6,7 +6,7 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/11 18:57:02 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/12 08:16:17 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,12 +107,10 @@ static void	init_loop(t_utils *utils)
 			add_history(input);
 		tokens = to_tokenize(input);
 		cmds = to_parse(tokens, utils);
-		// print_tokens(tokens);
-		// print_cmds(cmds);
 		if (*input && tokens->type != UNMATCHED)
 			init_execution(&cmds, utils);
 		clean_loop(input, tokens, cmds, utils);
-		printf("Exit:%d\n",g_exit_code);
+		printf("Exit:%d\n", g_exit_code);
 	}
 	free_env_copy(utils);
 }
