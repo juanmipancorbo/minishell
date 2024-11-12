@@ -40,8 +40,8 @@ static void	set_fd_redirections(t_cmd *cmd)
 
 static void	exec_builtin(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
 {
-	if (!fill_fd(cmd))
-		return ;
+	// if (!fill_fd(cmd))
+	// 	return ;
 	if (utils->is_pipe)
 	{
 		utils->process_id[cmd_id] = fork();
@@ -49,6 +49,8 @@ static void	exec_builtin(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
 			exit_error(FORK_E, 30);
 		if (utils->process_id[cmd_id] == 0)
 		{
+			if (!fill_fd(cmd))
+				exit (1) ;
 			set_pipes_fd(cmd, cmd_id, pipes_fd, utils->process_id[cmd_id]);
 			set_fd_redirections(cmd);
 			cmd->built_in(cmd, utils);
@@ -57,19 +59,23 @@ static void	exec_builtin(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
 	}
 	else
 	{
+		if (!fill_fd(cmd))
+			return ;
 		cmd->built_in(cmd, utils);
 	}
 }
 
 static void	exec_cmd(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
 {
-	if (!fill_fd(cmd))
-		return ;
+	// if (!fill_fd(cmd))
+	// 	return ;
 	utils->process_id[cmd_id] = fork();
 	if (utils->process_id[cmd_id] == -1)
 		exit_error(FORK_E, 30);
 	if (utils->process_id[cmd_id] == 0)
 	{
+		if (!fill_fd(cmd))
+			exit (1) ;
 		check_cmd_access(cmd);
 		set_pipes_fd(cmd, cmd_id, pipes_fd, utils->process_id[cmd_id]);
 		set_fd_redirections(cmd);
