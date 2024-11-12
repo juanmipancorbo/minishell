@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   a_exec_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
+/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 13:36:36 by apaterno          #+#    #+#             */
-/*   Updated: 2024/11/08 19:15:24 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/12 18:33:36 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,17 @@
 
 void	check_cmd_access(t_cmd *cmd)
 {
-	if (access(cmd->full_path, F_OK))
+	
+	
+	// if (access(cmd->full_path, F_OK))
+	// 	cmd_error(ft_strjoin(cmd->args[0], ": command not found\n"), 127);
+	if (cmd->full_path == NULL)
 		cmd_error(ft_strjoin(cmd->args[0], ": command not found\n"), 127);
+	if (access(cmd->full_path, F_OK))
+	{	
+		file_error(ft_strjoin("-Minishell: ", cmd->full_path), 1);
+		exit(1);
+	}
 	if (access(cmd->full_path, X_OK))
 		cmd_error(ft_strjoin(cmd->args[0], ": Permission denied\n"), 126);
 }

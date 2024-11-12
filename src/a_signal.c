@@ -6,7 +6,7 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 16:27:07 by apaterno          #+#    #+#             */
-/*   Updated: 2024/11/05 12:59:39 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/12 18:40:09 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static void	child_handler(int sig)
 	if (sig == SIGINT)
 	{
 		g_exit_code = 130;
+		write(STDOUT_FILENO, "\n", 1);
 	}
 	if (sig == SIGQUIT)
 	{
