@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
+/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 19:13:32 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/08 18:59:28 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/12 11:11:21 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ static t_bool	parse_tkn(t_token *token, t_cmd *cmd)
 		if (!token->next || token->next->type != WORD)
 		{
 			printf("Minishell: syntax error near unexpected token `newline'\n");
+			g_exit_code = 2;
 			return (FALSE);
 		}
 		token = token->next;

@@ -84,7 +84,7 @@ void	init_execution(t_cmd **command, t_utils *utils)
 	int		**pipes_fd;
 	t_cmd	*cmd;
 
-	g_exit_code = 0;
+	//g_exit_code = 0;
 	cmd = *command;
 	cmd_id = 0;
 	utils->is_pipe = is_piped(command);
