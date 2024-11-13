@@ -32,7 +32,7 @@ int	ft_exit(t_cmd *cmd, t_utils *utils)
 {
 	int	exit_code;
 
-	if(!utils->is_pipe)
+	if (!utils->is_pipe)
 		printf("exit\n");
 	if (cmd->args[1])
 	{

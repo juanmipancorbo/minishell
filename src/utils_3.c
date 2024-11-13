@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
+/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 18:55:43 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/12 17:52:22 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/13 18:12:27 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	check_env_name(char *var_name, t_utils *utils, int env)
 	if (env == 2)
 		env_var = utils->export_var;
 	var_len = ft_strlen(var_name);
-
 	while (env_var && env_var[i])
 	{
 		if (!ft_strncmp(env_var[i], var_name, var_len))
