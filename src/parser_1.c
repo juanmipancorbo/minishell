@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 19:13:32 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/12 20:11:06 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/13 19:45:52 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,16 @@ t_bool	fill_fd(t_cmd *cmd)
 	}
 	return (TRUE);
 }
+// static void	to_merge_words(t_cmd *cmds)
+// {
+// 	t_cmd	*curr;
+
+// 	curr = cmds;
+// 	while (curr)
+// 	{
+// 		if (curr->in_rd->)
+// 	}
+// }
 
 static void	to_path_and_fd(t_cmd *cmds, t_utils *utils)
 {
@@ -86,6 +96,7 @@ static void	to_path_and_fd(t_cmd *cmds, t_utils *utils)
 			replace_env_var("_", to_last_argument(curr), utils->env_var);
 		curr = curr->next;
 	}
+	// to_merge_words(cmds);
 }
 
 static t_bool	parse_tkn(t_token *token, t_cmd *cmd)

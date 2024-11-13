@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/13 07:07:26 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/13 19:38:48 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static char	*to_prompt(char **env_var)
 		return ("minishell> \0");
 	if (!build_prompt_parts(env_var, &user, &machine, &path))
 		return ("minishell> \0");
-	len = strlen(user) + strlen(machine) + strlen(path) + 8;
+	len = ft_strlen(user) + ft_strlen(machine) + ft_strlen(path) + 8;
 	prompt = malloc(len);
 	if (!prompt)
 		return ("minishell> \0");
