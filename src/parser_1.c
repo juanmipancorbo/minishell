@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 19:13:32 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/13 19:45:52 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/13 20:35:57 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,6 @@ t_bool	fill_fd(t_cmd *cmd)
 	}
 	return (TRUE);
 }
-// static void	to_merge_words(t_cmd *cmds)
-// {
-// 	t_cmd	*curr;
-
-// 	curr = cmds;
-// 	while (curr)
-// 	{
-// 		if (curr->in_rd->)
-// 	}
-// }
 
 static void	to_path_and_fd(t_cmd *cmds, t_utils *utils)
 {
@@ -96,8 +86,71 @@ static void	to_path_and_fd(t_cmd *cmds, t_utils *utils)
 			replace_env_var("_", to_last_argument(curr), utils->env_var);
 		curr = curr->next;
 	}
-	// to_merge_words(cmds);
 }
+
+static void	to_merge_words(t_token *token)
+{
+	char	*merged;
+	char	*temp;
+	int		len;
+	t_token	*curr;
+
+	curr = token->next;
+	len = 0;
+	while (curr && curr->type == WORD)
+	{
+		len += ft_strlen(curr->value);
+		curr = curr->next;
+	}
+	merged = (char *)malloc(sizeof(char) * (len + 1));
+	if (!merged)
+		return ;
+	merged[0] = '\0';
+	curr = token->next;
+	while (curr && curr->type == WORD)
+	{
+		temp = ft_strjoin(merged, curr->value);
+		free(merged);
+		merged = temp;
+		curr = curr->next;
+	}
+	token->next->value = merged;
+	token->next->next = curr;
+}
+
+// static void	to_merge_words(t_token *token)
+// {
+// 	char	*merged;
+// 	char	*temp;
+// 	int		len;
+// 	t_token	*curr;
+
+// 	curr = token->next;
+// 	len = 0;
+// 	while (curr && curr->type == WORD)
+// 	{
+// 		len += ft_strlen(curr->value);
+// 		curr = curr->next;
+// 	}
+// 	merged = (char *)malloc(sizeof(char) * (len + 1));
+// 	if (!merged)
+// 		return ;
+// 	merged[0] = '\0';
+// 	curr = token->next;
+// 	while (curr && curr->type == WORD)
+// 	{
+// 		temp = ft_strjoin(merged, curr->value);
+// 		free(merged);
+// 		merged = temp;
+// 		curr = curr->next;
+// 	}
+// 	if (token->next)
+// 	{
+// 		token->next->value = merged;
+// 		token->next->type = WORD;
+// 		token->next->next = curr;
+// 	}
+// }
 
 static t_bool	parse_tkn(t_token *token, t_cmd *cmd)
 {
@@ -120,6 +173,8 @@ static t_bool	parse_tkn(t_token *token, t_cmd *cmd)
 			g_exit_code = 2;
 			return (FALSE);
 		}
+		if (token->type == HEREDOC)
+			to_merge_words(token);
 		token = token->next;
 		add_red(cmd, token->value, token->prev->type);
 	}
