@@ -6,15 +6,27 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 13:36:36 by apaterno          #+#    #+#             */
-/*   Updated: 2024/11/13 18:09:15 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/13 19:18:50 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+t_bool is_directory(char *path)
+{
+	struct stat fileStat;
+	
+	stat(path, &fileStat);
+	if(S_ISDIR(fileStat.st_mode))
+		return (TRUE);
+	return (FALSE);
+}
+
 void	check_cmd_access(t_cmd *cmd)
 {
 	if (cmd->full_path == NULL)
+		cmd_error(ft_strjoin(cmd->args[0], ": command not found\n"), 127);
+	if (is_directory(cmd->full_path))
 		cmd_error(ft_strjoin(cmd->args[0], ": command not found\n"), 127);
 	if (access(cmd->full_path, F_OK))
 	{

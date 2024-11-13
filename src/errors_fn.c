@@ -18,10 +18,11 @@ void	exit_error(char *msg, int exit_code)
 	exit (exit_code);
 }
 
-void	manage_error(char *msg)
+void	dir_error(char *msg, int exit_code)
 {
-	perror(msg);
-	exit(EXIT_FAILURE);
+	prinft("minishell: ");
+	printf("%s: %s ", msg, "Is a directory");
+	exit(exit_code);
 }
 
 void	file_error(char *msg, int exit_code)
