@@ -6,7 +6,7 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 12:07:06 by apaterno          #+#    #+#             */
-/*   Updated: 2024/11/11 17:37:58 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/13 13:13:14 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,3 +61,12 @@ void	expand_hd_word(char *line, t_utils *utils, int fd)
 	write(fd, "\n", 1);
 	clean_split(split_hd);
 }
+// int  *heredoc_quotes(char *delimiter)
+// {
+// 	char *newdelimiter;
+// 	int i;
+	
+	
+	
+// }
+
