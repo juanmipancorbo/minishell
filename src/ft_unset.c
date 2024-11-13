@@ -70,7 +70,7 @@ static int	remove_var_from_list(char *var_name, char ***var_list)
 	old_list = *var_list;
 	len = ft_strlen(var_name);
 	i = 0;
-	while (old_list[i])
+	while (old_list && old_list[i])
 	{
 		if (ft_strncmp(old_list[i], var_name, len) == 0
 			&& (old_list[i][len] == '=' || old_list[i][len] == '\0'))
