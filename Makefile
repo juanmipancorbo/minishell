@@ -46,7 +46,7 @@ all: $(NAME)
 $(NAME): $(OBJS) $(LIBFT)
 		cc $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
-obj/%.o: src/%.c $(HEADER)
+obj/%.o: src/%.c $(HEADER) Makefile
 		@mkdir -p obj
 		cc $(CFLAGS) -c $< -o $@
 
