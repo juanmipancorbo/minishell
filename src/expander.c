@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 20:48:49 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/04 21:15:23 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/13 19:47:44 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void	expand_tokens(t_token *tokens, t_utils *utils)
 {
 	t_token	*curr;
 	char	*expanded;
+	char	*relative;
+	size_t	len;
 
 	curr = tokens;
 	while (curr)
@@ -66,6 +68,15 @@ void	expand_tokens(t_token *tokens, t_utils *utils)
 			expanded = expand_dollars((const char *)curr->value, utils);
 			free(curr->value);
 			curr->value = expanded;
+		}
+		if (tokens->type == WORD && ft_strchr(tokens->value, '/'))
+		{
+			len = ft_strlen(tokens->value) + 3;
+			relative = malloc(len);
+			ft_strlcpy(relative, "./", len);
+			ft_strlcat(relative, tokens->value, len);
+			free(curr->value);
+			curr->value = relative;
 		}
 		curr = curr->next;
 	}
