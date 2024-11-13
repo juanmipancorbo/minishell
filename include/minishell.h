@@ -22,6 +22,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <signal.h>
+# include <sys/stat.h>
 
 extern int	g_exit_code;
 
@@ -188,7 +189,7 @@ void	expand_hd_word(char *line, t_utils *utils, int fd);
 /* ************************************************************************** */
 /*                                EXIT & ERRORS     	                      */
 /* ************************************************************************** */
-void	manage_error(char *msg);
+void	dir_error(char *msg, int exit_code);
 void	file_error(char *msg, int exit_code);
 void	delete_herdocf(char *heredocf);
 void	exit_error(char *msg, int exit_code);
