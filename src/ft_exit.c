@@ -32,7 +32,8 @@ int	ft_exit(t_cmd *cmd, t_utils *utils)
 {
 	int	exit_code;
 
-	printf("exit\n");
+	if(!utils->is_pipe)
+		printf("exit\n");
 	if (cmd->args[1])
 	{
 		if (!is_num_str(cmd->args[1]))
