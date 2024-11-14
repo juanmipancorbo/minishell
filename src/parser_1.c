@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 19:13:32 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/14 18:02:45 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/14 18:29:12 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,45 +119,11 @@ static void	to_merge_words(t_token *token)
 	token->next->type = QUOTED;
 }
 
-// static void	to_merge_words(t_token *token)
-// {
-// 	char	*merged;
-// 	char	*temp;
-// 	int		len;
-// 	t_token	*curr;
-
-// 	curr = token->next;
-// 	len = 0;
-// 	while (curr && curr->type == WORD)
-// 	{
-// 		len += ft_strlen(curr->value);
-// 		curr = curr->next;
-// 	}
-// 	merged = (char *)malloc(sizeof(char) * (len + 1));
-// 	if (!merged)
-// 		return ;
-// 	merged[0] = '\0';
-// 	curr = token->next;
-// 	while (curr && curr->type == WORD)
-// 	{
-// 		temp = ft_strjoin(merged, curr->value);
-// 		free(merged);
-// 		merged = temp;
-// 		curr = curr->next;
-// 	}
-// 	if (token->next)
-// 	{
-// 		token->next->value = merged;
-// 		token->next->type = WORD;
-// 		token->next->next = curr;
-// 	}
-// }
-
 static t_bool	parse_tkn(t_token *token, t_cmd *cmd)
 {
 	if (token->type == UNMATCHED)
 		cmd->args = NULL;
-	if (token->type == VAR)
+	if (token->type == VAR || token->type == QUOTED)
 	{
 		if (cmd->args && ft_strncmp(cmd->args[0], "echo", 5) == 0)
 			add_arg(cmd, ft_strdup(token->value));
