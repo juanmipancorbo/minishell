@@ -17,8 +17,13 @@ static int	is_num_str(char *str)
 	int	i;
 
 	i = 0;
+	// agus
 	if (str[0] == '-' || str[0] == '+')
+	{
+		if (str[1] == '\0')
+			return (0);
 		i++;
+	}
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))
