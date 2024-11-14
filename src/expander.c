@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 20:48:49 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/13 19:47:44 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/14 16:57:54 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void	between_q(t_token **tokens)
 			free_q(&curr, &end);
 			free(start->value);
 			start->value = concat;
-			start->type = WORD;
+			start->type = QUOTED;
 			start->next = curr;
 		}
 		else
