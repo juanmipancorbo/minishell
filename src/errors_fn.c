@@ -20,7 +20,7 @@ void	exit_error(char *msg, int exit_code)
 
 void	dir_error(char *msg, int exit_code)
 {
-	prinft("minishell: ");
+	printf("minishell: ");
 	printf("%s: %s ", msg, "Is a directory");
 	exit(exit_code);
 }
@@ -34,6 +34,8 @@ void	file_error(char *msg, int exit_code)
 
 void	cmd_error(char *str, int exit_code)
 {
+	if (exit_code == 126)
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd(str, STDERR_FILENO);
 	free(str);
 	exit(exit_code);
