@@ -54,6 +54,7 @@ typedef enum e_tkn_type
 	VAR = 7,
 	SINGLE_Q = 8,
 	UNMATCHED = 9,
+	QUOTED = 10,
 }							t_tkn_type;
 
 typedef enum s_bool
@@ -91,6 +92,7 @@ typedef struct s_red
 {
 	char			*file;
 	int				type;
+	int				quoted;
 	int				fd;
 	char			*herecoc_f;
 	struct s_red	*next;
