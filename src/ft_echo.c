@@ -32,7 +32,7 @@ int	ft_echo(t_cmd *cmd, t_utils *utils)
 		// 	write(1, " ", 1);
 		i++;
 	}
-	if (newline && cmd->args[1])
+	if (newline)
 		write(1, "\n", 1);
 	return (0);
 }
