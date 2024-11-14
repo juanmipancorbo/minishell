@@ -3,16 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
+/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/13 19:38:48 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/14 14:23:55 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
 int	g_exit_code;
+
+
+int handle_tab_key(int count, int key) {
+    // Verificar si hay texto en la línea de entrada
+    if (rl_line_buffer[0] != '\0') {
+        // Si hay texto, llama al autocompletado de readline
+        
+		rl_unbind_key (key);
+		(void)count ;
+		//rl_complete(count, key);
+    }
+    // Si no hay texto, no hace nada
+    return 0;
+}
 
 static void	clean_loop(char *input, t_token *tokens, t_cmd *cmds)
 {
@@ -96,6 +110,8 @@ static void	init_loop(t_utils *utils)
 	t_token	*tokens;
 	t_cmd	*cmds;
 
+	rl_bind_key('\t', handle_tab_key);
+	
 	while (1)
 	{
 		prompt = to_prompt(utils->env_var);
