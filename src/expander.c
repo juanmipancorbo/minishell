@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 20:48:49 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/14 16:03:20 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/14 18:15:16 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ void	expand_tokens(t_token *tokens, t_utils *utils)
 			free(curr->value);
 			curr->value = expanded;
 		}
-		// verificar por juan
-		if (tokens->type == WORD && ft_strchr(tokens->value, '/') && tokens->value[0] != '/')
+		if (tokens->type == WORD && ft_strchr(tokens->value, '/')
+			&& tokens->value[0] != '/')
 		{
 			len = ft_strlen(tokens->value) + 3;
 			relative = malloc(len);
@@ -125,7 +125,7 @@ void	between_q(t_token **tokens)
 			free_q(&curr, &end);
 			free(start->value);
 			start->value = concat;
-			start->type = WORD;
+			start->type = QUOTED;
 			start->next = curr;
 		}
 		else
