@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 19:13:32 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/14 18:29:12 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/14 19:21:40 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,8 @@ static void	to_merge_words(t_token *token)
 	curr = token->next;
 	while (curr && (curr->type == WORD || curr->type == QUOTED || curr->type == SINGLE_Q))
 	{
+		if (curr->type == SINGLE_Q)
+			curr->type = QUOTED;
 		temp = ft_strjoin(merged, curr->value);
 		free(merged);
 		merged = temp;
@@ -116,7 +118,6 @@ static void	to_merge_words(t_token *token)
 	}
 	token->next->value = merged;
 	token->next->next = curr;
-	token->next->type = QUOTED;
 }
 
 static t_bool	parse_tkn(t_token *token, t_cmd *cmd)
@@ -144,7 +145,7 @@ static t_bool	parse_tkn(t_token *token, t_cmd *cmd)
 			to_merge_words(token);
 		token = token->next;
 		add_red(cmd, token->value, token->prev->type);
-		if (token->type == QUOTED)
+		if (token->type == QUOTED && (cmd->in_rd || cmd->out_rd))
 			cmd->in_rd->quoted = 1;
 	}
 	return (TRUE);
