@@ -6,18 +6,18 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 13:36:36 by apaterno          #+#    #+#             */
-/*   Updated: 2024/11/14 09:44:28 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/14 10:07:59 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-t_bool is_directory(char *path)
+t_bool	is_directory(char *path)
 {
-	struct stat fileStat;
-	
-	stat(path, &fileStat);
-	if(S_ISDIR(fileStat.st_mode))
+	struct stat	file_stat;
+
+	stat(path, &file_stat);
+	if (S_ISDIR(file_stat.st_mode))
 		return (TRUE);
 	return (FALSE);
 }
