@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 21:26:02 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/11 22:13:36 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/14 21:59:09 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,10 @@ void	add_token_node(t_token **head, t_token **curr, t_token **token)
 	if ((*token)->type == UNMATCHED)
 	{
 		(*token)->next = *head;
-		(*curr)->next = NULL;
-		(*head)->prev = *token;
+		if ((*curr) && (*curr)->next)
+			(*curr)->next = NULL;
+		if ((*head) && (*head)->prev)
+			(*head)->prev = *token;
 		*head = *token;
 	}
 	else if (*head == NULL)

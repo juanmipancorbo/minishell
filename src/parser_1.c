@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 19:13:32 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/14 19:21:40 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/14 21:45:39 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static char	*find_exe(char **env, char *cmd)
 	char	*full_path;
 	int		i;
 
+	if (!ft_strncmp(cmd, "", 2))
+		return (NULL);
 	path_env = get_env_value(env, "PATH");
 	if (!path_env)
 		return (NULL);

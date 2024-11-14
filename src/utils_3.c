@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 18:55:43 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/13 18:12:27 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/14 21:55:05 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,22 @@ char	*process_token_value(char *value, t_utils *utils)
 	return (result);
 }
 
+int	is_only_spaces(const char *str)
+{
+	int	i;
+
+	i = 0;
+	if (!str)
+		return (1);
+	while (str[i])
+	{
+		if (!ft_isspace(str[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 void	expand_and_add_arg(t_cmd *cmd, char *expanded_value)
 {
 	char	**split_args;
@@ -100,6 +116,8 @@ void	expand_and_add_arg(t_cmd *cmd, char *expanded_value)
 	char	*arg_copy;
 
 	i = 0;
+	if (is_only_spaces(expanded_value))
+		add_arg(cmd, ft_strdup(" "));
 	split_args = ft_split(expanded_value, ' ');
 	if (!split_args)
 		return ;

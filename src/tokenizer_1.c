@@ -6,11 +6,29 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:57:08 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/14 18:43:01 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/14 22:02:25 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+static void	to_empty_string(t_token **head, t_token **curr, const char ***input)
+{
+	t_token		*token;
+
+	(**input)--;
+	if (***input == '\'' || ***input == '"')
+	{
+		if (***input == *((**input) + 1))
+		{
+			token = new_token(WORD, "");
+			add_token_node(head, curr, &token);
+		}
+		(**input) += 2;
+	}
+	else
+		(**input) += 2;
+}
 
 static void	to_quotes(const char **input, t_token **head, t_token **curr)
 {
@@ -38,7 +56,8 @@ static void	to_quotes(const char **input, t_token **head, t_token **curr)
 		return ;
 	}
 	if (**input == q_type)
-		(*input)++;
+		// (*input)++;
+		to_empty_string(head, curr, &input);
 }
 
 static void	to_redirect(const char **input, t_token **head, t_token **curr)
