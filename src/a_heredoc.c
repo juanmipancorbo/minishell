@@ -37,7 +37,7 @@ static t_bool	wait_herecoc(pid_t pid)
 		return (TRUE);
 }
 
-void	star_loop(char *delimiter, int fd, t_utils *utils)
+static void	star_loop(t_red *in_red, int fd, t_utils *utils)
 {
 	char	*line;
 
@@ -47,14 +47,15 @@ void	star_loop(char *delimiter, int fd, t_utils *utils)
 		line = readline(">");
 		if (!line)
 		{
-			heredoc_error(delimiter);
+			heredoc_error(in_red->file);
 			break ;
 		}
-		if (!ft_strncmp(line, delimiter, ft_strlen(delimiter) + 1))
+		if (!ft_strncmp(line, in_red->file, ft_strlen(in_red->file) + 1))
 			break ;
-		if (ft_strchr(line, '$'))
+		if (!in_red->quoted)
 		{
-			expand_hd_word(line, utils, fd);
+			if (ft_strchr(line, '$'))
+				expand_hd_word(line, utils, fd);
 		}
 		else
 			ft_putendl_fd(line, fd);
@@ -77,7 +78,7 @@ static t_bool	read_loop(t_red *red, t_utils *utils)
 	}
 	pid = fork();
 	if (pid == 0)
-		star_loop(red->file, fd, utils);
+		star_loop(red, fd, utils);
 	if (wait_herecoc(pid))
 		return (close(fd), TRUE);
 	return (close(fd), FALSE);
