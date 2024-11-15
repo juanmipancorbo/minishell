@@ -149,6 +149,7 @@ void	print_cmds(t_cmd *cmds);
 void	free_cmds(t_cmd *cmds);
 void	free_q(t_token **curr, t_token **end);
 void	full_path_to_arg(t_cmd	*cmd);
+char	*find_exe(char **env, char *cmd);
 
 //* TEST FUNCTIONS *//
 void	print_tokens(t_token *tokens);
@@ -182,7 +183,6 @@ void	check_cmd_access(t_cmd *cmd);
 /* ************************************************************************** */
 void	add_fdnode_back(t_red **lst, t_red *new);
 t_bool	set_file_descriptor(t_red *red);
-t_bool	check_files(char *path);
 t_bool	fill_fd(t_cmd *cmd);
 t_bool	heredoc_complete(t_cmd *cmd, t_utils *utils);
 char	*new_heredoc_filename(void);
@@ -197,6 +197,8 @@ void	delete_herdocf(char *heredocf);
 void	exit_error(char *msg, int exit_code);
 void	cmd_error(char *str, int exit_code);
 void	heredoc_error(char *delimiter);
+void	check_arguments(char **argv, char **env);
+t_bool	is_directory(char *path);
 
 
 /* ************************************************************************** */
@@ -207,6 +209,7 @@ t_red	*red_last_node(t_red *lst);
 int		redlst_size(t_red *lst);
 t_red	*create_fd_node(char *path, int fd);
 void	close_fd_redlst(t_cmd *cmd);
+t_bool	mi_isspace(int c);
 
 /* ************************************************************************** */
 /*                               PIPES FUNCTIONS		                      */

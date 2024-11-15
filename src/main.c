@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
+/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/14 18:19:36 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/15 13:24:18 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,9 @@ int	main(int argc, char **argv, char **env)
 {
 	t_utils		utils;
 
-	if (argc >= 1 && argv[0])
+	if (argc > 1)
+		check_arguments(argv, env);
+	if (argc == 1 && argv[0])
 	{
 		if (env && !(*env))
 		{
