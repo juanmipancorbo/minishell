@@ -6,7 +6,7 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 13:36:36 by apaterno          #+#    #+#             */
-/*   Updated: 2024/11/14 10:07:59 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/15 14:42:14 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,15 @@ t_bool	is_directory(char *path)
 void	check_cmd_access(t_cmd *cmd)
 {
 	if (cmd->full_path == NULL)
-		cmd_error(ft_strjoin(cmd->args[0], ": command not found\n"), 127);
+	{
+		if (ft_strchr(cmd->args[0], '/'))
+		{
+			file_error(ft_strjoin("-Minishell: ", cmd->args[0]), 127);
+			exit(127);
+		}
+		else
+			cmd_error(ft_strjoin(cmd->args[0], ": command not found\n"), 127);
+	}
 	if (is_directory(cmd->full_path))
 		cmd_error(ft_strjoin(cmd->args[0], ": Is a directory\n"), 126);
 	if (access(cmd->full_path, F_OK))
