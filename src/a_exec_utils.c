@@ -6,7 +6,7 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 13:36:36 by apaterno          #+#    #+#             */
-/*   Updated: 2024/11/15 14:42:14 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/15 17:37:13 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void	check_cmd_access(t_cmd *cmd)
 		cmd_error(ft_strjoin(cmd->args[0], ": Is a directory\n"), 126);
 	if (access(cmd->full_path, F_OK))
 	{
-		file_error(ft_strjoin("-Minishell: ", cmd->full_path), 1);
-		exit(1);
+		file_error(ft_strjoin("-Minishell: ", cmd->full_path), 127);
+		exit(127);
 	}
 	if (access(cmd->full_path, X_OK))
 		cmd_error(ft_strjoin(cmd->args[0], ": Permission denied\n"), 126);

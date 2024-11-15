@@ -6,7 +6,7 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 19:13:32 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/15 17:13:12 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/15 17:30:42 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,9 @@ static void	to_path_and_fd(t_cmd *cmds, t_utils *utils)
 			{
 				curr->full_path = find_exe(utils->env_var, curr->args[0]);
 				if (!curr->full_path && !ft_strncmp(curr->args[0], "./", 2))
+					curr->full_path = ft_strdup(curr->args[0]);
+				//correccion agustin
+				if (!curr->full_path && !ft_strncmp(curr->args[0], "../", 3))
 					curr->full_path = ft_strdup(curr->args[0]);
 				if (!curr->full_path && !ft_strncmp(curr->args[0], "/", 1)
 					&& !access(curr->args[0], F_OK))
