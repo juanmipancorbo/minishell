@@ -37,3 +37,17 @@ pid_t	*get_pid_array(int nbs_process)
 		exit_error(MALLOC_E, 10);
 	return (pid_arr);
 }
+
+void	check_arg(char **argv)
+{
+	if (!ft_strncmp(argv[0], argv[1], ft_strlen(argv[0]) + 1))
+	{
+		printf("minishell: %s: %s", argv[1], "cannot execute binary file");
+		exit (126);
+	}
+	else
+	{
+		printf("minishell: %s: %s", argv[1], "No such file or directory");
+		exit (127);
+	}
+}

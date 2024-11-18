@@ -6,7 +6,7 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/15 15:45:17 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/18 17:29:58 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,9 @@ int	main(int argc, char **argv, char **env)
 {
 	t_utils		utils;
 
-	if (argc >= 1 && argv[0])
+	(void)argv;
+	(void)argc;
+	if (argc == 1)
 	{
 		if (env && !(*env))
 		{
@@ -135,5 +137,7 @@ int	main(int argc, char **argv, char **env)
 		}
 		init_loop(&utils);
 	}
+	else
+		check_arg(argv);
 	return (0);
 }
