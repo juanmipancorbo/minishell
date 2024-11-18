@@ -78,8 +78,9 @@ static int	remove_var_from_list(char *var_name, char ***var_list)
 			new_list = create_new_list(old_list, i);
 			if (!new_list)
 				return (-1);
+			free_env_list(old_list);
 			*var_list = new_list;
-			free(old_list);
+			// free(old_list);
 			return (0);
 		}
 		i++;

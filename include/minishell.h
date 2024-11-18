@@ -37,7 +37,7 @@ extern int	g_exit_code;
 # define WRITE_END 1
 # define READ_END 0
 # define HEREDOC_F "./heredoc_tmp"
-# define VALUE_BUFFER 1024
+# define VALUE_BUFFER 8096
 
 /* ************************************************************************** */
 /*                                OPCODE / STRUCTS                            */

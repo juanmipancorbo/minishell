@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/18 17:29:58 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/18 20:20:43 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static int	build_prompt_parts(char **env_var, char **user, char **machine,
 	char **path)
 {
 	char	*temp;
+	char	cwd[VALUE_BUFFER];
 
 	temp = expand_var("SESSION_MANAGER", env_var);
 	*machine = malloc(8);
@@ -55,10 +56,13 @@ static int	build_prompt_parts(char **env_var, char **user, char **machine,
 	*path = replace_str(*path, copy_after_str(*path, temp));
 	*user = expand_var("USER", env_var);
 	if (!*path)
-		*path = expand_var("PWD", env_var);
-	if (!*user || !*machine || !*path)
-		return (0);
+	{
+		getcwd(cwd, sizeof(cwd));
+		*path = ft_strdup(cwd);
+	}
 	free(temp);
+	if (!ft_strlen(*machine) || !ft_strlen(*path) || !ft_strlen(*user))
+		return (0);
 	return (1);
 }
 
@@ -71,13 +75,16 @@ static char	*to_prompt(char **env_var)
 	size_t	len;
 
 	if (to_env_list_size(env_var) < 10)
-		return ("minishell> \0");
+		return (NULL);
 	if (!build_prompt_parts(env_var, &user, &machine, &path))
-		return ("minishell> \0");
+	{
+		to_free_four(user, machine, path, NULL);
+		return (NULL);
+	}
 	len = ft_strlen(user) + ft_strlen(machine) + ft_strlen(path) + 8;
 	prompt = malloc(len);
 	if (!prompt)
-		return ("minishell> \0");
+		return (NULL);
 	*prompt = '\0';
 	ft_strlcat(prompt, user, len);
 	ft_strlcat(prompt, "@", len);
@@ -99,6 +106,8 @@ static void	init_loop(t_utils *utils)
 	while (1)
 	{
 		prompt = to_prompt(utils->env_var);
+		if (!prompt)
+			prompt = ft_strdup("minishell> ");
 		input = readline(prompt);
 		if (to_env_list_size(utils->env_var) > 10)
 			free(prompt);

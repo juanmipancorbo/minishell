@@ -16,7 +16,7 @@ int	ft_cd(t_cmd *cmd, t_utils *utils)
 {
 	char	*path;
 	char	*home;
-	char	cwd[8096];
+	char	cwd[VALUE_BUFFER];
 
 	if (!cmd->args[1])
 	{
