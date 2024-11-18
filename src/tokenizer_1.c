@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:57:08 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/14 22:02:25 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/18 18:24:10 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,19 @@ static void	to_redirect(const char **input, t_token **head, t_token **curr)
 static void	to_pipe(const char **input, t_token **head, t_token **curr)
 {
 	t_token	*token;
+	char	*content;
 
 	(*input)++;
+	if ((*input) && (is_only_spaces((*input))
+			|| !ft_strncmp((*input), "|", 1)))
+	{
+		printf("Error: Empty pipe.\n");
+		content = ft_strdup("nothing after pipe");
+		token = new_token(UNMATCHED, content);
+		free(content);
+		add_token_node(head, curr, &token);
+		return ;
+	}
 	token = new_token(PIPE, "|");
 	add_token_node(head, curr, &token);
 }
