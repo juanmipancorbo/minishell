@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:00:50 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/11 22:26:48 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/18 21:09:22 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ static int	to_expand_exit_code(char *result, int j)
 	if (temp)
 		while (*temp)
 			result[j++] = *temp++;
+	free (temp);
 	return (j);
 }
 
