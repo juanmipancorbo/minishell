@@ -6,31 +6,11 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:00:50 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/18 21:09:22 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/18 22:22:02 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-void	to_get_pid(t_utils *utils)
-{
-	int		fd;
-	int		bytes_read;
-	char	buffer[256];
-
-	fd = open("/proc/self/stat", O_RDONLY);
-	if (fd == -1)
-		return ;
-	bytes_read = read(fd, buffer, 255);
-	if (bytes_read == -1)
-	{
-		close(fd);
-		return ;
-	}
-	buffer[bytes_read] = '\0';
-	parse_pid(utils, buffer);
-	close(fd);
-}
 
 static int	to_expand_pid(char *result, int j, t_utils *utils)
 {
@@ -78,11 +58,34 @@ static int	to_expand_exit_code(char *result, int j)
 	return (j);
 }
 
+static int	handle_dollar_expansion(char *result, const char *value, int *i,
+	t_utils *utils)
+{
+	int	j;
+
+	j = 0;
+	if (value[*i] == '$' && value[*i + 1] == '$')
+	{
+		j = to_expand_pid(result, j, utils);
+		*i += 2;
+	}
+	else if (value[*i] == '$' && value[*i + 1] == '?')
+	{
+		j = to_expand_exit_code(result, j);
+		*i += 2;
+	}
+	else if (value[*i] == '$' && (ft_isalnum(value[*i + 1])
+			|| value[*i + 1] == '_'))
+		j = to_expand_var(result, value, i, utils);
+	return (j);
+}
+
 char	*expand_dollars(const char *value, t_utils *utils)
 {
 	char	*result;
 	int		i;
 	int		j;
+	int		len;
 
 	i = 0;
 	j = 0;
@@ -91,43 +94,14 @@ char	*expand_dollars(const char *value, t_utils *utils)
 		return (NULL);
 	while (value[i])
 	{
-		if (value[i] == '$' && value[i + 1] == '$')
+		if (value[i] == '$')
 		{
-			j = to_expand_pid(result, j, utils);
-			i += 2;
+			len = handle_dollar_expansion(result + j, value, &i, utils);
+			j += len;
 		}
-		else if (value[i] == '$' && value[i + 1] == '?')
-		{
-			j = to_expand_exit_code(result, j);
-			i += 2;
-		}
-		else if (value[i] == '$' && (ft_isalnum(value[i + 1])
-				|| value[i + 1] == '_'))
-			j += to_expand_var(result + j, value, &i, utils);
 		else
 			result[j++] = value[i++];
 	}
 	result[j] = '\0';
 	return (result);
-}
-
-void	analyze_symbol(const char **input)
-{
-	if (**input == '=')
-	{
-		(*input)++;
-		if (**input == '\'' || **input == '"')
-		{
-			(*input)++;
-			if (ft_strchr(*input, '\'') || ft_strchr(*input, '"'))
-			{
-				while (**input && **input != '\'' && **input != '"')
-					(*input)++;
-				if (**input)
-					(*input)++;
-			}
-		}
-	}
-	else
-		(*input)++;
 }

@@ -11,6 +11,47 @@
 /* ************************************************************************** */
 #include "../include/minishell.h"
 
+void	analyze_symbol(const char **input)
+{
+	if (**input == '=')
+	{
+		(*input)++;
+		if (**input == '\'' || **input == '"')
+		{
+			(*input)++;
+			if (ft_strchr(*input, '\'') || ft_strchr(*input, '"'))
+			{
+				while (**input && **input != '\'' && **input != '"')
+					(*input)++;
+				if (**input)
+					(*input)++;
+			}
+		}
+	}
+	else
+		(*input)++;
+}
+
+void	to_get_pid(t_utils *utils)
+{
+	int		fd;
+	int		bytes_read;
+	char	buffer[256];
+
+	fd = open("/proc/self/stat", O_RDONLY);
+	if (fd == -1)
+		return ;
+	bytes_read = read(fd, buffer, 255);
+	if (bytes_read == -1)
+	{
+		close(fd);
+		return ;
+	}
+	buffer[bytes_read] = '\0';
+	parse_pid(utils, buffer);
+	close(fd);
+}
+
 int	cmd_lst_size(t_cmd **cmd)
 {
 	t_cmd	*tmp;

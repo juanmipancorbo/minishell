@@ -28,8 +28,6 @@ int	ft_echo(t_cmd *cmd, t_utils *utils)
 	while (cmd->args[i])
 	{
 		write(1, cmd->args[i], ft_strlen(cmd->args[i]));
-		// if (cmd->args[i + 1])
-		// 	write(1, " ", 1);
 		i++;
 	}
 	if (newline)

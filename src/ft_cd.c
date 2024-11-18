@@ -12,33 +12,71 @@
 
 #include "../include/minishell.h"
 
+static void	change_directory(char *path, t_utils *utils)
+{
+	char	cwd[VALUE_BUFFER];
+
+	getcwd(cwd, sizeof(cwd));
+	if (!check_env_name("OLDPWD", utils, 2))
+		replace_env_var("OLDPWD", cwd, utils->export_var);
+	if (check_env_name("OLDPWD", utils, 1))
+		add_env_var("OLDPWD", cwd, &utils->env_var);
+	if (!check_env_name("OLDPWD", utils, 1))
+		replace_env_var("OLDPWD", cwd, utils->env_var);
+	if (chdir(path))
+		printf("minishell: cd: %s: No such file or directory\n", path);
+	getcwd(cwd, sizeof(cwd));
+	replace_env_var("PWD", cwd, utils->env_var);
+	replace_env_var("PWD", cwd, utils->export_var);
+}
+
 int	ft_cd(t_cmd *cmd, t_utils *utils)
 {
-	char	*path;
 	char	*home;
-	char	cwd[VALUE_BUFFER];
 
 	if (!cmd->args[1])
 	{
 		home = expand_var("HOME", utils->env_var);
-		chdir(home);
-		free(home);
+		if (home)
+		{
+			chdir(home);
+			free(home);
+		}
+		else
+			printf("minishell: cd: HOME not set\n");
 	}
 	else
-	{
-		getcwd(cwd, sizeof(cwd));
-		path = cmd->args[1];
-		if (!check_env_name("OLDPWD", utils, 2))
-			replace_env_var("OLDPWD", cwd, utils->export_var);
-		if (check_env_name("OLDPWD", utils, 1))
-			add_env_var("OLDPWD", cwd, &utils->env_var);
-		if (!check_env_name("OLDPWD", utils, 1))
-			replace_env_var("OLDPWD", cwd, utils->env_var);
-		if (chdir(path))
-			printf("minishell: cd: %s: No such file or directory\n", path);
-		getcwd(cwd, sizeof(cwd));
-		replace_env_var("PWD", cwd, utils->env_var);
-		replace_env_var("PWD", cwd, utils->export_var);
-	}
+		change_directory(cmd->args[1], utils);
 	return (0);
 }
+
+// int	ft_cd(t_cmd *cmd, t_utils *utils)
+// {
+// 	char	*path;
+// 	char	*home;
+// 	char	cwd[VALUE_BUFFER];
+
+// 	if (!cmd->args[1])
+// 	{
+// 		home = expand_var("HOME", utils->env_var);
+// 		chdir(home);
+// 		free(home);
+// 	}
+// 	else
+// 	{
+// 		getcwd(cwd, sizeof(cwd));
+// 		path = cmd->args[1];
+// 		if (!check_env_name("OLDPWD", utils, 2))
+// 			replace_env_var("OLDPWD", cwd, utils->export_var);
+// 		if (check_env_name("OLDPWD", utils, 1))
+// 			add_env_var("OLDPWD", cwd, &utils->env_var);
+// 		if (!check_env_name("OLDPWD", utils, 1))
+// 			replace_env_var("OLDPWD", cwd, utils->env_var);
+// 		if (chdir(path))
+// 			printf("minishell: cd: %s: No such file or directory\n", path);
+// 		getcwd(cwd, sizeof(cwd));
+// 		replace_env_var("PWD", cwd, utils->env_var);
+// 		replace_env_var("PWD", cwd, utils->export_var);
+// 	}
+// 	return (0);
+// }

@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/18 20:20:43 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/18 22:45:04 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,8 @@ static void	init_loop(t_utils *utils)
 		if (!prompt)
 			prompt = ft_strdup("minishell> ");
 		input = readline(prompt);
-		if (to_env_list_size(utils->env_var) > 10)
-			free(prompt);
+		// if (to_env_list_size(utils->env_var) > 10)
+		free(prompt);
 		if (!input)
 			exit_error("Exit\n", g_exit_code);
 		if (*input)

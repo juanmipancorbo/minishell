@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 20:48:49 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/15 17:24:27 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/18 22:29:56 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,84 +52,83 @@ void	insert_new_tokens(t_token *curr, char **split_words)
 	}
 }
 
+static void	expand_token_value(t_token *token, t_utils *utils)
+{
+	char	*expanded;
+
+	if (token->type == WORD && ft_strchr(token->value, '$'))
+	{
+		token->type = VAR;
+		expanded = expand_dollars((const char *)token->value, utils);
+		free(token->value);
+		token->value = expanded;
+	}
+}
+
+static void	add_relative_prefix(t_token *token)
+{
+	char	*relative;
+	size_t	len;
+
+	if (token->type == WORD && ft_strchr(token->value, '/')
+		&& (token->value[0] != '/' && token->value[0] != '.'))
+	{
+		len = ft_strlen(token->value) + 3;
+		relative = malloc(len);
+		if (!relative)
+			return ;
+		ft_strlcpy(relative, "./", len);
+		ft_strlcat(relative, token->value, len);
+		free(token->value);
+		token->value = relative;
+	}
+}
+
 void	expand_tokens(t_token *tokens, t_utils *utils)
 {
 	t_token	*curr;
-	char	*expanded;
-	char	*relative;
-	size_t	len;
 
 	curr = tokens;
 	while (curr)
 	{
-		if (curr->type == WORD && ft_strchr(curr->value, '$'))
-		{
-			curr->type = VAR;
-			expanded = expand_dollars((const char *)curr->value, utils);
-			free(curr->value);
-			curr->value = expanded;
-		}
-		// corrercion agustin
-		if (tokens->type == WORD && ft_strchr(tokens->value, '/')
-			&& (tokens->value[0] != '/' && tokens->value[0] != '.'))
-		{
-			len = ft_strlen(tokens->value) + 3;
-			relative = malloc(len);
-			ft_strlcpy(relative, "./", len);
-			ft_strlcat(relative, tokens->value, len);
-			free(curr->value);
-			curr->value = relative;
-		}
+		expand_token_value(curr, utils);
+		add_relative_prefix(curr);
 		curr = curr->next;
 	}
 	between_q(&tokens);
 }
 
-char	*concat_q(t_token *token)
-{
-	char	*result;
-	char	*temp;
-	t_token	*curr;
+// void	expand_tokens(t_token *tokens, t_utils *utils)
+// {
+// 	t_token	*curr;
+// 	char	*expanded;
+// 	char	*relative;
+// 	size_t	len;
 
-	result = ft_strdup("");
-	curr = token;
-	while (curr && curr->type != DOUBLE_Q)
-	{
-		if (curr->type == WORD || curr->type == VAR)
-		{
-			temp = result;
-			result = ft_strjoin(result, curr->value);
-			free(temp);
-		}
-		curr = curr->next;
-	}
-	return (result);
-}
+// 	curr = tokens;
+// 	while (curr)
+// 	{
+// 		if (curr->type == WORD && ft_strchr(curr->value, '$'))
+// 		{
+// 			curr->type = VAR;
+// 			expanded = expand_dollars((const char *)curr->value, utils);
+// 			free(curr->value);
+// 			curr->value = expanded;
+// 		}
+// 		// corrercion agustin
+// 		if (tokens->type == WORD && ft_strchr(tokens->value, '/')
+// 			&& (tokens->value[0] != '/' && tokens->value[0] != '.'))
+// 		{
+// 			len = ft_strlen(tokens->value) + 3;
+// 			relative = malloc(len);
+// 			ft_strlcpy(relative, "./", len);
+// 			ft_strlcat(relative, tokens->value, len);
+// 			free(curr->value);
+// 			curr->value = relative;
+// 		}
+// 		curr = curr->next;
+// 	}
+// 	between_q(&tokens);
+// }
 
-void	between_q(t_token **tokens)
-{
-	t_token	*curr;
-	t_token	*start;
-	t_token	*end;
-	char	*concat;
 
-	curr = *tokens;
-	while (curr)
-	{
-		if (curr->type == DOUBLE_Q)
-		{
-			start = curr;
-			curr = curr->next;
-			concat = concat_q(curr);
-			while (curr && curr->type != DOUBLE_Q)
-				free_q(&curr, &end);
-			free_q(&curr, &end);
-			free(start->value);
-			start->value = concat;
-			start->type = QUOTED;
-			start->next = curr;
-		}
-		else
-			curr = curr->next;
-	}
-}
