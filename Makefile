@@ -16,7 +16,7 @@ NAME		= minishell
 SRC_FILES 	= main.c tokenizer_1.c tokenizer_2.c utils.c parser_1.c parser_2.c\
             parser_3.c expander.c parsing_utils.c env_variables.c utils_2.c\
             a_execute.c errors_fn.c file_descriptors.c a_list_fn.c parsing_test.c\
-            a_heredoc.c  a_exit_fn.c a_utils.c a_pipes_fn.c ft_cd.c\
+            a_heredoc.c  a_exit_fn.c utils_4.c a_pipes_fn.c ft_cd.c\
             a_built_in_utils.c ft_echo.c a_ft_env.c ft_exit.c a_signal.c\
             ft_export.c a_ft_pwd.c ft_unset.c expander_utils.c utils_3.c\
             ft_export.c a_ft_pwd.c ft_unset.c expander_utils.c utils_3.c no_env.c\
