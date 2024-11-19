@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 19:13:32 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/18 17:37:21 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/19 21:08:02 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,8 +150,13 @@ static t_bool	parse_tkn(t_token *token, t_cmd *cmd)
 			to_merge_words(token);
 		token = token->next;
 		add_red(cmd, token->value, token->prev->type);
-		if (token->type == QUOTED && (cmd->in_rd || cmd->out_rd))
-			cmd->in_rd->quoted = 1;
+		if (token->type == QUOTED)
+		{
+			if (cmd->in_rd)
+				cmd->in_rd->quoted = 1;
+			if (cmd->out_rd)
+				cmd->out_rd->quoted = 1;
+		}
 	}
 	return (TRUE);
 }
