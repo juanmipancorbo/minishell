@@ -49,11 +49,13 @@ static int	to_expand_var(char *result, const char *value, int *i,
 static int	to_expand_exit_code(char *result, int j)
 {
 	char	*temp;
+	int		i;
 
+	i = 0;
 	temp = ft_itoa(g_exit_code);
 	if (temp)
-		while (*temp)
-			result[j++] = *temp++;
+		while (temp[i])
+			result[j++] = temp[i++];
 	free (temp);
 	return (j);
 }

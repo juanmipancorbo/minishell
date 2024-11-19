@@ -102,7 +102,7 @@ static void	init_loop(t_utils *utils)
 	char	*prompt;
 	t_token	*tokens;
 	t_cmd	*cmds;
-
+	
 	while (1)
 	{
 		prompt = to_prompt(utils->env_var);
