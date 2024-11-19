@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 19:13:32 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/19 20:52:15 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/19 21:42:32 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,10 +120,14 @@ static void	to_merge_words(t_token *token)
 			curr->type = QUOTED;
 		temp = ft_strjoin(merged, curr->value);
 		free(merged);
+		free(curr->value);
+		free(curr);
 		merged = temp;
 		curr = curr->next;
 	}
+	free(token->next->value);
 	token->next->value = merged;
+	free(token->next->next);
 	token->next->next = curr;
 }
 
