@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-static void	change_directory(char *path, t_utils *utils)
+static t_bool	change_directory(char *path, t_utils *utils)
 {
 	char	cwd[VALUE_BUFFER];
 
@@ -24,10 +24,14 @@ static void	change_directory(char *path, t_utils *utils)
 	if (!check_env_name("OLDPWD", utils, 1))
 		replace_env_var("OLDPWD", cwd, utils->env_var);
 	if (chdir(path))
+	{	
 		printf("minishell: cd: %s: No such file or directory\n", path);
+		return (FALSE);
+	}	
 	getcwd(cwd, sizeof(cwd));
 	replace_env_var("PWD", cwd, utils->env_var);
 	replace_env_var("PWD", cwd, utils->export_var);
+	return (TRUE);
 }
 
 int	ft_cd(t_cmd *cmd, t_utils *utils)
@@ -46,7 +50,8 @@ int	ft_cd(t_cmd *cmd, t_utils *utils)
 			printf("minishell: cd: HOME not set\n");
 	}
 	else
-		change_directory(cmd->args[1], utils);
+		if (!change_directory(cmd->args[1], utils))
+			return(1);
 	return (0);
 }
 
