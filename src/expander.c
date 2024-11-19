@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 20:48:49 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/18 22:29:56 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/19 20:26:53 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,18 +84,40 @@ static void	add_relative_prefix(t_token *token)
 	}
 }
 
-void	expand_tokens(t_token *tokens, t_utils *utils)
+static void	to_reorder_rd(t_token **tokens)
+{
+	t_token	*curr;
+	t_token	*rd;
+	t_token	*head;
+
+	curr = *tokens;
+	if ((curr->type >= 2 && curr->type <= 5) && curr->next->next)
+	{
+		rd = curr;
+		head = rd->next->next;
+		while (curr->next)
+			curr = curr->next;
+		curr->next = rd;
+		rd->prev = curr;
+		head->prev = NULL;
+		rd->next->next = NULL;
+		*tokens = head;
+	}
+}
+
+void	expand_tokens(t_token **tokens, t_utils *utils)
 {
 	t_token	*curr;
 
-	curr = tokens;
+	to_reorder_rd(tokens);
+	curr = *tokens;
 	while (curr)
 	{
 		expand_token_value(curr, utils);
 		add_relative_prefix(curr);
 		curr = curr->next;
 	}
-	between_q(&tokens);
+	between_q(tokens);
 }
 
 // void	expand_tokens(t_token *tokens, t_utils *utils)
