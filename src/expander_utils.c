@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:00:50 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/18 22:22:02 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/19 20:42:57 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,12 @@ static int	handle_dollar_expansion(char *result, const char *value, int *i,
 	int	j;
 
 	j = 0;
+	if (value[*i] == '$' && !value[*i + 1])
+	{
+		result[j++] = value[*i];
+		*i += 1;
+		return (j);
+	}
 	if (value[*i] == '$' && value[*i + 1] == '$')
 	{
 		j = to_expand_pid(result, j, utils);
