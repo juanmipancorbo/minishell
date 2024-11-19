@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 19:13:32 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/19 19:12:18 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/19 20:26:25 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,39 +179,10 @@ t_cmd	*to_parse(t_token **tokens, t_utils *utils)
 			if (!parse_tkn(*tokens, curr))
 				return (NULL);
 			if ((*tokens)->type >= 2 && (*tokens)->type <= 5)
-				*tokens = (*tokens)->next;
+				tokens = &(*tokens)->next;
 		}
-		*tokens = (*tokens)->next;
+		tokens = &(*tokens)->next;
 	}
 	to_path_and_fd(head, utils);
 	return (head);
 }
-
-// t_cmd	*to_parse(t_token *tokens, t_utils *utils)
-// {
-// 	t_cmd	*head;
-// 	t_cmd	*curr;
-
-// 	expand_tokens(&tokens, utils);
-// 	head = create_cmd_node();
-// 	if (!head)
-// 		return (NULL);
-// 	curr = head;
-// 	while (tokens)
-// 	{
-// 		if (tokens->type == WORD && ft_strchr(tokens->value, '='))
-// 			tokens->value = process_token_value(tokens->value, utils);
-// 		if (tokens->type == PIPE)
-// 			curr = add_pipe(curr);
-// 		else
-// 		{
-// 			if (!parse_tkn(tokens, curr))
-// 				return (NULL);
-// 			if (tokens->type >= 2 && tokens->type <= 5)
-// 				tokens = tokens->next;
-// 		}
-// 		tokens = tokens->next;
-// 	}
-// 	to_path_and_fd(head, utils);
-// 	return (head);
-// }

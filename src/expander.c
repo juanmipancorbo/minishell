@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 20:48:49 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/19 18:47:32 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/19 20:26:53 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ static void	to_reorder_rd(t_token **tokens)
 		*tokens = head;
 	}
 }
-
 
 void	expand_tokens(t_token **tokens, t_utils *utils)
 {
