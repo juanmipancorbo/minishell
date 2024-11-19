@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/18 22:45:04 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/19 19:08:50 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ static void	init_loop(t_utils *utils)
 		if (*input)
 			add_history(input);
 		tokens = to_tokenize(input);
-		cmds = to_parse(tokens, utils);
+		cmds = to_parse(&tokens, utils);
 		// print_tokens(tokens);
 		// print_cmds(cmds);
 		if (*input && tokens && tokens->type != UNMATCHED)

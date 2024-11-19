@@ -130,7 +130,7 @@ void	analyze_symbol(const char **input);
 /* ************************************************************************** */
 /*                                   PARSER                                   */
 /* ************************************************************************** */
-t_cmd	*to_parse(t_token *tokens, t_utils *utils);
+t_cmd	*to_parse(t_token **tokens, t_utils *utils);
 t_cmd	*add_pipe(t_cmd *curr);
 void	add_arg(t_cmd *cmd, char *arg);
 t_red	*create_red_node(char *file, int type);
@@ -139,7 +139,7 @@ void	add_in_red(t_cmd *cmd, t_red *red);
 void	add_out_red(t_cmd *cmd, t_red *red);
 t_cmd	*create_cmd_node(void);
 char	*expand_var(char *var, char **env);
-void	expand_tokens(t_token *tokens, t_utils *utils);
+void	expand_tokens(t_token **tokens, t_utils *utils);
 void	expand_and_add_arg(t_cmd *cmd, char *expansion);
 void	between_q(t_token **tokens);
 char	*join_path_cmd(char *path, char *cmd);
