@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 19:13:32 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/18 17:37:21 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/19 07:25:29 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ static void	to_merge_words(t_token *token)
 	t_token	*curr;
 
 	curr = token->next;
+	if (!curr->next)
+		return ;
 	len = 0;
 	while (curr && (curr->type == WORD || curr->type == QUOTED || curr->type == SINGLE_Q))
 	{
