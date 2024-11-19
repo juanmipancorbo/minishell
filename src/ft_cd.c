@@ -38,6 +38,11 @@ int	ft_cd(t_cmd *cmd, t_utils *utils)
 {
 	char	*home;
 
+	if (cmd->args[2] != NULL)
+	{
+		printf("minishell: cd: too many arguments\n");
+		return (1);
+	}
 	if (!cmd->args[1])
 	{
 		home = expand_var("HOME", utils->env_var);
@@ -51,7 +56,7 @@ int	ft_cd(t_cmd *cmd, t_utils *utils)
 	}
 	else
 		if (!change_directory(cmd->args[1], utils))
-			return(1);
+			return (1);
 	return (0);
 }
 
