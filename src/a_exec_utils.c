@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   a_exec_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 13:36:36 by apaterno          #+#    #+#             */
-/*   Updated: 2024/11/15 17:37:13 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/19 17:37:27 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ t_bool	is_directory(char *path)
 
 void	check_cmd_access(t_cmd *cmd)
 {
+	// modificado juan
+	if (!cmd->args)
+		return ;
 	if (cmd->full_path == NULL)
 	{
 		if (ft_strchr(cmd->args[0], '/'))
