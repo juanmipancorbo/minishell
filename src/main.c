@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
+/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/20 18:02:22 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/20 18:26:55 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ static void	init_loop(t_utils *utils)
 			exit_error("exit\n", g_exit_code);
 		if (*input)
 			add_history(input);
+		input = incomplete_pipe(input);
 		tokens = to_tokenize(input);
 		cmds = to_parse(&tokens, utils);
 		// print_tokens(tokens);
