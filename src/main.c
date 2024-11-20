@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/19 19:08:50 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/20 17:52:25 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,6 @@ static void	clean_loop(char *input, t_token *tokens, t_cmd *cmds)
 	t_token	*temp;
 
 	free(input);
-	// if (utils->pid)
-	// {
-	// 	free(utils->pid);
-	// 	utils->pid = NULL;
-	// }
-	// if (utils->process_id)
-	// {
-	// 	free(utils->process_id);
-	// 	utils->process_id = NULL;
-	// }
 	while (tokens)
 	{
 		temp = tokens;
@@ -74,8 +64,6 @@ static char	*to_prompt(char **env_var)
 	char	*path;
 	size_t	len;
 
-	if (to_env_list_size(env_var) < 10)
-		return (NULL);
 	if (!build_prompt_parts(env_var, &user, &machine, &path))
 	{
 		to_free_four(user, machine, path, NULL);
@@ -102,17 +90,18 @@ static void	init_loop(t_utils *utils)
 	char	*prompt;
 	t_token	*tokens;
 	t_cmd	*cmds;
-	
+
 	while (1)
 	{
-		prompt = to_prompt(utils->env_var);
+		prompt = NULL;
+		if (to_env_list_size(utils->env_var) > 10)
+			prompt = to_prompt(utils->env_var);
 		if (!prompt)
 			prompt = ft_strdup("minishell> ");
 		input = readline(prompt);
-		// if (to_env_list_size(utils->env_var) > 10)
 		free(prompt);
 		if (!input)
-			exit_error("Exit\n", g_exit_code);
+			exit_error("exit\n", g_exit_code);
 		if (*input)
 			add_history(input);
 		tokens = to_tokenize(input);
