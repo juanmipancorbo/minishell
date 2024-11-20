@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 20:48:49 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/19 20:26:53 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/20 16:55:00 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static void	to_reorder_rd(t_token **tokens)
 	t_token	*head;
 
 	curr = *tokens;
-	if ((curr->type >= 2 && curr->type <= 5) && curr->next->next)
+	if ((curr && curr->type >= 2 && curr->type <= 5) && curr->next->next)
 	{
 		rd = curr;
 		head = rd->next->next;
