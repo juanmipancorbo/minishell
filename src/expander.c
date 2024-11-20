@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
+/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 20:48:49 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/19 20:26:53 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/20 14:08:38 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ static void	to_reorder_rd(t_token **tokens)
 	t_token	*head;
 
 	curr = *tokens;
+	if (!curr)
+		return;
 	if ((curr->type >= 2 && curr->type <= 5) && curr->next->next)
 	{
 		rd = curr;
