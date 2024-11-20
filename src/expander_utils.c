@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:00:50 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/19 20:42:57 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/20 21:09:59 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	handle_dollar_expansion(char *result, const char *value, int *i,
 	int	j;
 
 	j = 0;
-	if (value[*i] == '$' && !value[*i + 1])
+	if (value[*i] == '$' && (!value[*i + 1] || ft_isspace(value[*i + 1])))
 	{
 		result[j++] = value[*i];
 		*i += 1;
@@ -83,7 +83,8 @@ static int	handle_dollar_expansion(char *result, const char *value, int *i,
 		*i += 2;
 	}
 	else if (value[*i] == '$' && (ft_isalnum(value[*i + 1])
-			|| value[*i + 1] == '_'))
+			|| value[*i + 1] == '_' || ft_strchr(value, '"')
+			|| ft_strchr(value, '\'')))
 		j = to_expand_var(result, value, i, utils);
 	return (j);
 }
