@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 19:13:32 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/20 17:44:18 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/20 18:36:16 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,22 @@ static void	to_path_and_fd(t_cmd *cmds, t_utils *utils)
 	}
 }
 
+static int	to_check_merge(t_token *token)
+{
+	t_token	*curr;
+
+	curr = token;
+	while (curr && curr->value)
+	{
+		if (curr->type == QUOTED || curr->type == SINGLE_Q)
+			return (0);
+		if (curr->type == PIPE)
+			return (1);
+		curr++;
+	}
+	return (1);
+}
+
 static void	to_merge_words(t_token *token)
 {
 	char	*merged;
@@ -101,7 +117,7 @@ static void	to_merge_words(t_token *token)
 	t_token	*curr;
 
 	curr = token->next;
-	if (!curr->next)
+	if (!curr->next || to_check_merge(curr))
 		return ;
 	len = 0;
 	while (curr && (curr->type == WORD || curr->type == QUOTED || curr->type == SINGLE_Q))
