@@ -73,7 +73,7 @@ static t_bool	read_loop(t_red *red, t_utils *utils)
 	fd = open(red->herecoc_f, O_WRONLY | O_CREAT | O_APPEND | O_TRUNC, 0777);
 	if (fd < 0)
 	{
-		file_error(ft_strjoin("-Minishell: ", red->herecoc_f), 1);
+		file_error(ft_strjoin("minishell: ", red->herecoc_f), 1);
 		return (FALSE);
 	}
 	pid = fork();
