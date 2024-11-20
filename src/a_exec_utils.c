@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 13:36:36 by apaterno          #+#    #+#             */
-/*   Updated: 2024/11/19 17:37:27 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/20 18:12:59 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	check_cmd_access(t_cmd *cmd)
 	{
 		if (ft_strchr(cmd->args[0], '/'))
 		{
-			file_error(ft_strjoin("-Minishell: ", cmd->args[0]), 127);
+			file_error(ft_strjoin("minishell: ", cmd->args[0]), 127);
 			exit(127);
 		}
 		else
@@ -41,7 +41,7 @@ void	check_cmd_access(t_cmd *cmd)
 		cmd_error(ft_strjoin(cmd->args[0], ": Is a directory\n"), 126);
 	if (access(cmd->full_path, F_OK))
 	{
-		file_error(ft_strjoin("-Minishell: ", cmd->full_path), 127);
+		file_error(ft_strjoin("minishell: ", cmd->full_path), 127);
 		exit(127);
 	}
 	if (access(cmd->full_path, X_OK))
