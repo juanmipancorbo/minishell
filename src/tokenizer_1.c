@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:57:08 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/20 17:17:18 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/20 22:04:46 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,12 @@ static void	to_word(const char **input, t_token **head, t_token **curr)
 	size_t		len;
 
 	start = *input;
+	if (**input && **input == '$' && ((*input)[1] == '"'
+		|| (*input)[1] == '\''))
+	{
+		(*input)++;
+		return ;
+	}
 	if ((*head) && !ft_strncmp((*head)->value, "echo", 4)
 		&& (*curr)->type != PIPE && (**input != '-' && (**input + 1) != 'n'))
 		while (**input && **input != '|' && **input != '<'
