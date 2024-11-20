@@ -113,6 +113,7 @@ static void	init_loop(t_utils *utils)
 		free(prompt);
 		if (!input)
 			exit_error("Exit\n", g_exit_code);
+		//funcion checheo pipe
 		if (*input)
 			add_history(input);
 		tokens = to_tokenize(input);
