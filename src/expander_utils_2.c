@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 22:27:36 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/18 22:28:10 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/20 16:59:13 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,3 +61,26 @@ void	between_q(t_token **tokens)
 	}
 }
 
+void	insert_new_tokens(t_token *curr, char **split_words)
+{
+	t_token	*token;
+	int		i;
+
+	i = 0;
+	while (split_words[i])
+	{
+		if (i == 0)
+		{
+			free(curr->value);
+			curr->value = ft_strdup(split_words[i]);
+		}
+		else
+		{
+			token = new_token(WORD, ft_strdup(split_words[i]));
+			token->next = curr->next;
+			curr->next = token;
+			curr = token;
+		}
+		i++;
+	}
+}

@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:57:08 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/18 18:24:10 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/20 17:17:18 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,10 @@ static void	to_pipe(const char **input, t_token **head, t_token **curr)
 	char	*content;
 
 	(*input)++;
-	if ((*input) && (is_only_spaces((*input))
-			|| !ft_strncmp((*input), "|", 1)))
+	if ((*input) && !ft_strncmp((*input), "|", 1))
 	{
-		printf("Error: Empty pipe.\n");
-		content = ft_strdup("nothing after pipe");
+		printf("Error: \"||\" Operator not implemented.\n");
+		content = ft_strdup("||");
 		token = new_token(UNMATCHED, content);
 		free(content);
 		add_token_node(head, curr, &token);
