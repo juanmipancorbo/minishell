@@ -12,27 +12,27 @@
 
 #include "../include/minishell.h"
 
-static void check_flag(char *arg, int *i, int *newline)
+static void	check_flag(char *arg, int *i, int *newline)
 {
-	int j;
+	int	j;
 
 	j = 2;
 	if (!ft_strncmp(arg, "-n", 2))
 	{
-		while(arg[j])
+		while (arg[j])
 		{
 			if (arg[j] != 'n' )
 				return ;
 			j++;
 		}
-	*newline = 0;
-	*i = 2;
+		*newline = 0;
+		*i = 2;
 	}
 }
 
-static t_bool print_args(char *arg)
+static t_bool	print_args(char *arg)
 {
-	int i;
+	int	i;
 
 	i = 2;
 	if (!ft_strncmp(arg, "-n", 2))
@@ -47,33 +47,28 @@ static t_bool print_args(char *arg)
 	else
 		return (TRUE);
 	return (FALSE);
-} 
+}
 
 int	ft_echo(t_cmd *cmd, t_utils *utils)
 {
 	int	i;
-	int checker;
+	int	checker;
 	int	newline;
 
 	(void)utils;
 	i = 1;
 	newline = 1;
 	checker = 0;
-	// if (cmd->args[1] && !ft_strncmp(cmd->args[1], "-n", 3))
-	// {
-	// 	newline = 0;
-	// 	i = 2;
-	// }
 	check_flag(cmd->args[1], &i, &newline);
 	while (cmd->args[i])
 	{
-		if(print_args(cmd->args[i]))
+		if (print_args(cmd->args[i]))
 			checker = 1;
 		if (checker)
 		{
 			write(1, cmd->args[i], ft_strlen(cmd->args[i]));
 			if (cmd->args[i + 1] != NULL)
-				write(1," ",1);
+				write(1, " ", 1);
 		}
 		i++;
 	}
