@@ -6,7 +6,7 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:18:21 by apaterno          #+#    #+#             */
-/*   Updated: 2024/11/20 14:13:57 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/20 17:47:52 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ char *complete_pipe(char *input)
 			return (newinput);
 		}
 	}
-	
 }
 
 
@@ -36,9 +35,11 @@ char *incomplete_pipe(char *input)
 	int i;
 
 	i = ft_strlen(input) - 1;
-	while (ft_isspace(input[i--]));
+	while (ft_isspace(input[i]))
+		i--;
 	if ((input[i] == '|' && input[i - 1] == '|') || input[i] != '|')
 		return (input);
 	if ((input[i] == '|' && input[i - 1] != '|'))
 		return (complete_pipe(input));
+	return (input);
 }

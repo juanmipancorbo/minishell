@@ -6,7 +6,7 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 19:13:32 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/20 14:06:41 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/20 17:44:18 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ static void	to_merge_words(t_token *token)
 		temp = ft_strjoin(merged, curr->value);
 		free(merged);
 		free(curr->value);
-		//free(curr);
+		free(curr);
 		merged = temp;
 		curr = curr->next;
 	}

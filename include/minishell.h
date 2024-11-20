@@ -126,6 +126,7 @@ char	*process_token_value(char *value, t_utils *utils);
 void	to_get_pid(t_utils *utils);
 void	parse_pid(t_utils *utils, char *buffer);
 void	analyze_symbol(const char **input);
+char	*incomplete_pipe(char *input);
 
 /* ************************************************************************** */
 /*                                   PARSER                                   */
