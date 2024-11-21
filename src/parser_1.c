@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 19:13:32 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/20 18:36:16 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/21 17:38:47 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ static void	to_merge_words(t_token *token)
 	char	*temp;
 	int		len;
 	t_token	*curr;
+	t_token	*to_free;
 
 	curr = token->next;
 	if (!curr->next || to_check_merge(curr))
@@ -137,14 +138,19 @@ static void	to_merge_words(t_token *token)
 		temp = ft_strjoin(merged, curr->value);
 		free(merged);
 		free(curr->value);
-		free(curr);
 		merged = temp;
 		curr = curr->next;
 	}
-	free(token->next->value);
+	to_free = token->next->next;
 	token->next->value = merged;
-	free(token->next->next);
 	token->next->next = curr;
+	curr = to_free;
+	while (curr && (curr->type == WORD || curr->type == QUOTED || curr->type == SINGLE_Q))
+	{
+		to_free = curr;
+		curr = curr->next;
+		free(to_free);
+	}
 }
 
 static t_bool	parse_tkn(t_token *token, t_cmd *cmd)
