@@ -66,11 +66,7 @@ int	ft_echo(t_cmd *cmd, t_utils *utils)
 		if (print_args(cmd->args[i]))
 			checker = 1;
 		if (checker)
-		{
 			write(1, cmd->args[i], ft_strlen(cmd->args[i]));
-			// if (cmd->args[i + 1] != NULL)
-			// 	write(1, " ", 1);
-		}
 		i++;
 	}
 	if (newline)

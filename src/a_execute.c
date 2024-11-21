@@ -56,9 +56,7 @@ static void	exec_builtin(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
 		}
 	}
 	else
-	{
 		g_exit_code = cmd->built_in(cmd, utils);
-	}
 }
 
 static void	exec_cmd(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)

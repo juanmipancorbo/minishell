@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:57:08 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/20 22:04:46 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/21 19:22:08 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ static void	to_quotes(const char **input, t_token **head, t_token **curr)
 		return ;
 	}
 	if (**input == q_type)
-		// (*input)++;
 		to_empty_string(head, curr, &input);
 }
 
@@ -101,38 +100,6 @@ static void	to_pipe(const char **input, t_token **head, t_token **curr)
 		return ;
 	}
 	token = new_token(PIPE, "|");
-	add_token_node(head, curr, &token);
-}
-
-static void	to_word(const char **input, t_token **head, t_token **curr)
-{
-	const char	*start;
-	char		*value;
-	t_token		*token;
-	size_t		len;
-
-	start = *input;
-	if (**input && **input == '$' && ((*input)[1] == '"'
-		|| (*input)[1] == '\''))
-	{
-		(*input)++;
-		return ;
-	}
-	if ((*head) && !ft_strncmp((*head)->value, "echo", 4)
-		&& (*curr)->type != PIPE && (**input != '-' && (**input + 1) != 'n'))
-		while (**input && **input != '|' && **input != '<'
-			&& **input != '>' && **input != '\'' && **input != '"')
-			(*input)++;
-	else
-		while (**input && **input != '"' && **input != '|' && **input != '<'
-			&& **input != '>' && **input != '\'' && !ft_isspace(**input))
-			analyze_symbol(input);
-	len = *input - start;
-	value = ft_strndup(start, len);
-	if (!value)
-		exit_error(MALLOC_E, 10);
-	token = new_token(WORD, value);
-	free(value);
 	add_token_node(head, curr, &token);
 }
 
