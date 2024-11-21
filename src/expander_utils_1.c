@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:00:50 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/21 20:23:40 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/21 20:59:38 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	handle_dollar_expansion(char *result, const char *value, int *i,
 	int	j;
 
 	j = 0;
-	if (value[*i] == '$' && !value[*i + 1])
+	if (value[*i] == '$' && (!value[*i + 1] || ft_isspace(value[*i + 1])))
 	{
 		result[j++] = value[*i];
 		*i += 1;
