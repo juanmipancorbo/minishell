@@ -103,5 +103,6 @@ void	init_execution(t_cmd **command, t_utils *utils)
 		cmd_id++;
 		cmd = cmd->next;
 	}
+	free_pipes(pipes_fd, cmd_lst_size(command) - 1);
 	wait_process(utils, cmd_lst_size(command));
 }

@@ -189,6 +189,7 @@ t_bool	fill_fd(t_cmd *cmd);
 t_bool	heredoc_complete(t_cmd *cmd, t_utils *utils);
 char	*new_heredoc_filename(void);
 void	expand_hd_word(char *line, t_utils *utils, int fd);
+void	free_pipes(int **pipes_fd, int pipesnb);
 
 /* ************************************************************************** */
 /*                                EXIT & ERRORS     	                      */

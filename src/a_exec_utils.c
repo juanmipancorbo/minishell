@@ -3,14 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   a_exec_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
+/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 13:36:36 by apaterno          #+#    #+#             */
-/*   Updated: 2024/11/20 18:12:59 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/21 13:41:42 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	free_pipes(int **pipes_fd, int pipesnb)
+{
+	int	i;
+
+	i = 0;
+	while (i < pipesnb)
+	{
+		free(pipes_fd[i]);
+		i++;
+	}
+	free(pipes_fd);
+}
 
 t_bool	is_directory(char *path)
 {
@@ -24,7 +37,6 @@ t_bool	is_directory(char *path)
 
 void	check_cmd_access(t_cmd *cmd)
 {
-	// modificado juan
 	if (!cmd->args)
 		return ;
 	if (cmd->full_path == NULL)
