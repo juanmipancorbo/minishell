@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 19:13:32 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/21 17:38:47 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/21 18:21:26 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,9 +168,9 @@ static t_bool	parse_tkn(t_token *token, t_cmd *cmd)
 		add_arg(cmd, ft_strdup(token->value));
 	else if (token->type >= 2 && token->type <= 5)
 	{
-		if (!token->next || (token->next->type != WORD && token->next->type != QUOTED && token->next->type != SINGLE_Q))
+		if (!token->next || (token->next->type != WORD && token->next->type != QUOTED && token->next->type != SINGLE_Q && token->next->type != RD_OUT))
 		{
-			printf("Minishell: syntax error near unexpected token `newline'\n");
+			printf("Minishell: syntax error near unexpected token `%s'\n", token->next->value);
 			g_exit_code = 2;
 			return (FALSE);
 		}

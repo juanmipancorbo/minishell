@@ -34,6 +34,37 @@ static t_bool	change_directory(char *path, t_utils *utils)
 	return (TRUE);
 }
 
+static int	cd_dash(t_utils *utils)
+{
+	char	*oldpwd;
+	char	cwd[VALUE_BUFFER];
+
+	oldpwd = expand_var("OLDPWD", utils->env_var);
+	if (!ft_strlen(oldpwd))
+	{
+		free(oldpwd);
+		printf("minishell: cd: OLDPWD not set\n");
+		return (1);
+	}
+	if (!getcwd(cwd, sizeof(cwd)))
+	{
+		free(oldpwd);
+		perror("minishell: cd");
+		return (1);
+	}
+	if (chdir(oldpwd))
+	{
+		free(oldpwd);
+		perror("minishell: cd");
+		return (1);
+	}
+	printf("%s\n", oldpwd);
+	replace_env_var("OLDPWD", cwd, utils->env_var);
+	replace_env_var("PWD", oldpwd, utils->env_var);
+	free(oldpwd);
+	return (0);
+}
+
 int	ft_cd(t_cmd *cmd, t_utils *utils)
 {
 	char	*home;
@@ -53,6 +84,11 @@ int	ft_cd(t_cmd *cmd, t_utils *utils)
 		}
 		else
 			printf("minishell: cd: HOME not set\n");
+	}
+	else if (ft_strncmp(cmd->args[1], "-", 1) == 0)
+	{
+		if (cd_dash(utils))
+			return (1);
 	}
 	else
 		if (!change_directory(cmd->args[1], utils))
