@@ -56,6 +56,8 @@ static void	star_loop(t_red *in_red, int fd, t_utils *utils)
 		{
 			if (ft_strchr(line, '$'))
 				expand_hd_word(line, utils, fd);
+			else
+				ft_putendl_fd(line, fd);
 		}
 		else
 			ft_putendl_fd(line, fd);
