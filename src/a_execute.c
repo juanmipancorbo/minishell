@@ -70,6 +70,8 @@ static void	exec_cmd(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
 	{
 		if (!fill_fd(cmd))
 			exit(1);
+		if (!cmd->full_path)
+			exit (0);
 		check_cmd_access(cmd);
 		set_pipes_fd(cmd, cmd_id, pipes_fd, utils->process_id[cmd_id]);
 		set_fd_redirections(cmd);
