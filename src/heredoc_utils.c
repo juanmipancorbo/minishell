@@ -6,7 +6,7 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 12:07:06 by apaterno          #+#    #+#             */
-/*   Updated: 2024/11/21 16:39:28 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/21 16:51:46 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,17 @@ void	expand_hd_word(char *line, t_utils *utils, int fd)
 	}
 	write(fd, "\n", 1);
 	clean_split(split_hd);
+}
+
+char	*new_heredoc_filename(void)
+{
+	static int	count;
+	char		*newname;
+	char		*nb;
+
+	count++;
+	nb = ft_itoa(count);
+	newname = ft_strjoin(HEREDOC_F, nb);
+	free(nb);
+	return (newname);
 }

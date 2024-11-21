@@ -12,19 +12,6 @@
 
 #include "../include/minishell.h"
 
-char	*new_heredoc_filename(void)
-{
-	static int	count;
-	char		*newname;
-	char		*nb;
-
-	count++;
-	nb = ft_itoa(count);
-	newname = ft_strjoin(HEREDOC_F, nb);
-	free(nb);
-	return (newname);
-}
-
 static t_bool	wait_herecoc(pid_t pid)
 {
 	int	status;
@@ -35,6 +22,14 @@ static t_bool	wait_herecoc(pid_t pid)
 		return (FALSE);
 	else
 		return (TRUE);
+}
+
+static void	check_expansion(char *line, int fd, t_utils *utils)
+{
+	if (ft_strchr(line, '$'))
+		expand_hd_word(line, utils, fd);
+	else
+		ft_putendl_fd(line, fd);
 }
 
 static void	star_loop(t_red *in_red, int fd, t_utils *utils)
@@ -53,12 +48,7 @@ static void	star_loop(t_red *in_red, int fd, t_utils *utils)
 		if (!ft_strncmp(line, in_red->file, ft_strlen(in_red->file) + 1))
 			break ;
 		if (!in_red->quoted)
-		{
-			if (ft_strchr(line, '$'))
-				expand_hd_word(line, utils, fd);
-			else
-				ft_putendl_fd(line, fd);
-		}
+			check_expansion(line, fd, utils);
 		else
 			ft_putendl_fd(line, fd);
 		free(line);
