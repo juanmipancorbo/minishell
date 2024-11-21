@@ -6,11 +6,50 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 22:27:36 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/20 16:59:13 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/21 19:43:43 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+static t_bool	skip_special_chars(const char **input)
+{
+	if (**input && **input == '$' && ((*input)[1] == '"'
+		|| (*input)[1] == '\''))
+	{
+		(*input)++;
+		return (TRUE);
+	}
+	return (FALSE);
+}
+
+void	to_word(const char **input, t_token **head, t_token **curr)
+{
+	const char	*start;
+	char		*value;
+	t_token		*token;
+	size_t		len;
+
+	start = *input;
+	if (skip_special_chars(input))
+		return ;
+	if ((*head) && !ft_strncmp((*head)->value, "echo", 4)
+		&& (*curr)->type != PIPE && (**input != '-' && (**input + 1) != 'n'))
+		while (**input && **input != '|' && **input != '<'
+			&& **input != '>' && **input != '\'' && **input != '"')
+			(*input)++;
+	else
+		while (**input && **input != '"' && **input != '|' && **input != '<'
+			&& **input != '>' && **input != '\'' && !ft_isspace(**input))
+			analyze_symbol(input);
+	len = *input - start;
+	value = ft_strndup(start, len);
+	if (!value)
+		exit_error(MALLOC_E, 10);
+	token = new_token(WORD, value);
+	free(value);
+	add_token_node(head, curr, &token);
+}
 
 char	*concat_q(t_token *token)
 {

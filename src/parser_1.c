@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 19:13:32 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/21 18:21:26 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/21 20:14:42 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,28 +41,6 @@ static char	*find_exe(char **env, char *cmd)
 	return (NULL);
 }
 
-t_bool	fill_fd(t_cmd *cmd)
-{
-	t_red	*in_rd;
-	t_red	*out_rd;
-
-	in_rd = cmd->in_rd;
-	out_rd = cmd->out_rd;
-	while (out_rd)
-	{
-		if (!set_file_descriptor(out_rd))
-			return (FALSE);
-		out_rd = out_rd->next;
-	}
-	while (in_rd)
-	{
-		if (!set_file_descriptor(in_rd))
-			return (FALSE);
-		in_rd = in_rd->next;
-	}
-	return (TRUE);
-}
-
 static void	to_path_and_fd(t_cmd *cmds, t_utils *utils)
 {
 	t_cmd	*curr;
@@ -78,7 +56,6 @@ static void	to_path_and_fd(t_cmd *cmds, t_utils *utils)
 				curr->full_path = find_exe(utils->env_var, curr->args[0]);
 				if (!curr->full_path && !ft_strncmp(curr->args[0], "./", 2))
 					curr->full_path = ft_strdup(curr->args[0]);
-				//correccion agustin
 				if (!curr->full_path && !ft_strncmp(curr->args[0], "../", 3))
 					curr->full_path = ft_strdup(curr->args[0]);
 				if (!curr->full_path && !ft_strncmp(curr->args[0], "/", 1)
@@ -91,102 +68,6 @@ static void	to_path_and_fd(t_cmd *cmds, t_utils *utils)
 			replace_env_var("_", to_last_argument(curr), utils->env_var);
 		curr = curr->next;
 	}
-}
-
-static int	to_check_merge(t_token *token)
-{
-	t_token	*curr;
-
-	curr = token;
-	while (curr && curr->value)
-	{
-		if (curr->type == QUOTED || curr->type == SINGLE_Q)
-			return (0);
-		if (curr->type == PIPE)
-			return (1);
-		curr++;
-	}
-	return (1);
-}
-
-static void	to_merge_words(t_token *token)
-{
-	char	*merged;
-	char	*temp;
-	int		len;
-	t_token	*curr;
-	t_token	*to_free;
-
-	curr = token->next;
-	if (!curr->next || to_check_merge(curr))
-		return ;
-	len = 0;
-	while (curr && (curr->type == WORD || curr->type == QUOTED || curr->type == SINGLE_Q))
-	{
-		len += ft_strlen(curr->value);
-		curr = curr->next;
-	}
-	merged = (char *)malloc(sizeof(char) * (len + 1));
-	if (!merged)
-		return ;
-	merged[0] = '\0';
-	curr = token->next;
-	while (curr && (curr->type == WORD || curr->type == QUOTED || curr->type == SINGLE_Q))
-	{
-		if (curr->type == SINGLE_Q)
-			curr->type = QUOTED;
-		temp = ft_strjoin(merged, curr->value);
-		free(merged);
-		free(curr->value);
-		merged = temp;
-		curr = curr->next;
-	}
-	to_free = token->next->next;
-	token->next->value = merged;
-	token->next->next = curr;
-	curr = to_free;
-	while (curr && (curr->type == WORD || curr->type == QUOTED || curr->type == SINGLE_Q))
-	{
-		to_free = curr;
-		curr = curr->next;
-		free(to_free);
-	}
-}
-
-static t_bool	parse_tkn(t_token *token, t_cmd *cmd)
-{
-	if (token->type == UNMATCHED)
-		cmd->args = NULL;
-	if (token->type == VAR || token->type == QUOTED)
-	{
-		if (cmd->args && ft_strncmp(cmd->args[0], "echo", 5) == 0)
-			add_arg(cmd, ft_strdup(token->value));
-		else
-			expand_and_add_arg(cmd, token->value);
-	}
-	else if (token->type == WORD || token->type == SINGLE_Q)
-		add_arg(cmd, ft_strdup(token->value));
-	else if (token->type >= 2 && token->type <= 5)
-	{
-		if (!token->next || (token->next->type != WORD && token->next->type != QUOTED && token->next->type != SINGLE_Q && token->next->type != RD_OUT))
-		{
-			printf("Minishell: syntax error near unexpected token `%s'\n", token->next->value);
-			g_exit_code = 2;
-			return (FALSE);
-		}
-		if (token->type >= RD_IN && token->type <= HEREDOC)
-			to_merge_words(token);
-		token = token->next;
-		add_red(cmd, token->value, token->prev->type);
-		if (token->type == QUOTED)
-		{
-			if (cmd->in_rd)
-				cmd->in_rd->quoted = 1;
-			if (cmd->out_rd)
-				cmd->out_rd->quoted = 1;
-		}
-	}
-	return (TRUE);
 }
 
 t_cmd	*to_parse(t_token **tokens, t_utils *utils)

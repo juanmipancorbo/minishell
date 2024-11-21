@@ -13,14 +13,14 @@
 
 NAME		= minishell
 
-SRC_FILES 	= main.c tokenizer_1.c tokenizer_2.c utils.c parser_1.c parser_2.c\
-            parser_3.c expander.c parsing_utils.c env_variables.c utils_2.c\
-            a_execute.c errors_fn.c file_descriptors.c a_list_fn.c parsing_test.c\
-            a_heredoc.c  a_exit_fn.c utils_4.c a_pipes_fn.c ft_cd.c\
-            a_built_in_utils.c ft_echo.c a_ft_env.c ft_exit.c a_signal.c\
-            ft_export.c a_ft_pwd.c ft_unset.c expander_utils.c utils_3.c\
-            ft_export.c a_ft_pwd.c ft_unset.c expander_utils.c utils_3.c no_env.c\
-			a_exec_utils.c heredoc_utils.c expander_utils_2.c utils_5.c
+SRC_FILES 	= a_built_in_utils.c a_exec_utils.c a_ft_env.c a_heredoc.c\
+			a_pipes_fn.c env_variables.c expander.c expander_utils_2.c ft_cd.c\
+			ft_exit.c ft_unset.c main.c no_env.c parser_2.c parser_4.c\
+			tokenizer_1.c utils_1.c utils_3.c utils_5.c a_execute.c\
+			a_exit_fn.c a_ft_pwd.c a_list_fn.c a_signal.c errors_fn.c\
+			expander_utils_1.c file_descriptors.c ft_echo.c ft_export.c\
+			heredoc_utils.c merger.c parser_1.c parser_3.c parsing_utils.c\
+			tokenizer_2.c utils_2.c utils_4.c
 
 SRCS		= $(addprefix src/, $(SRC_FILES))
 OBJS		= $(patsubst src/%.c, obj/%.o, $(SRCS))
@@ -39,7 +39,6 @@ endif
 ifeq ($(MODE),noflag)
 	CFLAGS = -g -fsanitize=address
 endif
-
 
 all: $(NAME)
 

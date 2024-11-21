@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 18:55:43 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/14 21:55:05 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/21 19:26:16 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,30 +107,4 @@ int	is_only_spaces(const char *str)
 		i++;
 	}
 	return (1);
-}
-
-void	expand_and_add_arg(t_cmd *cmd, char *expanded_value)
-{
-	char	**split_args;
-	int		i;
-	char	*arg_copy;
-
-	i = 0;
-	if (is_only_spaces(expanded_value))
-		add_arg(cmd, ft_strdup(" "));
-	split_args = ft_split(expanded_value, ' ');
-	if (!split_args)
-		return ;
-	while (split_args[i])
-	{
-		arg_copy = ft_strdup(split_args[i]);
-		if (!arg_copy)
-			break ;
-		add_arg(cmd, arg_copy);
-		i++;
-	}
-	i = 0;
-	while (split_args[i])
-		free(split_args[i++]);
-	free(split_args);
 }

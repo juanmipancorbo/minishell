@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 17:16:38 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/18 19:51:15 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/21 19:25:04 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ char	*copy_after_str(const char *src, const char *target)
 	j = 0;
 	while (src[i])
 	{
-		if (strncmp(&src[i], target, strlen(target)) == 0)
+		if (ft_strncmp(&src[i], target, ft_strlen(target)) == 0)
 		{
-			i += strlen(target);
-			result = (char *)malloc(strlen(src) - i + 2);
+			i += ft_strlen(target);
+			result = (char *)malloc(ft_strlen(src) - i + 2);
 			if (!result)
 				return (NULL);
 			result[j++] = '~';

@@ -45,7 +45,7 @@ void	heredoc_error(char *delimiter)
 {
 	char	*msg;
 
-	msg = ft_strjoin("Minishell: warning: here-document\
+	msg = ft_strjoin("minishell: warning: here-document\
  delimited by end-of-file, wanted: ", delimiter);
 	ft_putendl_fd(msg, STDIN_FILENO);
 	free(msg);

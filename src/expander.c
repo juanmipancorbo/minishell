@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 20:48:49 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/20 17:28:30 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/21 18:38:04 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,38 +95,3 @@ void	expand_tokens(t_token **tokens, t_utils *utils)
 	}
 	between_q(tokens);
 }
-
-// void	expand_tokens(t_token *tokens, t_utils *utils)
-// {
-// 	t_token	*curr;
-// 	char	*expanded;
-// 	char	*relative;
-// 	size_t	len;
-
-// 	curr = tokens;
-// 	while (curr)
-// 	{
-// 		if (curr->type == WORD && ft_strchr(curr->value, '$'))
-// 		{
-// 			curr->type = VAR;
-// 			expanded = expand_dollars((const char *)curr->value, utils);
-// 			free(curr->value);
-// 			curr->value = expanded;
-// 		}
-// 		// corrercion agustin
-// 		if (tokens->type == WORD && ft_strchr(tokens->value, '/')
-// 			&& (tokens->value[0] != '/' && tokens->value[0] != '.'))
-// 		{
-// 			len = ft_strlen(tokens->value) + 3;
-// 			relative = malloc(len);
-// 			ft_strlcpy(relative, "./", len);
-// 			ft_strlcat(relative, tokens->value, len);
-// 			free(curr->value);
-// 			curr->value = relative;
-// 		}
-// 		curr = curr->next;
-// 	}
-// 	between_q(&tokens);
-// }
-
-

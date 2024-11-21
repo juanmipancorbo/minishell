@@ -49,13 +49,11 @@ static int	cd_dash(t_utils *utils)
 	if (!getcwd(cwd, sizeof(cwd)))
 	{
 		free(oldpwd);
-		perror("minishell: cd");
 		return (1);
 	}
 	if (chdir(oldpwd))
 	{
 		free(oldpwd);
-		perror("minishell: cd");
 		return (1);
 	}
 	printf("%s\n", oldpwd);
@@ -65,64 +63,39 @@ static int	cd_dash(t_utils *utils)
 	return (0);
 }
 
-int	ft_cd(t_cmd *cmd, t_utils *utils)
+static int	handle_no_args(t_utils *utils)
 {
 	char	*home;
 
+	home = expand_var("HOME", utils->env_var);
+	if (home)
+	{
+		chdir(home);
+		free(home);
+	}
+	else
+	{
+		printf("minishell: cd: HOME not set\n");
+		return (1);
+	}
+	return (0);
+}
+
+int	ft_cd(t_cmd *cmd, t_utils *utils)
+{
 	if (cmd->args[2] != NULL)
 	{
 		printf("minishell: cd: too many arguments\n");
 		return (1);
 	}
 	if (!cmd->args[1])
-	{
-		home = expand_var("HOME", utils->env_var);
-		if (home)
-		{
-			chdir(home);
-			free(home);
-		}
-		else
-			printf("minishell: cd: HOME not set\n");
-	}
-	else if (ft_strncmp(cmd->args[1], "-", 1) == 0)
+		return (handle_no_args(utils));
+	if (ft_strncmp(cmd->args[1], "-", 1) == 0)
 	{
 		if (cd_dash(utils))
 			return (1);
 	}
-	else
-		if (!change_directory(cmd->args[1], utils))
-			return (1);
+	else if (!change_directory(cmd->args[1], utils))
+		return (1);
 	return (0);
 }
-
-// int	ft_cd(t_cmd *cmd, t_utils *utils)
-// {
-// 	char	*path;
-// 	char	*home;
-// 	char	cwd[VALUE_BUFFER];
-
-// 	if (!cmd->args[1])
-// 	{
-// 		home = expand_var("HOME", utils->env_var);
-// 		chdir(home);
-// 		free(home);
-// 	}
-// 	else
-// 	{
-// 		getcwd(cwd, sizeof(cwd));
-// 		path = cmd->args[1];
-// 		if (!check_env_name("OLDPWD", utils, 2))
-// 			replace_env_var("OLDPWD", cwd, utils->export_var);
-// 		if (check_env_name("OLDPWD", utils, 1))
-// 			add_env_var("OLDPWD", cwd, &utils->env_var);
-// 		if (!check_env_name("OLDPWD", utils, 1))
-// 			replace_env_var("OLDPWD", cwd, utils->env_var);
-// 		if (chdir(path))
-// 			printf("minishell: cd: %s: No such file or directory\n", path);
-// 		getcwd(cwd, sizeof(cwd));
-// 		replace_env_var("PWD", cwd, utils->env_var);
-// 		replace_env_var("PWD", cwd, utils->export_var);
-// 	}
-// 	return (0);
-// }

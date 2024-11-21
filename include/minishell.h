@@ -127,11 +127,14 @@ void	to_get_pid(t_utils *utils);
 void	parse_pid(t_utils *utils, char *buffer);
 void	analyze_symbol(const char **input);
 char	*incomplete_pipe(char *input);
+void	to_word(const char **input, t_token **head, t_token **curr);
+void	to_merge_words(t_token *token);
 
 /* ************************************************************************** */
 /*                                   PARSER                                   */
 /* ************************************************************************** */
 t_cmd	*to_parse(t_token **tokens, t_utils *utils);
+t_bool	parse_tkn(t_token *token, t_cmd *cmd);
 t_cmd	*add_pipe(t_cmd *curr);
 void	add_arg(t_cmd *cmd, char *arg);
 t_red	*create_red_node(char *file, int type);
@@ -167,6 +170,7 @@ void	to_free_four(char *a, char *b, char *c, char *d);
 char	*ft_strjoin_free(char *s1, char const *s2);
 char	*ft_itoa(int nb);
 int		is_only_spaces(const char *str);
+void	to_check_input(char *input);
 
 /* ************************************************************************** */
 /*                                  EXECUTER                                  */

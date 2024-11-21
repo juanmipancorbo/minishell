@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/21 12:57:17 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/21 19:15:27 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,14 +101,11 @@ static void	init_loop(t_utils *utils)
 		input = readline(prompt);
 		free(prompt);
 		input = incomplete_pipe(input);
-		if (!input)
-			exit_error("exit\n", g_exit_code);
+		to_check_input(input);
 		if (*input)
 			add_history(input);
 		tokens = to_tokenize(input);
 		cmds = to_parse(&tokens, utils);
-		// print_tokens(tokens);
-		// print_cmds(cmds);
 		if (*input && tokens && tokens->type != UNMATCHED)
 			init_execution(&cmds, utils);
 		clean_loop(input, tokens, cmds);
