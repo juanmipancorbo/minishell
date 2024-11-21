@@ -59,7 +59,8 @@ int	ft_echo(t_cmd *cmd, t_utils *utils)
 	i = 1;
 	newline = 1;
 	checker = 0;
-	check_flag(cmd->args[1], &i, &newline);
+	if (cmd->args[1] != NULL)
+		check_flag(cmd->args[1], &i, &newline);
 	while (cmd->args[i])
 	{
 		if (print_args(cmd->args[i]))
