@@ -6,7 +6,7 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/20 18:26:55 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/21 12:57:17 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,11 +100,11 @@ static void	init_loop(t_utils *utils)
 			prompt = ft_strdup("minishell> ");
 		input = readline(prompt);
 		free(prompt);
+		input = incomplete_pipe(input);
 		if (!input)
 			exit_error("exit\n", g_exit_code);
 		if (*input)
 			add_history(input);
-		input = incomplete_pipe(input);
 		tokens = to_tokenize(input);
 		cmds = to_parse(&tokens, utils);
 		// print_tokens(tokens);
