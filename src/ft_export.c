@@ -20,7 +20,7 @@ static int	print_export_var(t_utils *utils)
 	i = -1;
 	while (utils->export_var[++i])
 	{
-		if (!ft_strncmp(utils->export_var[i], "_", 1))
+		if (!ft_strncmp(utils->export_var[i], "_\0", 2))
 			continue ;
 		if (check_env_name("OLDPWD", utils, 2))
 			add_env_var("OLDPWD", NULL, &utils->export_var);
