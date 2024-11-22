@@ -41,7 +41,6 @@ void	builtin_red(t_cmd *cmd, t_utils *utils)
 
 	stdin_bk = dup(STDIN_FILENO);
 	stdout_bk = dup(STDOUT_FILENO);
-
 	fill_fd(cmd);
 	set_fd_redirections(cmd);
 	g_exit_code = cmd->built_in(cmd, utils);

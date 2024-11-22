@@ -56,9 +56,7 @@ static void	exec_builtin(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
 		}
 	}
 	else
-	{
-		builtin_red(cmd,utils);
-	}
+		builtin_red(cmd, utils);
 }
 
 static void	exec_cmd(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
