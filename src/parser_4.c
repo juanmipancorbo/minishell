@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_4.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
+/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 20:08:48 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/21 20:14:12 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/22 13:22:07 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ static t_bool	validate_syntax(t_token *token)
 			&& token->next->type != QUOTED
 			&& token->next->type != SINGLE_Q && token->next->type != RD_OUT))
 	{
-		printf("Minishell: syntax error near unexpected token `%s'\n",
-			token->next->value);
+		// parche agustin
+		// printf("Minishell: syntax error near unexpected token `%s'\n",
+		// 	token->next->value);
+		printf("Minishell: syntax error near unexpected token \n");
 		g_exit_code = 2;
 		return (FALSE);
 	}
