@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 20:08:48 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/22 18:57:21 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/22 20:26:35 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,7 @@ t_bool	parse_tkn(t_token *token, t_cmd *cmd)
 	else if (token->type >= 2 && token->type <= 5)
 	{
 		if (!validate_syntax(token))
-		{
-			free(cmd->args);
-			if (cmd)
-				free(cmd);
 			return (FALSE);
-		}
 		handle_redirections(token, cmd);
 	}
 	return (TRUE);
