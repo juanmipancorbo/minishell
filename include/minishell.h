@@ -208,6 +208,7 @@ void	cmd_error(char *str, int exit_code);
 void	heredoc_error(char *delimiter);
 void	check_arg(char **argv);
 void	error_msg(char *msg, int exit_code);
+t_bool	sintax_error(const char *input);
 
 
 /* ************************************************************************** */
