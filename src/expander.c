@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 20:48:49 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/22 19:48:34 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/22 22:10:05 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,47 +60,10 @@ static void	add_relative_prefix(t_token *token)
 	}
 }
 
-static void	to_reorder_rd(t_token **tokens)
-{
-	t_token	*curr;
-	t_token	*rd;
-	t_token	*head;
-	t_token	*pipe;
-
-	curr = *tokens;
-	pipe = NULL;
-	if ((curr && curr->type >= 2 && curr->type <= 5) && curr->next->next)
-	{
-		rd = curr;
-		head = rd->next->next;
-		while (curr->next)
-		{
-			if (curr->next->type == PIPE)
-			{
-				pipe = curr->next;
-				break ;
-			}
-			curr = curr->next;
-		}
-		curr->next = rd;
-		if (pipe)
-		{
-			curr->prev->next = pipe;
-			pipe->prev = curr->prev;
-		}
-		rd->prev = curr;
-		head->prev = NULL;
-		if (!pipe)
-			rd->next->next = NULL;
-		*tokens = head;
-	}
-}
-
 void	expand_tokens(t_token **tokens, t_utils *utils)
 {
 	t_token	*curr;
 
-	to_reorder_rd(tokens);
 	curr = *tokens;
 	while (curr)
 	{

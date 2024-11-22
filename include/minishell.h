@@ -154,10 +154,6 @@ void	free_cmds(t_cmd *cmds);
 void	free_q(t_token **curr, t_token **end);
 void	full_path_to_arg(t_cmd	*cmd);
 
-//* TEST FUNCTIONS *//
-void	print_tokens(t_token *tokens);
-void	print_var(char **env);
-
 /* ************************************************************************** */
 /*                                   UTILS                                    */
 /* ************************************************************************** */
@@ -170,7 +166,7 @@ void	to_free_four(char *a, char *b, char *c, char *d);
 char	*ft_strjoin_free(char *s1, char const *s2);
 char	*ft_itoa(int nb);
 int		is_only_spaces(const char *str);
-void	to_check_input(char *input);
+void	to_check_input(char **input);
 
 /* ************************************************************************** */
 /*                                  EXECUTER                                  */
