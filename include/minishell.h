@@ -205,6 +205,7 @@ void	exit_error(char *msg, int exit_code);
 void	cmd_error(char *str, int exit_code);
 void	heredoc_error(char *delimiter);
 void	check_arg(char **argv);
+void	error_msg(char *msg, int exit_code);
 
 
 /* ************************************************************************** */

@@ -6,7 +6,7 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:18:21 by apaterno          #+#    #+#             */
-/*   Updated: 2024/11/22 10:53:39 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/22 11:33:36 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,7 @@ char	*incomplete_pipe(char *input)
 	while (ft_isspace(input[i]))
 		i++;
 	if (input[i] == '|' && input[i + 1] != '|')
-	{
-		g_exit_code = 2;
 		return (free(input), ft_strdup("|"));
-	}
 	i = ft_strlen(input) - 1;
 	while (ft_isspace(input[i]))
 		i--;

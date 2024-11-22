@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
+/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:57:08 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/21 19:22:08 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/22 11:08:00 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ t_token	*to_tokenize(const char *input)
 	head = NULL;
 	curr = NULL;
 	if (*input == '|' && (!*input + 1))
-		printf("minishell: syntax error near unexpected token `|'\n");
+		error_msg("minishell: syntax error near unexpected token '|'", 2);
 	while (*input)
 	{
 		while (ft_isspace(*input))

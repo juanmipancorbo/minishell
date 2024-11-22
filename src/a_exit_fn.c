@@ -22,3 +22,9 @@ void	delete_herdocf(char *heredocf)
 	unlink(heredocf);
 	free(heredocf);
 }
+
+void	error_msg(char *msg, int exit_code)
+{
+	printf("%s\n", msg);
+	g_exit_code = exit_code;
+}
