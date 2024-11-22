@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 20:06:25 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/18 17:36:40 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/22 18:58:36 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ void	add_arg(t_cmd *cmd, char *arg)
 
 	i = count_args(cmd->args);
 	new_args = (char **)malloc(sizeof(char *) * (i + 2));
+	if (i < 1)
+		free(arg);
 	if (!new_args)
 		return ;
 	i = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_4.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 20:08:48 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/22 13:22:07 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/22 18:57:21 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,11 @@ static t_bool	validate_syntax(t_token *token)
 			&& token->next->type != QUOTED
 			&& token->next->type != SINGLE_Q && token->next->type != RD_OUT))
 	{
-		// parche agustin
-		// printf("Minishell: syntax error near unexpected token `%s'\n",
-		// 	token->next->value);
-		printf("Minishell: syntax error near unexpected token \n");
+		if (!token->next || ft_strlen(token->next->value) == 0)
+			printf("minishell: syntax error near unexpected token `newline'\n");
+		else
+			printf("minishell: syntax error near unexpected token `%s'\n",
+				token->next->value);
 		g_exit_code = 2;
 		return (FALSE);
 	}
@@ -66,7 +67,12 @@ t_bool	parse_tkn(t_token *token, t_cmd *cmd)
 	else if (token->type >= 2 && token->type <= 5)
 	{
 		if (!validate_syntax(token))
+		{
+			free(cmd->args);
+			if (cmd)
+				free(cmd);
 			return (FALSE);
+		}
 		handle_redirections(token, cmd);
 	}
 	return (TRUE);

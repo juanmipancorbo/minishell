@@ -45,7 +45,7 @@ void	builtin_red(t_cmd *cmd, t_utils *utils)
 	{
 		close(stdin_bk);
 		close(stdout_bk);
-		return;
+		return ;
 	}
 	set_fd_redirections(cmd);
 	g_exit_code = cmd->built_in(cmd, utils);
