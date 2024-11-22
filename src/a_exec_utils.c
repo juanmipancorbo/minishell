@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   a_exec_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 13:36:36 by apaterno          #+#    #+#             */
-/*   Updated: 2024/11/22 11:19:05 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/22 19:06:25 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,14 @@ void	check_cmd_access(t_cmd *cmd)
 			cmd_error(ft_strjoin(cmd->args[0], ": command not found\n"), 127);
 	}
 	if (is_directory(cmd->full_path))
-		cmd_error(ft_strjoin(cmd->args[0], ": Is a directory\n"), 126);
+		cmd_error(ft_strjoin(cmd->args[0], ": is a directory\n"), 126);
 	if (access(cmd->full_path, F_OK))
 	{
 		file_error(ft_strjoin("minishell: ", cmd->full_path), 127);
 		exit(127);
 	}
 	if (access(cmd->full_path, X_OK))
-		cmd_error(ft_strjoin(cmd->args[0], ": Permission denied\n"), 126);
+		cmd_error(ft_strjoin(cmd->args[0], ": permission denied\n"), 126);
 }
 
 void	wait_process(t_utils *utils, int nb_process)

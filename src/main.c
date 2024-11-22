@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/22 11:29:32 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/22 23:48:17 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,13 +100,13 @@ static void	init_loop(t_utils *utils)
 			prompt = ft_strdup("minishell> ");
 		input = readline(prompt);
 		free(prompt);
-		input = incomplete_pipe(input);
-		to_check_input(input);
-		if (*input)
+		if (input)
 			add_history(input);
+		to_check_input(&input);
+		input = incomplete_pipe(input);
 		tokens = to_tokenize(input);
 		cmds = to_parse(&tokens, utils);
-		if (*input && tokens && tokens->type != UNMATCHED)
+		if (input && tokens && tokens->type != UNMATCHED)
 			init_execution(&cmds, utils);
 		clean_loop(input, tokens, cmds);
 	}

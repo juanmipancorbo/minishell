@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 20:08:48 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/22 20:26:35 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/23 00:23:10 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,6 @@ static void	handle_redirections(t_token *token, t_cmd *cmd)
 		if (cmd->out_rd)
 			cmd->out_rd->quoted = 1;
 	}
-}
-
-static t_bool	validate_syntax(t_token *token)
-{
-	if (!token->next || (token->next->type != WORD
-			&& token->next->type != QUOTED
-			&& token->next->type != SINGLE_Q && token->next->type != RD_OUT))
-	{
-		if (!token->next || ft_strlen(token->next->value) == 0)
-			printf("minishell: syntax error near unexpected token `newline'\n");
-		else
-			printf("minishell: syntax error near unexpected token `%s'\n",
-				token->next->value);
-		g_exit_code = 2;
-		return (FALSE);
-	}
-	return (TRUE);
 }
 
 static void	handle_arguments(t_token *token, t_cmd *cmd)
@@ -65,10 +48,6 @@ t_bool	parse_tkn(t_token *token, t_cmd *cmd)
 		|| token->type == SINGLE_Q)
 		handle_arguments(token, cmd);
 	else if (token->type >= 2 && token->type <= 5)
-	{
-		if (!validate_syntax(token))
-			return (FALSE);
 		handle_redirections(token, cmd);
-	}
 	return (TRUE);
 }

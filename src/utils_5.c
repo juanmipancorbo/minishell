@@ -3,20 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils_5.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:18:21 by apaterno          #+#    #+#             */
-/*   Updated: 2024/11/22 11:33:36 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/23 00:05:41 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-void	to_check_input(char *input)
-{
-	if (!input)
-		exit_error("exit\n", g_exit_code);
-}
 
 char	*complete_pipe(char *input)
 {

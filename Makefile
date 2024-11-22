@@ -19,8 +19,8 @@ SRC_FILES 	= a_built_in_utils.c a_exec_utils.c a_ft_env.c a_heredoc.c\
 			tokenizer_1.c utils_1.c utils_3.c utils_5.c a_execute.c\
 			a_exit_fn.c a_ft_pwd.c a_list_fn.c a_signal.c errors_fn.c\
 			expander_utils_1.c file_descriptors.c ft_echo.c ft_export.c\
-			heredoc_utils.c merger.c parser_1.c parser_3.c parsing_utils.c\
-			tokenizer_2.c utils_2.c utils_4.c
+			heredoc_utils.c merger.c parser_1.c parser_3.c parser_utils.c\
+			tokenizer_2.c utils_2.c utils_4.c parser_utils_2.c
 
 SRCS		= $(addprefix src/, $(SRC_FILES))
 OBJS		= $(patsubst src/%.c, obj/%.o, $(SRCS))
