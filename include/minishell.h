@@ -182,6 +182,8 @@ void	init_execution(t_cmd **command, t_utils *utils);
 int		**create_pipes_fd(int np);
 pid_t	*get_pid_array(int nbs_process);
 void	check_cmd_access(t_cmd *cmd);
+void	builtin_red(t_cmd *cmd, t_utils *utils);
+void	set_fd_redirections(t_cmd *cmd);
 
 /* ************************************************************************** */
 /*                               FILE DESCRIPTORS                             */

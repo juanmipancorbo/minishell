@@ -19,7 +19,7 @@ static t_bool	is_piped(t_cmd **cmd)
 		return (FALSE);
 }
 
-static void	set_fd_redirections(t_cmd *cmd)
+void	set_fd_redirections(t_cmd *cmd)
 {
 	t_red	*in_node;
 	t_red	*out_node;
@@ -56,7 +56,9 @@ static void	exec_builtin(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
 		}
 	}
 	else
-		g_exit_code = cmd->built_in(cmd, utils);
+	{
+		builtin_red(cmd,utils);
+	}
 }
 
 static void	exec_cmd(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
