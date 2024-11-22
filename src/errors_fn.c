@@ -21,7 +21,7 @@ void	exit_error(char *msg, int exit_code)
 void	dir_error(char *msg, int exit_code)
 {
 	printf("minishell: ");
-	printf("%s: %s ", msg, "Is a directory");
+	printf("%s: %s ", msg, "is a directory");
 	exit(exit_code);
 }
 
