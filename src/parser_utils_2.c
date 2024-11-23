@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 23:56:53 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/23 17:31:24 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/23 21:42:17 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,29 @@ static t_bool	check_redirection_sequence(const char *input, int *i)
 	return (TRUE);
 }
 
-void	to_check_input(char **input)
+static void	to_check_export(char ***input, t_utils *utils)
+{
+	char	**args;
+	char	*arg;
+	int		i;
+
+	if (**input && ft_strncmp(**input, "export ", 7
+			&& ft_strchr(**input, '=') && !ft_strchr(**input, '|')))
+	{
+		args = ft_split(*input + 7, ' ');
+		i = 0;
+		while (args[i])
+		{
+			arg = args[i];
+			if 
+		}
+
+	}
+	else
+		return ;
+}
+
+void	to_check_input(char **input, t_utils *utils)
 {
 	int		i;
 	char	last_char;
@@ -73,4 +95,5 @@ void	to_check_input(char **input)
 		last_char = (*input)[i];
 		i++;
 	}
+	to_check_export(&input, utils);
 }

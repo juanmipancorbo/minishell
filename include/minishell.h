@@ -166,7 +166,7 @@ void	to_free_four(char *a, char *b, char *c, char *d);
 char	*ft_strjoin_free(char *s1, char const *s2);
 char	*ft_itoa(int nb);
 int		is_only_spaces(const char *str);
-void	to_check_input(char **input);
+void	to_check_input(char **input, t_utils *utils);
 
 /* ************************************************************************** */
 /*                                  EXECUTER                                  */

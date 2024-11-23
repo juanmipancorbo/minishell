@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/22 23:48:17 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/23 19:22:48 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ static void	init_loop(t_utils *utils)
 		free(prompt);
 		if (input)
 			add_history(input);
-		to_check_input(&input);
+		to_check_input(&input, utils);
 		input = incomplete_pipe(input);
 		tokens = to_tokenize(input);
 		cmds = to_parse(&tokens, utils);
