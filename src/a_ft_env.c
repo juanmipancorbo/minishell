@@ -15,7 +15,11 @@ int	ft_env(t_cmd *cmd, t_utils *utils)
 {
 	int	i;
 
-	(void)cmd;
+	if (cmd->args[1])
+	{	
+		printf("Error : wrong number of arguments\n");
+		return (1);
+	}
 	i = 0;
 	while (utils->env_var[i])
 	{
