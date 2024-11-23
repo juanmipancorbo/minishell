@@ -11,11 +11,37 @@
 /* ************************************************************************** */
 #include "../include/minishell.h"
 
+static t_bool check_args(t_cmd *cmd)
+{
+	if (!cmd->args[1])
+		return (FALSE);
+	if (is_directory(cmd->args[1]))
+	{
+		printf("minishell: %s : permission denied\n",cmd->args[1]);
+		g_exit_code = 126;
+		return(TRUE);
+	}
+	if (access(cmd->args[1], F_OK))
+	{
+		file_error(ft_strjoin("minishell: ", cmd->args[1]), 127);
+		return (TRUE);
+	}
+	if (access(cmd->args[1], X_OK))
+	{
+		printf("minishell: %s : permission denied\n",cmd->args[1]);
+		g_exit_code = 126;
+		return (TRUE);
+	}
+	return (FALSE);
+}
+
 int	ft_env(t_cmd *cmd, t_utils *utils)
 {
 	int	i;
 
-	(void)cmd;
+
+	if(check_args(cmd))
+		return (g_exit_code);
 	i = 0;
 	while (utils->env_var[i])
 	{
