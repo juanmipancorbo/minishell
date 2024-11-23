@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 23:56:53 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/23 00:12:16 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/23 17:31:24 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,6 @@ static void	print_syntax_error(char c)
 	else
 		printf("minishell: syntax error near unexpected token `%c'\n", c);
 	g_exit_code = 2;
-}
-
-static void	handle_pipe_error(char **input)
-{
-	printf("minishell: syntax error near unexpected token `|'\n");
-	g_exit_code = 2;
-	free(*input);
-	*input = NULL;
 }
 
 static t_bool	check_redirection_sequence(const char *input, int *i)
@@ -81,6 +73,4 @@ void	to_check_input(char **input)
 		last_char = (*input)[i];
 		i++;
 	}
-	if (last_char == '|')
-		handle_pipe_error(input);
 }
