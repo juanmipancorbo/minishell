@@ -14,7 +14,7 @@
 
 void	exit_error(char *msg, int exit_code)
 {
-	printf("%s", msg);
+	ft_putstr_fd(msg, 2);
 	exit (exit_code);
 }
 

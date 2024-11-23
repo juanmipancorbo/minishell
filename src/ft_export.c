@@ -44,10 +44,10 @@ static int	check_new_var(char *var_name)
 
 	i = -1;
 	if (ft_isdigit(var_name[0]) || var_name[0] == '=' || var_name[0] == '$')
-	{
-		printf("minishell: export: `%s': not a valid identifier\n",
-			&var_name[0]);
-		return (-1);
+	{	
+		error_msg_free(ft_strjoin("minishell: export: ", &var_name[0]),1);
+		ft_putendl_fd("not a valid identifier",2);
+		return (1);
 	}
 	while (var_name[++i])
 	{
@@ -57,10 +57,10 @@ static int	check_new_var(char *var_name)
 			|| var_name[i] == '-')
 			continue ;
 		else
-		{
-			printf("minishell: syntax error near unexpected token `%c'\n",
-				var_name[i]);
-			return (-1);
+		{ 
+			ft_putstr_fd("minishell: syntax error near unexpected token ", 2);
+			ft_putendl_fd(&var_name[i], 2);
+			return (1);
 		}
 	}
 	return (0);
@@ -72,8 +72,8 @@ static int	check_var_name(char *var_name)
 	{
 		if (!ft_isalnum(*var_name) && *var_name != '_')
 		{
-			printf("minishell: syntax error near unexpected token `%c'\n",
-				*var_name);
+			ft_putstr_fd("minishell: syntax error near unexpected token ", 2);
+			ft_putendl_fd(var_name, 2);
 			return (-1);
 		}
 		var_name++;
