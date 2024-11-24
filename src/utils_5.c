@@ -6,7 +6,7 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:18:21 by apaterno          #+#    #+#             */
-/*   Updated: 2024/11/24 09:14:48 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/24 11:22:36 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*complete_pipe(char *input)
 		input_2 = readline(">");
 		if (!input_2)
 		{
-			printf("minishell: syntax error: unexpected end of file\n");
+			ft_putstr_fd("minishell: syntax error: unexpected end of file\n", STDERR_FILENO);
 			g_exit_code = 2;
 			free(input);
 			free(input_2);
@@ -120,9 +120,9 @@ int	ft_printf_fd(const char *str, ...)
 		{
 			i++;
 			if (str[i] == 's')
-				ft_putstr_fd(va_arg(ap, char *), 2);
+				ft_putstr_fd(va_arg(ap, char *), STDERR_FILENO);
 			else if (str[i] == 'c')
-				ft_putchar_fd(va_arg(ap, int), 2);
+				ft_putchar_fd(va_arg(ap, int), STDERR_FILENO);
 		}
 		else
 		{
