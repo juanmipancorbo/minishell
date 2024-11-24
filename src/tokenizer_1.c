@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:57:08 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/24 11:54:00 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/24 12:05:44 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ t_token	*to_tokenize(const char *input)
 
 	if (!input)
 		return (NULL);
+	if (input[0] == '|' && !input[1])
+		error_msg("minishell: syntax error near unexpected token `|'", 2);
 	head = NULL;
 	curr = NULL;
 	while (*input)
