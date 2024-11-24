@@ -204,6 +204,7 @@ void	cmd_error(char *str, int exit_code);
 void	heredoc_error(char *delimiter);
 void	check_arg(char **argv);
 void	error_msg(char *msg, int exit_code);
+void	free_hd(int **pipes_fd, t_cmd **cmd, t_utils *utils);
 
 
 /* ************************************************************************** */
