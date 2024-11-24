@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_5.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
+/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:18:21 by apaterno          #+#    #+#             */
-/*   Updated: 2024/11/23 00:05:41 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/24 08:34:08 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,3 +106,32 @@ t_bool	fill_fd(t_cmd *cmd)
 	}
 	return (TRUE);
 }
+
+int	ft_printf_fd(const char *str, ...)
+{
+	va_list	ap;
+	int		i;
+
+	va_start(ap, str);
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '%' && str[i + 1])
+		{
+			i++;
+			if (str[i] == 's')
+				ft_putstr_fd(va_arg(ap, char*), 2);
+			else if (str[i] == 'c')
+				ft_putchar_fd(va_arg(ap, char), 2);
+		}
+		else
+		{
+			write(2, &str[i], 1);
+		}
+		i++;
+	}
+	va_end(ap);
+	return (1);
+}
+
+

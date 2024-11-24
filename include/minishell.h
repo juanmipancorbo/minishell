@@ -23,6 +23,7 @@
 # include <unistd.h>
 # include <signal.h>
 # include <sys/stat.h>
+# include <stdarg.h>
 
 extern int	g_exit_code;
 
@@ -214,6 +215,7 @@ t_red	*red_last_node(t_red *lst);
 int		redlst_size(t_red *lst);
 t_red	*create_fd_node(char *path, int fd);
 void	close_fd_redlst(t_cmd *cmd);
+int		ft_printf_fd(const char *str, ...);
 
 /* ************************************************************************** */
 /*                               PIPES FUNCTIONS		                      */
