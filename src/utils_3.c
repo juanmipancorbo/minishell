@@ -6,23 +6,11 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 18:55:43 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/21 19:26:16 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/24 11:30:37 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-void	to_quotes_unmatched(t_token **head, t_token **curr)
-{
-	t_token	*token;
-	char	*content;
-
-	printf("Error: Unmatched quotes.\n");
-	content = ft_strdup("unmatched");
-	token = new_token(UNMATCHED, content);
-	free(content);
-	add_token_node(head, curr, &token);
-}
 
 int	check_env_name(char *var_name, t_utils *utils, int env)
 {
