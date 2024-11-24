@@ -26,7 +26,6 @@ static t_bool	change_directory(char *path, t_utils *utils)
 	if (chdir(path))
 	{
 		ft_printf_fd("minishell: cd: %s: No such file or directory\n", path);
-		//printf("minishell: cd: %s: No such file or directory\n", path);
 		return (FALSE);
 	}
 	getcwd(cwd, sizeof(cwd));
@@ -45,7 +44,6 @@ static int	cd_dash(t_utils *utils)
 	{
 		free(oldpwd);
 		ft_putstr_fd("minishell: cd: OLDPWD not set\n", STDERR_FILENO);
-		//printf("minishell: cd: OLDPWD not set\n");
 		return (1);
 	}
 	if (!getcwd(cwd, sizeof(cwd)))
@@ -58,8 +56,7 @@ static int	cd_dash(t_utils *utils)
 		free(oldpwd);
 		return (1);
 	}
-	ft_printf_fd("%s\n", oldpwd);
-	//printf("%s\n", oldpwd);
+	printf("%s\n", oldpwd);
 	replace_env_var("OLDPWD", cwd, utils->env_var);
 	replace_env_var("PWD", oldpwd, utils->env_var);
 	free(oldpwd);

@@ -44,8 +44,6 @@ int	ft_exit(t_cmd *cmd, t_utils *utils)
 		{
 			ft_printf_fd("minishell: exit: %s: numeric argument required\n",
 				cmd->args[1]);	
-			// printf("minishell: exit: %s: numeric argument required\n",
-			// 	cmd->args[1]);
 			exit_code = 2;
 		}
 		else if (cmd->args[2])

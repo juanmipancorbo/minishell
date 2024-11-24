@@ -47,8 +47,6 @@ static int	check_new_var(char *var_name)
 	{
 		ft_printf_fd("minishell: export: `%s': not a valid identifier\n",
 			&var_name[0]);	
-		// printf("minishell: export: `%s': not a valid identifier\n",
-		// 	&var_name[0]);
 		return (1);
 	}
 	while (var_name[++i])

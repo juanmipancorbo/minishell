@@ -23,8 +23,6 @@ void	dir_error(char *msg, int exit_code)
 {
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_printf_fd("%s: %s\n", msg, "is a directory");
-	// printf("minishell: ");
-	// printf("%s: %s ", msg, "is a directory");
 	exit(exit_code);
 }
 
