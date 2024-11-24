@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:57:08 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/24 11:43:33 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/24 11:54:00 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,14 @@ static void	to_quotes(const char **input, t_token **head, t_token **curr)
 
 	q_type = (char)**input;
 	(*input)++;
-	if (ft_strchr(*input, q_type))
+	if (q_type == '"' && **input != q_type)
+		double_q(input, head, curr);
+	else if (**input != q_type)
 	{
-		if (q_type == '"' && **input != q_type)
-			double_q(input, head, curr);
-		else if (**input != q_type)
-		{
-			content = single_q(input, q_type);
-			token = new_token(SINGLE_Q, content);
-			free(content);
-			add_token_node(head, curr, &token);
-		}
-	}
-	else
-	{
-		to_quotes_unmatched(head, curr);
-		return ;
+		content = single_q(input, q_type);
+		token = new_token(SINGLE_Q, content);
+		free(content);
+		add_token_node(head, curr, &token);
 	}
 	if (**input == q_type)
 		to_empty_string(head, curr, &input);
@@ -87,19 +79,8 @@ static void	to_redirect(const char **input, t_token **head, t_token **curr)
 static void	to_pipe(const char **input, t_token **head, t_token **curr)
 {
 	t_token	*token;
-	char	*content;
 
 	(*input)++;
-	if ((*input) && !ft_strncmp((*input), "|", 1))
-	{
-		ft_putstr_fd("Error: \"||\" Operator not implemented.\n",
-			STDERR_FILENO);
-		content = ft_strdup("||");
-		token = new_token(UNMATCHED, content);
-		free(content);
-		add_token_node(head, curr, &token);
-		return ;
-	}
 	token = new_token(PIPE, "|");
 	add_token_node(head, curr, &token);
 }
@@ -121,8 +102,6 @@ t_token	*to_tokenize(const char *input)
 			break ;
 		if (*input == '\'' || *input == '"')
 			to_quotes(&input, &head, &curr);
-		if (head && head->type == UNMATCHED)
-			break ;
 		else if (*input == '<' || *input == '>')
 			to_redirect(&input, &head, &curr);
 		else if (*input == '|')

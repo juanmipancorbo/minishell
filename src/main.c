@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 20:02:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/22 23:48:17 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/24 11:38:03 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ static void	init_loop(t_utils *utils)
 		input = incomplete_pipe(input);
 		tokens = to_tokenize(input);
 		cmds = to_parse(&tokens, utils);
-		if (input && tokens && tokens->type != UNMATCHED)
+		if (input && tokens)
 			init_execution(&cmds, utils);
 		clean_loop(input, tokens, cmds);
 	}

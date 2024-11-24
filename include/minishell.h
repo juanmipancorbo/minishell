@@ -54,8 +54,7 @@ typedef enum e_tkn_type
 	DOUBLE_Q = 6,
 	VAR = 7,
 	SINGLE_Q = 8,
-	UNMATCHED = 9,
-	QUOTED = 10,
+	QUOTED = 9,
 }							t_tkn_type;
 
 typedef enum s_bool
@@ -113,6 +112,7 @@ typedef struct s_cmd
 /* ************************************************************************** */
 /*                                  TOKENIZER                                 */
 /* ************************************************************************** */
+int		to_check_quotes(char **input);
 void	add_token_node(t_token **head, t_token **curr, t_token **token);
 void	free_env_copy(t_utils *utils);
 t_token	*new_token(t_tkn_type type, char *value);
@@ -120,7 +120,6 @@ void	q_content(const char *start, const char *input, t_token **head,
 			t_token **curr);
 char	*single_q(const char **input, char q_type);
 void	double_q(const char **input, t_token **head, t_token **curr);
-void	to_quotes_unmatched(t_token **head, t_token **curr);
 void	to_variable(const char **input, t_token **head, t_token **curr);
 t_token	*to_tokenize(const char *input);
 char	*process_token_value(char *value, t_utils *utils);

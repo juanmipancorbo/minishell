@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 20:08:48 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/23 00:23:10 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/24 11:28:57 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,7 @@ static void	handle_arguments(t_token *token, t_cmd *cmd)
 
 t_bool	parse_tkn(t_token *token, t_cmd *cmd)
 {
-	if (token->type == UNMATCHED)
-		cmd->args = NULL;
-	else if (token->type == VAR || token->type == QUOTED || token->type == WORD
+	if (token->type == VAR || token->type == QUOTED || token->type == WORD
 		|| token->type == SINGLE_Q)
 		handle_arguments(token, cmd);
 	else if (token->type >= 2 && token->type <= 5)

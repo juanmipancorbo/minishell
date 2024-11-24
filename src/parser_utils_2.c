@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 23:56:53 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/24 11:40:13 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/24 11:53:24 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,23 @@ static t_bool	check_redirection_sequence(const char *input, int *i)
 	return (TRUE);
 }
 
+static int	to_check_pipe(char **input)
+{
+	int	i;
+
+	i = 0;
+	while ((*input)[i])
+	{
+		if ((*input)[i] == '|' && (*input)[i + 1] == '|')
+		{
+			write(2, "error: \"||\" operator not implemented\n", 38);
+			return (-1);
+		}
+		i++;
+	}
+	return (0);
+}
+
 void	to_check_input(char **input)
 {
 	int		i;
@@ -58,6 +75,12 @@ void	to_check_input(char **input)
 	i = 0;
 	if (!*input)
 		exit_error("exit\n", g_exit_code);
+	if (to_check_quotes(input) || to_check_pipe(input))
+	{
+		free(*input);
+		*input = NULL;
+		return ;
+	}
 	while ((*input)[i])
 	{
 		if ((*input)[i] == '<' || (*input)[i] == '>')

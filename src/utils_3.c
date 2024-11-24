@@ -3,26 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils_3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 18:55:43 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/24 11:26:01 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/24 11:54:15 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-void	to_quotes_unmatched(t_token **head, t_token **curr)
-{
-	t_token	*token;
-	char	*content;
-
-	ft_putstr_fd("Error: Unmatched quotes.\n", STDERR_FILENO);
-	content = ft_strdup("unmatched");
-	token = new_token(UNMATCHED, content);
-	free(content);
-	add_token_node(head, curr, &token);
-}
 
 int	check_env_name(char *var_name, t_utils *utils, int env)
 {
