@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 23:56:53 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/23 17:31:24 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/24 09:56:23 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,8 @@ static t_bool	check_redirection_sequence(const char *input, int *i)
 void	to_check_input(char **input)
 {
 	int		i;
-	char	last_char;
 
 	i = 0;
-	last_char = 0;
 	if (!*input)
 		exit_error("exit\n", g_exit_code);
 	while ((*input)[i])
@@ -70,7 +68,6 @@ void	to_check_input(char **input)
 				return ;
 			}
 		}
-		last_char = (*input)[i];
 		i++;
 	}
 }
