@@ -6,7 +6,7 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:18:21 by apaterno          #+#    #+#             */
-/*   Updated: 2024/11/24 08:34:08 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/24 08:37:39 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ int	ft_printf_fd(const char *str, ...)
 		{
 			i++;
 			if (str[i] == 's')
-				ft_putstr_fd(va_arg(ap, char*), 2);
+				ft_putstr_fd(va_arg(ap, char *), 2);
 			else if (str[i] == 'c')
 				ft_putchar_fd(va_arg(ap, char), 2);
 		}
@@ -133,5 +133,3 @@ int	ft_printf_fd(const char *str, ...)
 	va_end(ap);
 	return (1);
 }
-
-
