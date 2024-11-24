@@ -6,13 +6,13 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 22:27:36 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/21 19:43:43 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/24 18:28:46 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static t_bool	skip_special_chars(const char **input)
+t_bool	skip_special_chars(const char **input)
 {
 	if (**input && **input == '$' && ((*input)[1] == '"'
 		|| (*input)[1] == '\''))
@@ -48,7 +48,7 @@ void	to_word(const char **input, t_token **head, t_token **curr)
 		exit_error(MALLOC_E, 10);
 	token = new_token(WORD, value);
 	free(value);
-	add_token_node(head, curr, &token);
+	add_token_node(head, curr, &token, input);
 }
 
 char	*concat_q(t_token *token)
@@ -95,8 +95,9 @@ void	between_q(t_token **tokens)
 			start->type = QUOTED;
 			start->next = curr;
 		}
-		else
-			curr = curr->next;
+		else if (curr->type == VAR && ft_strchr(curr->value, '"'))
+			to_remove_quotes(&curr->value);
+		curr = curr->next;
 	}
 }
 

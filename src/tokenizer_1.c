@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:57:08 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/24 12:05:44 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/24 16:28:30 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	to_empty_string(t_token **head, t_token **curr, const char ***input)
 		if (***input == *((**input) + 1))
 		{
 			token = new_token(WORD, "");
-			add_token_node(head, curr, &token);
+			add_token_node(head, curr, &token, *input);
 		}
 		(**input) += 2;
 	}
@@ -45,7 +45,7 @@ static void	to_quotes(const char **input, t_token **head, t_token **curr)
 		content = single_q(input, q_type);
 		token = new_token(SINGLE_Q, content);
 		free(content);
-		add_token_node(head, curr, &token);
+		add_token_node(head, curr, &token, input);
 	}
 	if (**input == q_type)
 		to_empty_string(head, curr, &input);
@@ -73,7 +73,7 @@ static void	to_redirect(const char **input, t_token **head, t_token **curr)
 		else
 			token = new_token(RD_OUT, ">");
 	}
-	add_token_node(head, curr, &token);
+	add_token_node(head, curr, &token, input);
 }
 
 static void	to_pipe(const char **input, t_token **head, t_token **curr)
@@ -82,7 +82,7 @@ static void	to_pipe(const char **input, t_token **head, t_token **curr)
 
 	(*input)++;
 	token = new_token(PIPE, "|");
-	add_token_node(head, curr, &token);
+	add_token_node(head, curr, &token, input);
 }
 
 t_token	*to_tokenize(const char *input)
@@ -92,8 +92,6 @@ t_token	*to_tokenize(const char *input)
 
 	if (!input)
 		return (NULL);
-	if (input[0] == '|' && !input[1])
-		error_msg("minishell: syntax error near unexpected token `|'", 2);
 	head = NULL;
 	curr = NULL;
 	while (*input)

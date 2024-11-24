@@ -54,7 +54,8 @@ static int	check_new_var(char *var_name)
 		if (ft_isalnum(var_name[i]))
 			continue ;
 		if (var_name[i] == '_' || var_name[i] == '=' || ft_isspace(var_name[i])
-			|| var_name[i] == '-')
+			|| var_name[i] == '-' || var_name[i] == '"' || var_name[i] == '\''
+			|| var_name[i] == '!')
 			continue ;
 		else
 		{
