@@ -6,7 +6,7 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 23:56:53 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/24 11:22:59 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/24 11:40:13 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,11 @@ static int	check_next_valid(const char *input, int *i)
 static void	print_syntax_error(char c)
 {
 	if (c == '\0')
-		ft_putstr_fd("-minishell: syntax error near unexpected token `newline'\n", STDERR_FILENO);
+		ft_putstr_fd("-minishell: syntax error near unexpected token\
+`newline'\n", STDERR_FILENO);
 	else
-		ft_printf_fd("-minishell: syntax error near unexpected token `%c'\n", c);
-		//printf("minishell: syntax error near unexpected token `%c'\n", c);
+		ft_printf_fd("-minishell: syntax error near unexpected token `%c'\n",
+			c);
 	g_exit_code = 2;
 }
 

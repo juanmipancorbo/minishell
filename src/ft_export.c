@@ -46,7 +46,7 @@ static int	check_new_var(char *var_name)
 	if (ft_isdigit(var_name[0]) || var_name[0] == '=' || var_name[0] == '$')
 	{
 		ft_printf_fd("minishell: export: `%s': not a valid identifier\n",
-			&var_name[0]);	
+			&var_name[0]);
 		return (1);
 	}
 	while (var_name[++i])

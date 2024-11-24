@@ -15,7 +15,6 @@
 void	exit_error(char *msg, int exit_code)
 {
 	ft_putstr_fd(msg, STDERR_FILENO);
-	//printf("%s", msg);
 	exit (exit_code);
 }
 

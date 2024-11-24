@@ -76,7 +76,6 @@ static int	handle_no_args(t_utils *utils)
 	else
 	{
 		ft_putstr_fd("minishell: cd: HOME not set\n", STDERR_FILENO);
-		//printf("minishell: cd: HOME not set\n");
 		return (1);
 	}
 	return (0);
@@ -86,8 +85,7 @@ int	ft_cd(t_cmd *cmd, t_utils *utils)
 {
 	if (cmd->args[2] != NULL)
 	{
-		ft_putstr_fd("minishell: cd: too many arguments\n",STDERR_FILENO);
-		//printf("minishell: cd: too many arguments\n");
+		ft_putstr_fd("minishell: cd: too many arguments\n", STDERR_FILENO);
 		return (1);
 	}
 	if (!cmd->args[1])

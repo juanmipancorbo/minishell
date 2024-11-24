@@ -18,7 +18,6 @@ int	ft_env(t_cmd *cmd, t_utils *utils)
 	if (cmd->args[1])
 	{
 		ft_putendl_fd("Error : wrong number of arguments", 2);
-		//printf("Error : wrong number of arguments\n");
 		return (1);
 	}
 	i = 0;

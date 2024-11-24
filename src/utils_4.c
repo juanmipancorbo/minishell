@@ -83,14 +83,14 @@ void	check_arg(char **argv)
 {
 	if (!ft_strncmp(argv[0], argv[1], ft_strlen(argv[0]) + 1))
 	{
-		ft_printf_fd("minishell: %s: %s\n", argv[1], "cannot execute binary file");
-		//printf("minishell: %s: %s\n", argv[1], "cannot execute binary file");
+		ft_printf_fd("minishell: %s: %s\n", argv[1],
+			"cannot execute binary file");
 		exit (126);
 	}
 	else
 	{
-		ft_printf_fd("minishell: %s: %s/n", argv[1], "No such file or directory");
-		//printf("minishell: %s: %s/n", argv[1], "No such file or directory");
+		ft_printf_fd("minishell: %s: %s\n", argv[1],
+			"No such file or directory");
 		exit (127);
 	}
 }
