@@ -14,14 +14,17 @@
 
 void	exit_error(char *msg, int exit_code)
 {
-	printf("%s", msg);
+	ft_putstr_fd(msg, STDERR_FILENO);
+	//printf("%s", msg);
 	exit (exit_code);
 }
 
 void	dir_error(char *msg, int exit_code)
 {
-	printf("minishell: ");
-	printf("%s: %s ", msg, "is a directory");
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_printf_fd("%s: %s\n", msg, "is a directory");
+	// printf("minishell: ");
+	// printf("%s: %s ", msg, "is a directory");
 	exit(exit_code);
 }
 

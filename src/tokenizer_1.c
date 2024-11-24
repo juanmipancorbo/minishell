@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
+/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:57:08 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/22 23:37:57 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/24 09:07:29 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ static void	to_pipe(const char **input, t_token **head, t_token **curr)
 	(*input)++;
 	if ((*input) && !ft_strncmp((*input), "|", 1))
 	{
-		printf("Error: \"||\" Operator not implemented.\n");
+		ft_putstr_fd("Error: \"||\" Operator not implemented.\n", STDERR_FILENO);
 		content = ft_strdup("||");
 		token = new_token(UNMATCHED, content);
 		free(content);

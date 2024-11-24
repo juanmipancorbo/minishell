@@ -25,7 +25,8 @@ static t_bool	change_directory(char *path, t_utils *utils)
 		replace_env_var("OLDPWD", cwd, utils->env_var);
 	if (chdir(path))
 	{
-		printf("minishell: cd: %s: No such file or directory\n", path);
+		ft_printf_fd("minishell: cd: %s: No such file or directory\n", path);
+		//printf("minishell: cd: %s: No such file or directory\n", path);
 		return (FALSE);
 	}
 	getcwd(cwd, sizeof(cwd));
@@ -43,7 +44,8 @@ static int	cd_dash(t_utils *utils)
 	if (!ft_strlen(oldpwd))
 	{
 		free(oldpwd);
-		printf("minishell: cd: OLDPWD not set\n");
+		ft_putstr_fd("minishell: cd: OLDPWD not set\n", STDERR_FILENO);
+		//printf("minishell: cd: OLDPWD not set\n");
 		return (1);
 	}
 	if (!getcwd(cwd, sizeof(cwd)))
@@ -56,7 +58,8 @@ static int	cd_dash(t_utils *utils)
 		free(oldpwd);
 		return (1);
 	}
-	printf("%s\n", oldpwd);
+	ft_printf_fd("%s\n", oldpwd);
+	//printf("%s\n", oldpwd);
 	replace_env_var("OLDPWD", cwd, utils->env_var);
 	replace_env_var("PWD", oldpwd, utils->env_var);
 	free(oldpwd);
@@ -75,7 +78,8 @@ static int	handle_no_args(t_utils *utils)
 	}
 	else
 	{
-		printf("minishell: cd: HOME not set\n");
+		ft_putstr_fd("minishell: cd: HOME not set\n", STDERR_FILENO);
+		//printf("minishell: cd: HOME not set\n");
 		return (1);
 	}
 	return (0);
@@ -85,7 +89,8 @@ int	ft_cd(t_cmd *cmd, t_utils *utils)
 {
 	if (cmd->args[2] != NULL)
 	{
-		printf("minishell: cd: too many arguments\n");
+		ft_putstr_fd("minishell: cd: too many arguments\n",STDERR_FILENO);
+		//printf("minishell: cd: too many arguments\n");
 		return (1);
 	}
 	if (!cmd->args[1])
