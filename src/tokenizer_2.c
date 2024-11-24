@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 19:40:54 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/11 19:21:20 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/24 16:47:22 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	q_content(const char *start, const char *input, t_token **head,
 	content = ft_strndup(start, input - start);
 	token = new_token(WORD, content);
 	free(content);
-	add_token_node(head, curr, &token);
+	add_token_node(head, curr, &token, &input);
 }
 
 char	*single_q(const char **input, char q_type)
@@ -61,14 +61,14 @@ void	double_q(const char **input, t_token **head, t_token **curr)
 
 	start = *input;
 	token = new_token(DOUBLE_Q, "\"");
-	add_token_node(head, curr, &token);
+	add_token_node(head, curr, &token, input);
 	while (**input && **input != '"')
 		(*input)++;
 	if (*input > start)
 	{
 		q_content(start, *input, head, curr);
 		token = new_token(DOUBLE_Q, "\"");
-		add_token_node(head, curr, &token);
+		add_token_node(head, curr, &token, input);
 	}
 }
 
@@ -89,5 +89,5 @@ void	to_variable(const char **input, t_token **head, t_token **curr)
 		exit_error(MALLOC_E, 10);
 	token = new_token(WORD, value);
 	free(value);
-	add_token_node(head, curr, &token);
+	add_token_node(head, curr, &token, input);
 }

@@ -113,7 +113,8 @@ typedef struct s_cmd
 /*                                  TOKENIZER                                 */
 /* ************************************************************************** */
 int		to_check_quotes(char **input);
-void	add_token_node(t_token **head, t_token **curr, t_token **token);
+void	add_token_node(t_token **head, t_token **curr, t_token **token,
+			const char **input);
 void	free_env_copy(t_utils *utils);
 t_token	*new_token(t_tkn_type type, char *value);
 void	q_content(const char *start, const char *input, t_token **head,
@@ -127,7 +128,10 @@ void	to_get_pid(t_utils *utils);
 void	parse_pid(t_utils *utils, char *buffer);
 void	analyze_symbol(const char **input);
 char	*incomplete_pipe(char *input);
+t_bool	skip_special_chars(const char **input);
 void	to_word(const char **input, t_token **head, t_token **curr);
+int		to_process_export(char *head_value, const char *input);
+void	to_word_export(const char **input, t_token **head, t_token **curr);
 void	to_merge_words(t_token *token);
 
 /* ************************************************************************** */
@@ -153,6 +157,7 @@ void	print_cmds(t_cmd *cmds);
 void	free_cmds(t_cmd *cmds);
 void	free_q(t_token **curr, t_token **end);
 void	full_path_to_arg(t_cmd	*cmd);
+void	to_remove_quotes(char **value);
 
 /* ************************************************************************** */
 /*                                   UTILS                                    */
