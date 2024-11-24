@@ -60,8 +60,6 @@ static int	check_new_var(char *var_name)
 		{
 			ft_printf_fd("minishell: syntax error near unexpected token `%c'\n",
 				var_name[i]);
-			// printf("minishell: syntax error near unexpected token `%c'\n",
-			// 	var_name[i]);
 			return (1);
 		}
 	}
@@ -76,8 +74,6 @@ static int	check_var_name(char *var_name)
 		{
 			ft_printf_fd("minishell: syntax error near unexpected token `%c'\n",
 				*var_name);
-			// printf("minishell: syntax error near unexpected token `%c'\n",
-			// 	*var_name);
 			return (1);
 		}
 		var_name++;
