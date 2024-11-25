@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 20:48:49 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/22 22:10:05 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/25 17:54:21 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,13 @@ static void	expand_token_value(t_token *token, t_utils *utils)
 		token->type = VAR;
 		expanded = expand_dollars((const char *)token->value, utils);
 		free(token->value);
-		token->value = expanded;
+		if (ft_strlen(expanded) > 0)
+			token->value = expanded;
+		else
+		{
+			free(expanded);
+			token->value = NULL;
+		}
 	}
 }
 
