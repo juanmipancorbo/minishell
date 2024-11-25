@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 20:48:49 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/25 17:54:21 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/25 21:39:26 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ static void	add_relative_prefix(t_token *token)
 	size_t	len;
 
 	if (token->type == WORD && ft_strchr(token->value, '/')
-		&& (token->value[0] != '/' && token->value[0] != '.'))
+		&& (token->value[0] != '/' && token->value[0] != '.'
+			&& !ft_strchr(token->value, '=')))
 	{
 		len = ft_strlen(token->value) + 3;
 		relative = malloc(len);
