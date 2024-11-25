@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils_3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
+/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:43:18 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/24 18:43:23 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/25 08:35:10 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	to_check_quotes(char **input)
 	}
 	if (single_q % 2 != 0 || double_q % 2 != 0)
 	{
-		write(2, "error: unmatched quotes\n", 24);
+		error_msg("error: unmatched quotes", 1);
 		return (-1);
 	}
 	return (0);
