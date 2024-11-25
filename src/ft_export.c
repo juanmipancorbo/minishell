@@ -118,7 +118,7 @@ int	ft_export(t_cmd *cmd, t_utils *utils)
 	i = 1;
 	while (cmd->args[i])
 		if (check_new_var(cmd->args[i++]))
-			return (0);
+			return (1);
 	i = 1;
 	while (cmd->args[i])
 		to_env_var(cmd->args[i++], utils);
