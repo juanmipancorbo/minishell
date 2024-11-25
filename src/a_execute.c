@@ -51,8 +51,8 @@ static void	exec_builtin(t_cmd *cmd, t_utils *utils, int **pipes_fd, int cmd_id)
 				exit(1);
 			set_pipes_fd(cmd, cmd_id, pipes_fd, utils->process_id[cmd_id]);
 			set_fd_redirections(cmd);
-			cmd->built_in(cmd, utils);
-			exit(EXIT_SUCCESS);
+			g_exit_code = cmd->built_in(cmd, utils);
+			exit(g_exit_code);
 		}
 	}
 	else
