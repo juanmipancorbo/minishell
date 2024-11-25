@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
+/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 23:56:53 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/24 12:56:51 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/25 13:19:06 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ static int	to_check_pipe(char **input)
 
 	i = 0;
 	if ((*input)[0] == '|' && !(*input)[1])
+	{
 		error_msg("minishell: syntax error near unexpected token `|'", 2);
+		return (-1);
+	}
 	while ((*input)[i])
 	{
 		if ((*input)[i] == '|' && (*input)[i + 1] == '|')
