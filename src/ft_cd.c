@@ -87,6 +87,9 @@ static int	handle_no_args(t_utils *utils)
 
 int	ft_cd(t_cmd *cmd, t_utils *utils)
 {
+	
+	if (!cmd->args[1])
+		return (0);
 	if (cmd->args[2] != NULL)
 	{
 		ft_putstr_fd("minishell: cd: too many arguments\n", STDERR_FILENO);
