@@ -6,7 +6,7 @@
 /*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 20:08:48 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/24 11:28:57 by jpancorb         ###   ########.fr       */
+/*   Updated: 2024/11/25 17:59:25 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@ static void	handle_arguments(t_token *token, t_cmd *cmd)
 {
 	if (token->type == VAR || token->type == QUOTED)
 	{
-		if (cmd->args && ft_strncmp(cmd->args[0], "echo", 5) == 0)
+		if (cmd->args && ft_strncmp(cmd->args[0], "echo", 5) == 0
+			&& token->value && ft_strlen(token->value) > 0)
 			add_arg(cmd, ft_strdup(token->value));
-		else
+		else if (token->value && ft_strlen(token->value) > 0)
 			expand_and_add_arg(cmd, token->value);
 	}
 	else if (token->type == WORD || token->type == SINGLE_Q)
