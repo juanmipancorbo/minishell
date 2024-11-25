@@ -14,11 +14,13 @@
 int	ft_pwd(t_cmd *cmd, t_utils *utils)
 {
 	char	*pwd;
-	char 	buffer[2048];
+	char	buffer[2048];
 
 	(void)cmd;
 	(void)utils;
 	pwd = getcwd(buffer, sizeof(buffer));
+	if (!pwd)
+		pwd = getenv("PWD");
 	write(1, pwd, ft_strlen(pwd));
 	write(1, "\n", 1);
 	return (EXIT_SUCCESS);
