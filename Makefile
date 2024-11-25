@@ -29,7 +29,7 @@ MODE		= none
 
 LIBFT		= libft/libft.a
 
-CFLAGS		= -Wall -Werror -Wextra -g -fsanitize=leak
+CFLAGS		= -Wall -Werror -Wextra
 LDFLAGS		= -lreadline -Llibft -lft
 
 ifeq ($(MODE),debug)
