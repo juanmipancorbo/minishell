@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils_3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:43:18 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/25 08:35:10 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/25 17:09:43 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,14 +87,15 @@ int	to_process_export(char *head_value, const char *input)
 	return (0);
 }
 
-void	to_remove_quotes(char **value)
+void	to_remove_quotes(t_token *curr, char **value)
 {
 	char	*new_value;
 	size_t	i;
 	size_t	j;
 	size_t	len;
 
-	if (!value || !*value)
+	if (!value || !*value || curr->type != VAR
+		|| !ft_strchr(curr->value, '"'))
 		return ;
 	len = ft_strlen(*value);
 	new_value = (char *)malloc(sizeof(char) * (len + 1));

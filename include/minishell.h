@@ -157,7 +157,7 @@ void	print_cmds(t_cmd *cmds);
 void	free_cmds(t_cmd *cmds);
 void	free_q(t_token **curr, t_token **end);
 void	full_path_to_arg(t_cmd	*cmd);
-void	to_remove_quotes(char **value);
+void	to_remove_quotes(t_token *curr, char **value);
 
 /* ************************************************************************** */
 /*                                   UTILS                                    */

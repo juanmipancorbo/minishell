@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_utils_2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpancorb <jpancorb@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 22:27:36 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/25 08:43:22 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/25 17:25:52 by jpancorb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void	to_word(const char **input, t_token **head, t_token **curr)
 	if (skip_special_chars(input))
 		return ;
 	if ((*head) && !ft_strncmp((*head)->value, "echo", 4)
-		&& (*curr)->type != PIPE && (**input != '-' && (**input + 1) != 'n'))
+		&& (*curr)->type != PIPE && (**input != '-' && (**input + 1) != 'n')
+		&& (*curr)->prev && (*curr)->prev->type < 2 && (*curr)->prev->type > 5)
 		while (**input && **input != '|' && **input != '<'
 			&& **input != '>' && **input != '\'' && **input != '"')
 			(*input)++;
@@ -82,6 +83,7 @@ void	between_q(t_token **tokens)
 	curr = *tokens;
 	while (curr)
 	{
+		to_remove_quotes(curr, &curr->value);
 		if (curr->type == DOUBLE_Q)
 		{
 			start = curr;
@@ -95,9 +97,8 @@ void	between_q(t_token **tokens)
 			start->type = QUOTED;
 			start->next = curr;
 		}
-		else if (curr->type == VAR && ft_strchr(curr->value, '"'))
-			to_remove_quotes(&curr->value);
-		curr = curr->next;
+		else
+			curr = curr->next;
 	}
 }
 
