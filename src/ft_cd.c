@@ -26,8 +26,7 @@ static t_bool	change_directory(char *path, t_utils *utils)
 	if (chdir(path))
 	{
 		if (!access(path, F_OK))
-			ft_printf_fd("minishell: cd: %s: No such file or directory\n",
-				path);
+			ft_printf_fd("minishell: cd: %s: Not a directory \n", path);
 		else
 			ft_printf_fd("minishell: cd: %s: No such file or directory\n",
 				path);
