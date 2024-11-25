@@ -211,7 +211,6 @@ void	check_arg(char **argv);
 void	error_msg(char *msg, int exit_code);
 void	free_hd(int **pipes_fd, t_cmd **cmd, t_utils *utils);
 
-
 /* ************************************************************************** */
 /*                                 LIST UTILS		                          */
 /* ************************************************************************** */

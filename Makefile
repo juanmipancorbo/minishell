@@ -37,7 +37,7 @@ ifeq ($(MODE),debug)
 endif
 
 ifeq ($(MODE),noflag)
-	CFLAGS = -g -fsanitize=address
+	CFLAGS = -g
 endif
 
 all: $(NAME)

@@ -25,7 +25,12 @@ static t_bool	change_directory(char *path, t_utils *utils)
 		replace_env_var("OLDPWD", cwd, utils->env_var);
 	if (chdir(path))
 	{
-		ft_printf_fd("minishell: cd: %s: No such file or directory\n", path);
+		if (!access(path, F_OK))
+			ft_printf_fd("minishell: cd: %s: No such file or directory\n",
+				path);
+		else
+			ft_printf_fd("minishell: cd: %s: No such file or directory\n",
+				path);
 		return (FALSE);
 	}
 	getcwd(cwd, sizeof(cwd));
