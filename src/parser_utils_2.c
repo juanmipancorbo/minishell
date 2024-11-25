@@ -6,7 +6,7 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 23:56:53 by jpancorb          #+#    #+#             */
-/*   Updated: 2024/11/25 13:19:06 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/25 18:04:17 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	to_check_pipe(char **input)
 	int	i;
 
 	i = 0;
-	if ((*input)[0] == '|' && !(*input)[1])
+	if ((*input)[0] == '|' && ((!(*input)[1]) || ((*input)[1] != '|')))
 	{
 		error_msg("minishell: syntax error near unexpected token `|'", 2);
 		return (-1);
