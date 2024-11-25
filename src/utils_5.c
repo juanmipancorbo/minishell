@@ -6,7 +6,7 @@
 /*   By: apaterno <apaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 13:18:21 by apaterno          #+#    #+#             */
-/*   Updated: 2024/11/25 12:40:21 by apaterno         ###   ########.fr       */
+/*   Updated: 2024/11/25 17:43:04 by apaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,9 @@ char	*complete_pipe(char *input)
 		{
 			ft_putstr_fd("minishell: syntax error: unexpected end of \
 file\nExit\n", STDERR_FILENO);
-			//g_exit_code = 2;
 			free(input);
 			free(input_2);
-			exit(1);
-			//return (NULL);
+			exit(2);
 		}
 		if (input_2[0] != '\0')
 		{
